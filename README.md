@@ -11,3 +11,5 @@ Todo:
 -Add styling for new tab page
 -Automatic updates
 -Automatically install Ecosia extension, or set ecosia to default engine (have a setting for this)
+-Update settings page
+-Add support for Ecosia info + blog
