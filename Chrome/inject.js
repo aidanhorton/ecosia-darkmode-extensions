@@ -1,5 +1,22 @@
-chrome.runtime.onMessage.addListener(gotMessage);
-  
+/*chrome.runtime.onMessage.addListener(gotMessage);
+
+var loc = document.location.href;
+
+document.addEventListener('DOMSubtreeModified', injectCSS, false);
+ 
+function injectCSS(){
+	document.removeEventListener('DOMSubtreeModified', injectCSS, false);
+
+		var link = document.createElement("link");
+		link.href = chrome.extension.getURL("darktheme.css");
+		link.type = "text/css";
+		link.rel = "stylesheet";
+		link.className = "darktheme";
+		document.getElementsByTagName("head")[0].appendChild(link);
+}
+
+chrome.runtime.sendMessage({state: "loaded"});
+
 function gotMessage(message, sender, sendResponse) {
 	if (message.mode == 'on') {
 		var link = document.createElement("link");
@@ -13,4 +30,4 @@ function gotMessage(message, sender, sendResponse) {
 		var element = document.querySelector('link.darktheme');
 		element.parentElement.removeChild(element);
 	}
-}
+}*/
