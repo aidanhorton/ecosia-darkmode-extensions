@@ -4,20 +4,20 @@
     "description": "A dark theme for the Ecosia search engine",
 	"permissions": ["activeTab", "tabs", "storage"],
 	"browser_action": {
-      "default_popup": "popup.html",
-	  "default_title": "Ecosia dark",
-	  "default_icon": {
-        "16": "images/EcosiaLogo16.png",
-        "32": "images/EcosiaLogo32.png",
-        "48": "images/EcosiaLogo48.png",
-        "128": "images/EcosiaLogo128.png"
-      }
+		"default_popup": "popup.html",
+		"default_title": "Ecosia dark",
+		"default_icon": {
+			"16": "images/EcosiaLogo16.png",
+			"32": "images/EcosiaLogo32.png",
+			"48": "images/EcosiaLogo48.png",
+			"128": "images/EcosiaLogo128.png"
+		}
     },
 	"icons": {
-      "16": "images/EcosiaLogo16.png",
-      "32": "images/EcosiaLogo32.png",
-      "48": "images/EcosiaLogo48.png",
-      "128": "images/EcosiaLogo128.png"
+		"16": "images/EcosiaLogo16.png",
+		"32": "images/EcosiaLogo32.png",
+		"48": "images/EcosiaLogo48.png",
+		"128": "images/EcosiaLogo128.png"
     },
 	"content_scripts": [
 		{
