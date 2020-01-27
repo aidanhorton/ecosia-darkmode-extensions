@@ -128,8 +128,6 @@
     background: var(--form-color) !important;
     box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.15), 0 0 2px 0 rgba(255, 255, 255, 0.15) !important;
     transition: opacity .24s ease-out,box-shadow .24s ease,-webkit-box-shadow .24s ease;
-    transition: background 0.24s ease-in-out !important;
-    
 }
 
 [data-controls="next"]:hover, [data-controls="prev"]:hover {
