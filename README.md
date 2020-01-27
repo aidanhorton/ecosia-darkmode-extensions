@@ -2,8 +2,7 @@
 Respository for ecosia dark mode for Chromium and Firefox
 
 Todo:
--Undo initial manifest CSS injection & replace with DOM page load injection
--Make theme respond to popup.js on/off trigger (can't do manifest injection)
+-Fix multiple tabs with Ecosia opening not applying theme change
 -Fix small styling issues (such as borders in pop-ups & typeahead borders)
 -Create a script to convert all CSS entries to have an '!important' flag (apart from in * declaration)
 -Add custom logos
