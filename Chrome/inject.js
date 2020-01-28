@@ -5,21 +5,40 @@ style.className = 'darktheme';
 chrome.storage.sync.get(["darkMode"], function(items){
     if (items["darkMode"] == 'on') {
 		document.documentElement.appendChild(style);
+		document.getElementsByTagName("head")[0].appendChild(link);
 	}
 });
 
+window.setTimeout(injectCSS, 100);
+
 chrome.runtime.onMessage.addListener(gotMessage);
+
+function injectCSS(){
+	chrome.storage.sync.get(["darkMode"], function(items){
+		if (items["darkMode"] == 'on') {
+			var element = document.querySelector('style.darktheme');
+			element.parentElement.removeChild(element);
+		}
+	})
+}
 
 function gotMessage(message, sender, sendResponse) {
 	if (message.mode == 'on') {
-		document.documentElement.appendChild(style);
+		document.getElementsByTagName("head")[0].appendChild(link);
 	}
 	else if (message.mode == 'off') {
-		var element = document.querySelector('style.darktheme');
+		var element = document.querySelector('link.darktheme');
 		element.parentElement.removeChild(element);
 	}
 }
 
+var link = document.createElement("link");
+link.href = chrome.extension.getURL("darktheme.css");
+link.type = "text/css";
+link.rel = "stylesheet";
+link.className = "darktheme";
+
+// Buffer style
 style.textContent = `
 * {
     scrollbar-color: #3F3F3F #1C1E1F;

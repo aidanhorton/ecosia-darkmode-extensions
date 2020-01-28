@@ -19,6 +19,9 @@
 		"48": "images/EcosiaLogo48.png",
 		"128": "images/EcosiaLogo128.png"
     },
+	"web_accessible_resources": [
+        "darktheme.css"
+    ],
 	"content_scripts": [
 		{
 			"matches": ["https://www.ecosia.org/*"],
