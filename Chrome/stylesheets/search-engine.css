@@ -491,6 +491,7 @@ time {
 
 .dropdown--side-right {
     border: 1px solid #5F5F5F !important;
+	background: var(--main-background-color) !important;
 }
 
 .description, .text[data-v-4f0e76aa] {
