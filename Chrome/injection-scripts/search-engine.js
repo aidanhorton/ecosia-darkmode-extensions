@@ -33,7 +33,7 @@ function gotMessage(message, sender, sendResponse) {
 }
 
 var link = document.createElement("link");
-link.href = chrome.extension.getURL("darktheme.css");
+link.href = chrome.extension.getURL("stylesheets/search-engine.css");
 link.type = "text/css";
 link.rel = "stylesheet";
 link.className = "darktheme";

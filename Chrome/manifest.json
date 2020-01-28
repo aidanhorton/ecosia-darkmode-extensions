@@ -20,12 +20,26 @@
 		"128": "images/EcosiaLogo128.png"
     },
 	"web_accessible_resources": [
-        "darktheme.css"
+        "stylesheets/search-engine.css",
+		"stylesheets/blog-page.css",
+		"stylesheets/information-page.css"
     ],
 	"content_scripts": [
 		{
 			"matches": ["https://www.ecosia.org/*"],
-			"js": ["inject.js"],
+			"js": ["injection-scripts/search-engine.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		},
+		{
+			"matches": ["https://info.ecosia.org/*"],
+			"js": ["injection-scripts/information-page.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		},
+		{
+			"matches": ["https://blog.ecosia.org/*"],
+			"js": ["injection-scripts/blog-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
 		}

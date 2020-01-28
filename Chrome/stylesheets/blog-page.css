@@ -1,0 +1,221 @@
+* {
+    --main-color: #F7F7F7;
+    --main-bg-color: #181A1B;
+    --second-bg-color: #3F3F3F;
+    --color-one: #3dbfbc;
+    --color-two: #7A8436;
+    --color-three: #cb421f;
+    scrollbar-color: #2A2C2E #1C1E1F;
+}
+
+.c-logo__img {
+    width: 315px;
+    height: 128px;
+    box-sizing: border-box;
+    padding-left: 630px;
+    background: url(https://i.ibb.co/QNLYq5c/ecosia-blog-logo-2x-1.png) center top no-repeat;
+    background-size: auto 100%;
+}
+
+::-webkit-scrollbar {
+    width: 25px;
+}
+
+h1, h2, h3, h4, h5, p {
+    color: var(--main-color) !important;
+}
+
+body.home-template.js-enabled {
+    background-color: var(--main-bg-color) !important;
+    border: none !important;
+}
+
+body {
+    background-color: var(--main-bg-color) !important;
+    border: none !important;
+}
+
+div.c-nav--collapsed.c-nav--collapsed--active {
+    background-color: var(--main-bg-color);
+}
+
+div.c-install-banner.c-install-banner--desktop.c-install-banner--active {
+    background-color: var(--color-one);
+    color: var(--main-color);
+}
+
+header.c-header {
+    background-color: var(--main-bg-color);
+}
+
+nav.c-nav-wrap {
+    background-color: var(--main-bg-color);
+}
+
+ul.c-nav.o-plain-list {
+    background-color: var(--main-bg-color);
+}
+
+a.c-nav__link.c-nav__link--current {
+    color: var(--color-three);
+}
+
+option {
+    background-color: var(--main-bg-color);
+}
+
+.home-template .c-nav__link--current:not(:hover) {
+    color: var(--color-three);
+}
+
+a {
+    color: var(--color-three);
+}
+
+a:hover {
+    color: var(--color-three);
+}
+
+a.c-post-card__title-link {
+    color: var(--main-color);
+}
+
+a.c-ecosia-search {
+    color: var(--main-color);
+}
+
+a.c-nav__link {
+    color: var(--main-color);
+}
+
+select.c-language-select {
+    color: var(--main-color);
+}
+
+select.c-language-select:active {
+    border-color: var(--color-three);
+}
+
+select.c-language-select:focus {
+    border-color: var(--color-three);
+}
+
+select.c-language-select:hover {
+    border-color: var(--color-three);
+}
+
+div.c-archive {
+    background-color: var(--second-bg-color);
+    border: none !important;
+}
+
+div.c-search.js-search.is-active {
+    background-color: var(--main-bg-color);
+}
+
+input.c-search__input.js-search-input {
+    color: var(--main-color);
+    background-color: var(--second-bg-color);
+}
+
+svg.icon__cnt {
+    color: var(--main-color);
+}
+
+div.c-search__close.js-search-close {
+    background-color: var(--second-bg-color);
+}
+
+a.c-search-result {
+    background-color: var(--second-bg-color);
+}
+
+footer.c-footer {
+    background-color: #151515;
+    border-top: none;
+}
+
+div.c-footer__bottom {
+    border-top: none;
+}
+
+div.c-post-hero__content {
+    background-color: var(--second-bg-color);
+    border: none;
+}
+
+div.js-off-canvas-toggle.c-off-canvas-toggle {
+    background-color: var(--second-bg-color);
+    border-radius: 4px;
+}
+
+div.js-off-canvas-toggle.c-off-canvas-toggle.c-off-canvas-toggle--close {
+    color: var(--main-color);
+}
+
+div.c-off-canvas-content.js-off-canvas-content.is-active {
+    background-color: var(--main-bg-color);
+}
+
+div.c-widget.c-widget-author {
+    border-color: var(--second-bg-color);
+}
+
+div.c-widget {
+    border-color: var(--second-bg-color);
+}
+
+span.c-country__fact--name {
+    color: var(--main-color);
+}
+
+div.c-country__trees--item-name {
+    color: var(--main-color);
+}
+
+li.c-share__item {
+    background-color: var(--main-bg-color);
+}
+
+li.c-share__item:not(:last-child) {
+    border-color: var(--main-bg-color);
+}
+
+li {
+    color: var(--main-color);
+}
+
+div.c-tags a {
+    color: var(--main-color);
+    background-color: var(--second-bg-color);
+}
+
+blockquote {
+    color: var(--main-color);
+}
+
+span.c-widget-shop__claim {
+    color: var(--main-color);
+}
+
+div.c-related {
+    background-color: #151515;
+    border-bottom: solid;
+    border-bottom: 2px;
+    border-color: var(--main-color);
+}
+
+div.c-post-card {
+    background-color: var(--main-bg-color) !important;
+    border: 1px solid var(--main-bg-color) !important;
+}
+
+button.c-btn.js-load-disqus {
+    color: var(--main-color);
+    background-color: var(--second-bg-color);
+}
+
+div.c-author {
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--second-bg-color);
+}
