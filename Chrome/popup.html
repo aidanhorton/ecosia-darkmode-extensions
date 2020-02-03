@@ -29,10 +29,6 @@
 				background: #fff;
 				border-radius: 90px;
 			}
-			
-			label.clicked:after {
-				transition: 0.3s;
-			}
 
 			input:checked + label {
 				background: #4CAF50;
@@ -48,15 +44,33 @@
 				width: 26px;
 			}
 
-            #logo {
+            #darkLogo {
                 vertical-align: middle;
 				margin-left: 4px;
             }
+			
+			#lightLogo {
+				vertical-align: middle;
+				margin-left: 4px;
+			}
+			
+			img {
+				position: absolute;
+				opacity: 1;
+			}
+			
+			label.switch-transition:after {
+				transition: 0.3s;
+			}
 
             #switch {
             	display: block;
-                margin: 10px 0 0 0;
+                margin: 10px 0 40px 0;
             }
+
+			.img-transition {
+				transition: opacity 0.4s linear;
+			}
 
 			.body-transition {
 				transition: background 0.6s;
@@ -64,7 +78,8 @@
 		</style>
 	</head>
 	<body id="main-body">
-		<img id="logo" height="32" />
+		<img id="darkLogo" height="32" />
+		<img id="lightLogo" height="32" />
 		<input type="checkbox" id="switch" onclick="toggleDark()" /><label for="switch" id="toggle">Toggle</label>
 		<script src="popup.js"></script>
 	</body>

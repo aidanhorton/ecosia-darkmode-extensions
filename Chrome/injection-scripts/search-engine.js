@@ -9,7 +9,7 @@ chrome.storage.sync.get(["darkMode"], function(items){
 	}
 });
 
-window.setTimeout(injectCSS, 100);
+window.setTimeout(injectCSS, 500);
 
 chrome.runtime.onMessage.addListener(gotMessage);
 
@@ -332,6 +332,10 @@ style.textContent = `
 
 .navbar-link:visited {
     color: var(--text-color) !important;
+}
+
+.navbar-item-active > .navbar-link {
+	color: #36acb8 !important;
 }
 
 /* Search bar */

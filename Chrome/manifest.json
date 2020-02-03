@@ -22,7 +22,8 @@
 	"web_accessible_resources": [
         "stylesheets/search-engine.css",
 		"stylesheets/blog-page.css",
-		"stylesheets/information-page.css"
+		"stylesheets/information-page.css",
+		"images/EcosiaLogo.png"
     ],
 	"content_scripts": [
 		{
