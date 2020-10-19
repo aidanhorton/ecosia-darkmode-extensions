@@ -3,8 +3,6 @@
 
 <p>Todo:</p>
 <ul>
-	<li>Create a script to convert all CSS entries to have an '!important' flag (apart from in * declaration)</li>
-	<li>Add custom logos</li>
 	<li>Add colour settings options (with animations)</li>
 	<li>Add styling for new tab page</li>
 	<li>Automatic updates</li>
