@@ -1,66 +1,59 @@
-var style = document.createElement('style');
-style.type = 'text/css';
-style.className = 'darktheme';
+// Initial injection - checks if dark mode is enabled.
+chrome.storage.sync.get(["darkMode"], injectOnLoad);
 
-chrome.storage.sync.get(["darkMode"], function(items){
-    if (items["darkMode"] == 'on') {
-		document.documentElement.appendChild(style);
-		document.getElementsByTagName("head")[0].appendChild(link);
+function injectOnLoad(items){
+    if (items["darkMode"] != 'off') {
+		(document.body || document.head || document.documentElement).appendChild(style);
 	}
-});
-
-window.setTimeout(injectCSS, 100);
-
-chrome.runtime.onMessage.addListener(gotMessage);
-
-function injectCSS(){
-	chrome.storage.sync.get(["darkMode"], function(items){
-		if (items["darkMode"] == 'on') {
-			var element = document.querySelector('style.darktheme');
-			element.parentElement.removeChild(element);
-		}
-	})
 }
 
-function gotMessage(message, sender, sendResponse) {
-	if (message.mode == 'on') {
-		document.getElementsByTagName("head")[0].appendChild(link);
+// Subscribe to other necessary events.
+document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
+chrome.runtime.onMessage.addListener(toggleStyle);
+ 
+// Moves style tag to the head once the document has loaded.
+function changeStyleImportance(){
+	document.removeEventListener('DOMContentLoaded', changeStyleImportance, false);
+	
+	document.getElementsByTagName('head')[0].appendChild(document.getElementById('EcosiaDarkMode'));
+}
+
+// Toggle style on/off when toggle is activated.
+function toggleStyle(message, sender, sendResponse) {
+	if (message.action == 'on') {
+		document.getElementsByTagName("head")[0].appendChild(style);
 	}
-	else if (message.mode == 'off') {
-		var element = document.querySelector('link.darktheme');
+	else if (message.action == 'off') {
+		var element = document.getElementById('EcosiaDarkMode');
 		element.parentElement.removeChild(element);
 	}
 }
 
-var link = document.createElement("link");
-link.href = chrome.extension.getURL("stylesheets/blog-page.css");
-link.type = "text/css";
-link.rel = "stylesheet";
-link.className = "darktheme";
-
-// Buffer style
-style.textContent = `
-* {
-    --main-color: #F7F7F7 !important;
-    --main-bg-color: #181A1B !important;
-    --second-bg-color: #3F3F3F !important;
-    --color-one: #3dbfbc !important;
-    --color-two: #7A8436 !important;
-    --color-three: #cb421f !important;
-    scrollbar-color: #2A2C2E #1C1E1F !important;
+var style = document.createElement('style');
+style.id = "EcosiaDarkMode";
+style.className = "EcosiaDarkMode";
+style.type = "text/css";
+style.textContent = `* {
+    --main-color: #F7F7F7;
+    --main-bg-color: #181A1B;
+    --second-bg-color: #3F3F3F;
+    --color-one: #3dbfbc;
+    --color-two: #7A8436;
+    --color-three: #cb421f;
+    scrollbar-color: #3F3F3F #1C1E1F;
 }
 
 .c-logo__img {
-    width: 315px !important;
-    height: 128px !important;
-    box-sizing: border-box !important;
-    padding-left: 630px !important;
-    background: url(https://i.ibb.co/QNLYq5c/ecosia-blog-logo-2x-1.png) center top no-repeat !important;
-    background-size: auto 100% !important;
+    width: 315px;
+    height: 128px;
+    box-sizing: border-box;
+    padding-left: 630px;
+    background: url(https://i.ibb.co/QNLYq5c/ecosia-blog-logo-2x-1.png) center top no-repeat;
+    background-size: auto 100%;
 }
 
 ::-webkit-scrollbar {
-    width: 25px !important;
+    width: 25px;
 }
 
 h1, h2, h3, h4, h5, p {
@@ -78,173 +71,173 @@ body {
 }
 
 div.c-nav--collapsed.c-nav--collapsed--active {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--main-bg-color);
 }
 
 div.c-install-banner.c-install-banner--desktop.c-install-banner--active {
-    background-color: var(--color-one) !important;
-    color: var(--main-color) !important;
+    background-color: var(--color-one);
+    color: var(--main-color);
 }
 
 header.c-header {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--main-bg-color);
 }
 
 nav.c-nav-wrap {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--main-bg-color);
 }
 
 ul.c-nav.o-plain-list {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--main-bg-color);
 }
 
 a.c-nav__link.c-nav__link--current {
-    color: var(--color-three) !important;
+    color: var(--color-three);
 }
 
 option {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--main-bg-color);
 }
 
 .home-template .c-nav__link--current:not(:hover) {
-    color: var(--color-three) !important;
+    color: var(--color-three);
 }
 
 a {
-    color: var(--color-three) !important;
+    color: var(--color-three);
 }
 
 a:hover {
-    color: var(--color-three) !important;
+    color: var(--color-three);
 }
 
 a.c-post-card__title-link {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 a.c-ecosia-search {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 a.c-nav__link {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 select.c-language-select {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 select.c-language-select:active {
-    border-color: var(--color-three) !important;
+    border-color: var(--color-three);
 }
 
 select.c-language-select:focus {
-    border-color: var(--color-three) !important;
+    border-color: var(--color-three);
 }
 
 select.c-language-select:hover {
-    border-color: var(--color-three) !important;
+    border-color: var(--color-three);
 }
 
 div.c-archive {
-    background-color: var(--second-bg-color) !important;
+    background-color: var(--second-bg-color);
     border: none !important;
 }
 
 div.c-search.js-search.is-active {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--main-bg-color);
 }
 
 input.c-search__input.js-search-input {
-    color: var(--main-color) !important;
-    background-color: var(--second-bg-color) !important;
+    color: var(--main-color);
+    background-color: var(--second-bg-color);
 }
 
 svg.icon__cnt {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 div.c-search__close.js-search-close {
-    background-color: var(--second-bg-color) !important;
+    background-color: var(--second-bg-color);
 }
 
 a.c-search-result {
-    background-color: var(--second-bg-color) !important;
+    background-color: var(--second-bg-color);
 }
 
 footer.c-footer {
-    background-color: #151515 !important;
-    border-top: none !important;
+    background-color: #151515;
+    border-top: none;
 }
 
 div.c-footer__bottom {
-    border-top: none !important;
+    border-top: none;
 }
 
 div.c-post-hero__content {
-    background-color: var(--second-bg-color) !important;
-    border: none !important;
+    background-color: var(--second-bg-color);
+    border: none;
 }
 
 div.js-off-canvas-toggle.c-off-canvas-toggle {
-    background-color: var(--second-bg-color) !important;
-    border-radius: 4px !important;
+    background-color: var(--second-bg-color);
+    border-radius: 4px;
 }
 
 div.js-off-canvas-toggle.c-off-canvas-toggle.c-off-canvas-toggle--close {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 div.c-off-canvas-content.js-off-canvas-content.is-active {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--main-bg-color);
 }
 
 div.c-widget.c-widget-author {
-    border-color: var(--second-bg-color) !important;
+    border-color: var(--second-bg-color);
 }
 
 div.c-widget {
-    border-color: var(--second-bg-color) !important;
+    border-color: var(--second-bg-color);
 }
 
 span.c-country__fact--name {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 div.c-country__trees--item-name {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 li.c-share__item {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--main-bg-color);
 }
 
 li.c-share__item:not(:last-child) {
-    border-color: var(--main-bg-color) !important;
+    border-color: var(--main-bg-color);
 }
 
 li {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 div.c-tags a {
-    color: var(--main-color) !important;
-    background-color: var(--second-bg-color) !important;
+    color: var(--main-color);
+    background-color: var(--second-bg-color);
 }
 
 blockquote {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 span.c-widget-shop__claim {
-    color: var(--main-color) !important;
+    color: var(--main-color);
 }
 
 div.c-related {
-    background-color: #151515 !important;
-    border-bottom: solid !important;
-    border-bottom: 2px !important;
-    border-color: var(--main-color) !important;
+    background-color: #151515;
+    border-bottom: solid;
+    border-bottom: 2px;
+    border-color: var(--main-color);
 }
 
 div.c-post-card {
@@ -253,12 +246,51 @@ div.c-post-card {
 }
 
 button.c-btn.js-load-disqus {
-    color: var(--main-color) !important;
-    background-color: var(--second-bg-color) !important;
+    color: var(--main-color);
+    background-color: var(--second-bg-color);
 }
 
 div.c-author {
-    background-color: var(--main-bg-color) !important;
-    border: 1px solid var(--second-bg-color) !important;
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--second-bg-color);
 }
-`;
+
+.c-tree-report__project-placeholder__text, .c-tree-report__project-info__hint-headline, .c-financial-report__graph-placeholder-desktop, .c-financial-report__graph-placeholder-mobile {
+    color: #72ebaf;
+}
+
+.c-financial-report__data, .c-financial-report__category, .c-tree-report__project-country, .c-tree-report__project-amount, .c-tree-report span, .c-tree-report__project-info__hint-project, .c-financial-report__details-headline, .c-financial-report__details-content {
+    color: var(--main-color) !important;
+}
+
+.c-financial-report__category-amount, .c-financial-report__total-hint {
+    color: #ababab !important;
+}
+
+.c-tree-report__number > span, .c-tree-report__number > div {
+    color: #ababab !important;
+}
+
+.c-tree-report__pill, .c-tree-report__pill > span {
+    color: #000 !important;
+}
+
+.c-financial-report__total-icon > path {
+    fill: var(--main-color);
+}
+
+.c-financial-report__select > select > option {
+    color: var(--main-color) !important;
+}
+
+.c-comments {
+    color: #b7b7b7;
+}
+
+hr {
+    background-color: #595959;
+}
+
+#map > g > g > path {
+    fill: #2e3e35;
+}`;

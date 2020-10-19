@@ -1,4 +1,39 @@
-* {
+// Initial injection - checks if dark mode is enabled.
+chrome.storage.sync.get(["darkMode"], injectOnLoad);
+
+function injectOnLoad(items){
+    if (items["darkMode"] != 'off') {
+		(document.body || document.head || document.documentElement).appendChild(style);
+	}
+}
+
+// Subscribe to other necessary events.
+document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
+chrome.runtime.onMessage.addListener(toggleStyle);
+ 
+// Moves style tag to the head once the document has loaded.
+function changeStyleImportance(){
+	document.removeEventListener('DOMContentLoaded', changeStyleImportance, false);
+	
+	document.getElementsByTagName('head')[0].appendChild(document.getElementById('EcosiaDarkMode'));
+}
+
+// Toggle style on/off when toggle is activated.
+function toggleStyle(message, sender, sendResponse) {
+	if (message.action == 'on') {
+		document.getElementsByTagName("head")[0].appendChild(style);
+	}
+	else if (message.action == 'off') {
+		var element = document.getElementById('EcosiaDarkMode');
+		element.parentElement.removeChild(element);
+	}
+}
+
+var style = document.createElement('style');
+style.id = "EcosiaDarkMode";
+style.className = "EcosiaDarkMode";
+style.type = "text/css";
+style.textContent = `* {
     --main-color: #F7F7F7;
     --main-bg-color: #181A1B;
     --second-bg-color: #3F3F3F;
@@ -6,7 +41,7 @@
     --color-one: #3dbfbc;
     --color-two: #7A8436;
     --color-three: #cb421f;
-    scrollbar-color: #2A2C2E #1C1E1F;
+    scrollbar-color: #3F3F3F #1C1E1F;
 }
 
 .logo-anchor path:nth-child(2) {
@@ -291,4 +326,4 @@ span.material-text {
 
 a.typeahead-link {
     color: var(--main-color);
-}
+}`;
