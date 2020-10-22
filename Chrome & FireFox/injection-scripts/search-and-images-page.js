@@ -220,6 +220,11 @@ body {
 .result-media .thumbnail-publisher {
     color: var(--link-green);
 }
+.callout-with-image {
+	background-color: var(--form) !important;
+	color: var(--text) !important;
+	border: 1px solid var(--border);
+}
 
 /* Extra results buttons */
 .result-media .slider-control {
