@@ -1,5 +1,5 @@
 // Initial injection - checks if dark mode is enabled.
-chrome.storage.sync.get(["darkMode"], injectOnLoad);
+chrome.storage.local.get(["darkMode"], injectOnLoad);
 
 function injectOnLoad(items){
     if (items["darkMode"] != 'off') {
@@ -33,22 +33,122 @@ var style = document.createElement('style');
 style.id = "EcosiaDarkMode";
 style.className = "EcosiaDarkMode";
 style.type = "text/css";
-style.textContent = `/* -------------------------------------------------------------- */
-/* SETTINGS PAGE - Select 'settings' in the tree-counter dropdown */
-/* -------------------------------------------------------------- */
+style.textContent = `/* ---------------------------------------- */
+/* HOMEPAGE - The main Ecosia homepage only */
+/* ---------------------------------------- */
 
-/* HEADER BAR */
+/* MAIN STYLING */
+/* Main content */
+body {
+    background: var(--dark-background);
+}
+.search-section .content {
+    background: linear-gradient(var(--dark-background), var(--dark-background) 90%, hsla(0, 0%, 100%, 0)) bottom no-repeat !important;
+}
+.search-section .content, .search-section .content h2 {
+    color: var(--text);
+}
+.map-section {
+    color: var(--text);
+}
+.claims-section {
+    color: var(--text);
+}
+.land-background:after {
+    background: linear-gradient(rgba(0, 0, 0, 0) 80%, var(--dark-background)) bottom no-repeat, url(https://index-assets-cdn.ecosia.org/img/5a18884.png) bottom repeat-x !important;
+}
+.info-section > .background {
+    color: var(--lighter-background);
+    background: var(--dark-background);
+}
+.info-section > .content {
+    color: var(--text);
+}
+.claim.card {
+    box-shadow: 0 0px 7px 0 rgba(255, 255, 255, 0.2);
+    background: var(--form);
+}
+.container {
+    background: var(--dark-background) !important;
+}
+
 /* Logo */
-.logo path:nth-child(2) {
+.logo > svg > g > path:nth-child(2) {
     fill: white;
 }
 
-/* Search bar */
-.search-form, .search-form input {
+/* Notifications */
+.popup a {
+    background: var(--form) !important;
+    color: var(--text) !important;
+}
+.popup {
+    border: 1px solid;
+}
+/* ---------- */
+
+
+/* MENU BUTTONS */
+/* Menu buttons */
+.index-header button {
+    background: var(--dark-background) !important;
+}
+.index-header button:hover, .main-nav button:focus {
+    background: var(--lighter-background) !important;
+}
+.notifications button:hover path, .main-nav button:hover path, .notifications button:focus path, .main-nav button:focus path {
+    fill: var(--text) !important;
+}
+.personal-counter span {
+    color: var(--text) !important;
+}
+.personal-counter-content__notify {
+    color: var(--link);
+}
+
+/* Tree dropdown */
+.personal-counter__dropdown {
+    background: var(--form) !important;
+}
+
+/* Notifications dropdown */
+.notifications-dropdown {
+    border: 1px solid var(--lighter-background) !important;
+    background: var(--dark-background) !important;
+}
+.notifications a {
+    background: var(--form) !important;
+    color: var(--text) !important;
+}
+.notifications a:hover {
+    background: var(--lighter-background) !important;
+    color: var(--text) !important;
+}
+
+/* Burger dropdown */
+.main-nav-menu {
+    background: var(--form);
+    color: var(--text);
+    border: 1px solid var(--lighter-background);
+}
+.main-nav-menu li:hover {
+    background: var(--lighter-background);
+}
+/* ---------- */
+
+
+/* SEARCH BAR */
+/* Search form */
+[aria-label="Search Form"] {
     background: #272727 !important;
     color: var(--text) !important;
 }
-.suggestions-wrapper li, .suggestion-list {
+
+/* Typeahead */
+.suggestion-list {
+    background: var(--form) !important;
+}
+.suggestions-wrapper li {
     background: var(--form) !important;
 }
 .suggestions-wrapper li:hover {
@@ -57,94 +157,6 @@ style.textContent = `/* --------------------------------------------------------
 .suggestions-wrapper a {
     color: var(--text) !important;
 }
-.main-header__content {
-    background: var(--dark-background) !important;
-}
-
-/* Main page */
-.settings {
-    background: var(--dark-background);
-}
-h1 {
-    color: var(--text) !important;
-}
-.field__details > label {
-    color: var(--link);
-}
-.layout__content {
-    background: var(--dark-background) !important;
-}
-
-/* Page dropdowns */
-input, .list > li, .list > li:focus, .list > li:active {
-    background: var(--form);
-    color: var(--text) !important;
-}
-.list > li:hover {
-    background: var(--lighter-background);
-}
-.select__options {
-    background: var(--form) !important;
-}
-
-/* Nav bar */
-.search-navigation a {
-    color: var(--text) !important;
-}
-.search-navigation a:hover, .tab--highlighted a {
-    color: #36acb8 !important;
-}
-[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
-    fill: var(--text);
-}
-
-/* Dropdowns */
-.dropdown {
-    background: var(--form) !important;
-    color: var(--text) !important;
-    border: 1px solid;
-}
-.dropdown li:hover {
-    background: var(--lighter-background) !important;
-}
-.list-item > a {
-    color: var(--text) !important;
-}
-
-/* Tree counter */
-.personal-counter button {
-    background: var(--dark-background) !important;
-}
-.personal-counter button:hover {
-    background: var(--lighter-background) !important;
-}
-.personal-counter span {
-    color: var(--text) !important;
-}
-
-/* Notifications */
-.notifications button {
-    background: var(--dark-background) !important;
-}
-.notifications button:hover {
-    background: var(--lighter-background) !important;
-}
-.notifications-dropdown a {
-    background: var(--form) !important;
-    color: var(--text) !important;
-}
-.notifications-dropdown a:hover {
-    background: var(--lighter-background) !important;
-}
-
-/* Burger menu */
-.main-nav button {
-    background: var(--dark-background) !important;
-}
-.main-nav button:hover {
-    background: var(--lighter-background) !important;
-}
-/* ---------- */
 
 /* ----------------------------------------------------------------------- */
 /* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */

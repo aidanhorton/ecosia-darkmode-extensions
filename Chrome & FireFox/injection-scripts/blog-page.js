@@ -1,5 +1,5 @@
 // Initial injection - checks if dark mode is enabled.
-chrome.storage.sync.get(["darkMode"], injectOnLoad);
+chrome.storage.local.get(["darkMode"], injectOnLoad);
 
 function injectOnLoad(items){
     if (items["darkMode"] != 'off') {
@@ -41,6 +41,11 @@ style.textContent = `* {
     --color-two: #7A8436;
     --color-three: #cb421f;
     scrollbar-color: #3F3F3F #1C1E1F;
+}
+
+.c-author-card {
+	background: var(--main-bg-color) !important;
+	border-color: var(--second-bg-color) !important;
 }
 
 .c-logo__img {

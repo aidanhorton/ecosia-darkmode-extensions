@@ -1,5 +1,5 @@
 // Initial injection - checks if dark mode is enabled.
-browser.storage.local.get(["darkMode"], injectOnLoad);
+chrome.storage.local.get(["darkMode"], injectOnLoad);
 
 function injectOnLoad(items){
     if (items["darkMode"] != 'off') {
@@ -9,7 +9,7 @@ function injectOnLoad(items){
 
 // Subscribe to other necessary events.
 document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
-browser.runtime.onMessage.addListener(toggleStyle);
+chrome.runtime.onMessage.addListener(toggleStyle);
  
 // Moves style tag to the head once the document has loaded.
 function changeStyleImportance(){
@@ -33,24 +33,9 @@ var style = document.createElement('style');
 style.id = "EcosiaDarkMode";
 style.className = "EcosiaDarkMode";
 style.type = "text/css";
-style.textContent = `/* --------------------------------------------------------------------------------------- */
-/* NEWS & VIDEOS RESULTS - Only separate since styling is done separately for some reason! */
-/* --------------------------------------------------------------------------------------- */
-
-.layout__content {
-    background: var(--dark-background) !important;
-}
-
-/* Main style */
-.news {
-    background: var(--dark-background) !important;
-}
-.main-header > header {
-    background: var(--dark-background) !important;
-}
-.search-no-results {
-    color: var(--text);
-}
+style.textContent = `/* -------------------------------------------------------------- */
+/* SETTINGS PAGE - Select 'settings' in the tree-counter dropdown */
+/* -------------------------------------------------------------- */
 
 /* HEADER BAR */
 /* Logo */
@@ -71,6 +56,35 @@ style.textContent = `/* --------------------------------------------------------
 }
 .suggestions-wrapper a {
     color: var(--text) !important;
+}
+.main-header__content {
+    background: var(--dark-background) !important;
+}
+
+/* Main page */
+.settings {
+    background: var(--dark-background);
+}
+h1 {
+    color: var(--text) !important;
+}
+.field__details > label {
+    color: var(--link);
+}
+.layout__content {
+    background: var(--dark-background) !important;
+}
+
+/* Page dropdowns */
+input, .list > li, .list > li:focus, .list > li:active {
+    background: var(--form);
+    color: var(--text) !important;
+}
+.list > li:hover {
+    background: var(--lighter-background);
+}
+.select__options {
+    background: var(--form) !important;
 }
 
 /* Nav bar */
@@ -107,9 +121,6 @@ style.textContent = `/* --------------------------------------------------------
 .personal-counter span {
     color: var(--text) !important;
 }
-.list > li {
-    background: var(--form);
-}
 
 /* Notifications */
 .notifications button {
@@ -117,9 +128,6 @@ style.textContent = `/* --------------------------------------------------------
 }
 .notifications button:hover {
     background: var(--lighter-background) !important;
-}
-.notifications button:hover path, .notifications button:focus path {
-    fill: var(--text) !important;
 }
 .notifications-dropdown a {
     background: var(--form) !important;
@@ -136,65 +144,7 @@ style.textContent = `/* --------------------------------------------------------
 .main-nav button:hover {
     background: var(--lighter-background) !important;
 }
-.main-nav button:hover path, .main-nav button:focus path {
-    fill: var(--text) !important;
-}
 /* ---------- */
-
-
-/* FILTERS & SETTINGS */
-/* Filters button */
-.search-filters {
-    background: var(--dark-background) !important;
-}
-.search-filters button {
-    color: #858484 !important;
-}
-.search-filters button:hover {
-    color: var(--text) !important;
-}
-.search-filters button {
-    background: var(--dark-background) !important;
-}
-
-/* ---------- */
-
-/* News cards */
-.search-result-title {
-    color: var(--link) !important;
-}
-.search-result-title a, .search-result-title a:hover, .search-result-title a:focus {
-    color: var(--link) !important;
-}
-.search-result-title a:visited {
-    color: var(--link-visited) !important;
-}
-.result-url, .result-url:hover, .result-url:visited, .result-url:focus {
-    color: var(--link-green) !important;
-}
-.search-result__source, .search-result__source:hover, .search-result__source:visited, .search-result__source:focus {
-    color: var(--link-green) !important;
-}
-.search-result__text {
-    color: var(--text);
-}
-.results-info {
-    border-color: var(--border) !important;
-}
-/* ---------- */
-
-
-/* MOBILE */
-/* News & video & filters */
-.layout-card__content, .modal-dropdown__content {
-    background: var(--dark-background) !important;
-}
-.search-navigation__divider {
-    background: var(--border) !important;
-}
-.filter__selected {
-    background: var(--lighter-background) !important;
-}
 
 /* ----------------------------------------------------------------------- */
 /* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */

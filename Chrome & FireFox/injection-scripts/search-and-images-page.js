@@ -1,5 +1,5 @@
 // Initial injection - checks if dark mode is enabled.
-chrome.storage.sync.get(["darkMode"], injectOnLoad);
+chrome.storage.local.get(["darkMode"], injectOnLoad);
 
 function injectOnLoad(items){
     if (items["darkMode"] != 'off') {

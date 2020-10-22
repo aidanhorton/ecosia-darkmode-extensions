@@ -1,15 +1,15 @@
 let darkLogo = document.getElementById("darkLogo");
-darkLogo.src = browser.runtime.getURL("images/EcosiaLogo32.png");
+darkLogo.src = chrome.runtime.getURL("images/EcosiaLogo32.png");
 let lightLogo = document.getElementById("lightLogo");
-lightLogo.src = browser.runtime.getURL("images/EcosiaLogo.png");
+lightLogo.src = chrome.runtime.getURL("images/EcosiaLogo.png");
 
 let logoText = document.getElementById("logoText");
-logoText.src = browser.runtime.getURL("images/EcosiaDarkMode.png");
+logoText.src = chrome.runtime.getURL("images/EcosiaDarkMode.png");
 
 let checkBox = document.getElementById("switch");
 checkBox.onclick = toggleDark;
 
-browser.storage.local.get(["darkMode"], function(items){
+chrome.storage.local.get(["darkMode"], function(items){
     if (items["darkMode"] == 'off') {
 		checkBox.checked = false;
 		setLightProperties();
@@ -32,10 +32,10 @@ function toggleDark () {
 }
 
 function notifyModeChange (newMode) {
-	browser.storage.local.set({ "darkMode": newMode });
-	browser.tabs.query({}, function(tabs) {
+	chrome.storage.local.set({ "darkMode": newMode });
+	chrome.tabs.query({}, function(tabs) {
 		for (var i=0; i<tabs.length; ++i) {
-			browser.tabs.sendMessage(tabs[i].id, {action: newMode});
+			chrome.tabs.sendMessage(tabs[i].id, {action: newMode});
 		}
 	});
 }
