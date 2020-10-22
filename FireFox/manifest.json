@@ -1,6 +1,6 @@
 {
-    "name": "Ecosia Dark Theme 2020",
-    "version": "1.0",
+    "name": "Ecosia Dark Theme",
+    "version": "1.0.2",
     "description": "A dark theme for the Ecosia search engine",
 	"permissions": ["activeTab", "tabs", "storage"],
 	"browser_action": {
@@ -31,6 +31,12 @@
     ],
 	"content_scripts": [
 		{
+			"matches": ["https://www.ecosia.org/*"],
+			"js": ["injection-scripts/home-page.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		},
+		{
 			"matches": ["https://www.ecosia.org/search*", "https://www.ecosia.org/images*"],
 			"js": ["injection-scripts/search-and-images-page.js"],
 			"run_at": "document_start",
@@ -39,12 +45,6 @@
 		{
 			"matches": ["https://www.ecosia.org/news*", "https://www.ecosia.org/videos*"],
 			"js": ["injection-scripts/news-and-videos-page.js"],
-			"run_at": "document_start",
-			"all_frames": true
-		},
-		{
-			"matches": ["https://www.ecosia.org/"],
-			"js": ["injection-scripts/home-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
 		},

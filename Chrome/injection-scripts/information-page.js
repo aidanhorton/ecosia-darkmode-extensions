@@ -48,6 +48,10 @@ style.textContent = `* {
     fill: white;
 }
 
+.jobs {
+	background-color: var(--main-bg-color);
+}
+
 .a {
     color: var(--main-color) !important;
 }

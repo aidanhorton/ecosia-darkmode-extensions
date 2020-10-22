@@ -1,5 +1,5 @@
 // Initial injection - checks if dark mode is enabled.
-chrome.storage.sync.get(["darkMode"], injectOnLoad);
+browser.storage.local.get(["darkMode"], injectOnLoad);
 
 function injectOnLoad(items){
     if (items["darkMode"] != 'off') {
@@ -9,7 +9,7 @@ function injectOnLoad(items){
 
 // Subscribe to other necessary events.
 document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
-chrome.runtime.onMessage.addListener(toggleStyle);
+browser.runtime.onMessage.addListener(toggleStyle);
  
 // Moves style tag to the head once the document has loaded.
 function changeStyleImportance(){
