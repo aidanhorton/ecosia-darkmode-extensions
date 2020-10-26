@@ -158,6 +158,12 @@ body {
     color: var(--text) !important;
 }
 
+/* MOBILE MODE */
+/* Sidebar */
+.panel__content {
+	background: var(--form) !important;
+}
+
 /* ----------------------------------------------------------------------- */
 /* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */
 /* ----------------------------------------------------------------------- */

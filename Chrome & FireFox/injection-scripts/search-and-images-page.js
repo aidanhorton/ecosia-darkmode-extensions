@@ -366,6 +366,11 @@ body {
 .hidden-desktop .flags-dropdown-content li:hover {
     background: var(--lighter-background);
 }
+.navbar-filters > select, .navbar-filters > select:focus {
+	background: var(--form) !important;
+	color: var(--text) !important;
+	border: 1px solid;
+}
 /* ---------- */
 
 
