@@ -31,6 +31,16 @@ function toggleDark () {
 	}
 }
 
+function toggleNewTab () {
+	if (checkBox.checked == true) {
+		setDarkProperties();
+		notifyModeChange("on");
+	} else {
+		setLightProperties();
+		notifyModeChange("off");
+	}
+}
+
 function notifyModeChange (newMode) {
 	chrome.storage.local.set({ "darkMode": newMode });
 	chrome.tabs.query({}, function(tabs) {
@@ -53,6 +63,9 @@ function setLightProperties () {
 function setTransitionFlags () {
 	let checkBoxLabel = document.getElementById("toggle");
 	checkBoxLabel.classList.add("switch-transition");
+	
+	let checkBoxLabel2 = document.getElementById("toggle2");
+	checkBoxLabel2.classList.add("switch-transition");
 
 	darkLogo.classList.add("img-transition");
 	lightLogo.classList.add("img-transition");

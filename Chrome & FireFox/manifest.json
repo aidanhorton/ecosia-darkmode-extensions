@@ -1,8 +1,8 @@
 {
     "name": "Ecosia Dark Mode",
-    "version": "1.2.1.3",
+    "version": "1.2.2.0",
     "description": "A dark theme for the Ecosia search engine",
-	"permissions": ["tabs", "storage"],
+	"permissions": ["tabs", "storage", "topSites"],
 	"browser_action": {
 		"default_popup": "popup.html",
 		"default_title": "Ecosia dark",
@@ -20,15 +20,12 @@
 		"128": "images/EcosiaLogo128.png"
     },
 	"web_accessible_resources": [
-        "stylesheets/home-page.css",
-		"stylesheets/search-and-images-page.css",
-		"stylesheets/news-and-videos-page.css",
-		"stylesheets/settings-page.css",
-		"stylesheets/login-page.css",
-		"stylesheets/blog-page.css",
-		"stylesheets/information-page.css",
 		"images/EcosiaLogo.png"
     ],
+	"chrome_url_overrides": {
+		"newtab": "pages/newtab.html"
+	},
+	"content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'",
 	"content_scripts": [
 		{
 			"matches": ["https://www.ecosia.org/*"],
