@@ -36,102 +36,108 @@ var style = document.createElement('style');
 style.id = "EcosiaDarkMode";
 style.className = "EcosiaDarkMode";
 style.type = "text/css";
-style.textContent = `/* -------------------------------------------------------------- */
-/* SETTINGS PAGE - Select 'settings' in the tree-counter dropdown */
-/* -------------------------------------------------------------- */
+style.textContent = `/* ------------------------------------------------ */
+/* IMAGES - The main Ecosia search engine & results */
+/* ------------------------------------------------ */
 
-/* HEADER BAR */
+/* LOGO & MAIN STYLES */
+
+/* Main */
+.main-header__content, .layout__content {
+    background: var(--dark-background) !important;
+}
+
 /* Logo */
-.logo path:nth-child(2) {
-    fill: white;
+.logo__icon > g > path:nth-child(2) {
+    fill: white !important;
 }
 
 /* Search bar */
-.search-form, .search-form input {
-    background: #272727 !important;
+.search-form, .input {
+    background: #292929 !important;
     color: var(--text) !important;
 }
-.suggestions-wrapper li, .suggestion-list {
+
+/* Search suggestions */
+.suggestions {
     background: var(--form) !important;
 }
-.suggestions-wrapper li:hover {
+.suggestions a {
+    color: var(--text) !important;
+}
+.suggestion-item.selected {
     background: var(--lighter-background) !important;
 }
-.suggestions-wrapper a {
-    color: var(--text) !important;
-}
-.main-header__content {
-    background: var(--dark-background) !important;
-}
 
-/* Main page */
-.settings {
-    background: var(--dark-background);
-}
-h1 {
+/* Navigation bar */
+.search-navigation__item a {
     color: var(--text) !important;
 }
-.field__details > label {
-    color: var(--link);
-}
-.layout__content {
-    background: var(--dark-background) !important;
-}
-
-/* Page dropdowns */
-input, .list > li, .list > li:focus, .list > li:active {
-    background: var(--form);
-    color: var(--text) !important;
-}
-.list > li:hover {
-    background: var(--lighter-background);
-}
-.select__options {
-    background: var(--form) !important;
-}
-
-/* Nav bar */
-.search-navigation a {
-    color: var(--text) !important;
-}
-.search-navigation a:hover, .tab--highlighted a {
+.search-navigation__item > .tab > a:focus, .search-navigation__item > .tab > a:hover, .search-navigation__item:nth-child(2) > .tab > a {
     color: #36acb8 !important;
 }
-[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
-    fill: var(--text);
+
+/* Filters */
+.search-filters, .main-header {
+    background: var(--dark-background);
 }
 
-/* Dropdowns */
+/* Query chips */
+.query-expansions__item {
+    background: var(--form) !important;
+}
+.chip__text {
+    color: var(--text) !important;
+}
+.chip__text > mark {
+    color: #888;
+}
+.query-expansions__button {
+    background: linear-gradient(90deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 12%, .8) 42%, var(--dark-background) 74%) !important;
+}
+
+/* Image results */
+.image-thumbnail__details-title {
+    color: var(--text);
+}
+
+/* Country dropdown */
 .dropdown {
     background: var(--form) !important;
     color: var(--text) !important;
     border: 1px solid;
 }
 .dropdown li:hover {
-    background: var(--lighter-background) !important;
-}
-.list-item > a {
-    color: var(--text) !important;
+    background: var(--lighter-background);
 }
 
-/* Tree counter */
-.personal-counter button {
+/* Search filters */
+.search-filters button {
     background: var(--dark-background) !important;
-}
-.personal-counter button:hover {
-    background: var(--lighter-background) !important;
-}
-.personal-counter span {
     color: var(--text) !important;
 }
+.search-filters button:hover {
+    color: #949494 !important;
+}
 
-/* Notifications */
-.notifications button {
+/* Pill buttons */
+.pill {
     background: var(--dark-background) !important;
 }
-.notifications button:hover {
+.personal-counter__text {
+    color: var(--text) !important;
+}
+.icon-button:hover, .icon-button:focus {
     background: var(--lighter-background) !important;
 }
+.icon-button:hover path, .icon-button:focus path {
+    fill: var(--text) !important;
+}
+.notification-pill:hover path, .notification-pill:focus path {
+    fill: var(--text) !important;
+}
+
+/* Notifications dropdown */
 .notifications-dropdown a {
     background: var(--form) !important;
     color: var(--text) !important;
@@ -140,14 +146,10 @@ input, .list > li, .list > li:focus, .list > li:active {
     background: var(--lighter-background) !important;
 }
 
-/* Burger menu */
-.main-nav button {
-    background: var(--dark-background) !important;
+/* No results */
+.search-no-results {
+    color: var(--text);
 }
-.main-nav button:hover {
-    background: var(--lighter-background) !important;
-}
-/* ---------- */
 
 /* ----------------------------------------------------------------------- */
 /* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */

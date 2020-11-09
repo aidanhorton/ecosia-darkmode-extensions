@@ -15,7 +15,10 @@ chrome.runtime.onMessage.addListener(toggleStyle);
 function changeStyleImportance(){
 	document.removeEventListener('DOMContentLoaded', changeStyleImportance, false);
 	
-	document.getElementsByTagName('head')[0].appendChild(document.getElementById('EcosiaDarkMode'));
+	var darkModeElement = document.getElementById('EcosiaDarkMode');
+	if (darkModeElement != null) {
+		document.getElementsByTagName('head')[0].appendChild(darkModeElement);
+	}
 }
 
 // Toggle style on/off when toggle is activated.

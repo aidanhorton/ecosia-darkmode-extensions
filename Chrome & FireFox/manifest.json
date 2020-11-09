@@ -34,8 +34,14 @@
 			"all_frames": true
 		},
 		{
-			"matches": ["https://www.ecosia.org/search*", "https://www.ecosia.org/images*"],
-			"js": ["injection-scripts/search-and-images-page.js"],
+			"matches": ["https://www.ecosia.org/search*"],
+			"js": ["injection-scripts/search-page.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		},
+		{
+			"matches": ["https://www.ecosia.org/images*"],
+			"js": ["injection-scripts/images-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
 		},
