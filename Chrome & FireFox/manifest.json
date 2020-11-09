@@ -25,7 +25,6 @@
 	"chrome_url_overrides": {
 		"newtab": "pages/newtab.html"
 	},
-	"content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'",
 	"content_scripts": [
 		{
 			"matches": ["https://www.ecosia.org/*"],
