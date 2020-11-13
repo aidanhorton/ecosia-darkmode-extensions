@@ -310,7 +310,7 @@ body {
 
 /* MOBILE */
 /* Main results */
-.mainline-results .result {
+.mainline-results .result, .results-page-stretcher {
     background: var(--dark-background);
 }
 .search-form-addon .search-form-addon-button {
@@ -368,11 +368,6 @@ body {
 }
 .hidden-desktop .flags-dropdown-content li:hover {
     background: var(--lighter-background);
-}
-.navbar-filters > select, .navbar-filters > select:focus {
-	background: var(--form) !important;
-	color: var(--text) !important;
-	border: 1px solid;
 }
 /* ---------- */
 

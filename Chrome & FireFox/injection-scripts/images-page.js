@@ -151,6 +151,21 @@ style.textContent = `/* ------------------------------------------------ */
     color: var(--text);
 }
 
+/* Mobile mode */
+.panel__content {
+    background: var(--form) !important;
+    color: var(--text);
+}
+.list-item:hover {
+    background: var(--lighter-background);
+}
+.settings-dropdown__content {
+    background: var(--form);
+}
+.modal-dropdown__content {
+    background: var(--form) !important;
+}
+
 /* ----------------------------------------------------------------------- */
 /* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */
 /* ----------------------------------------------------------------------- */

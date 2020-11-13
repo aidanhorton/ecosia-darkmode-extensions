@@ -147,7 +147,14 @@ input, .list > li, .list > li:focus, .list > li:active {
 .main-nav button:hover {
     background: var(--lighter-background) !important;
 }
-/* ---------- */
+
+/* Mobile mode */
+.settings__content {
+    background: var(--dark-background) !important;
+}
+.panel__content {
+    background: var(--form) !important;
+}
 
 /* ----------------------------------------------------------------------- */
 /* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */

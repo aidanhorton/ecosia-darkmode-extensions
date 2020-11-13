@@ -189,7 +189,7 @@ style.textContent = `/* --------------------------------------------------------
 
 /* MOBILE */
 /* News & video & filters */
-.layout-card__content, .layout-card, .modal-dropdown__content {
+.layout-card__content, .modal-dropdown__content, .layout-card {
     background: var(--dark-background) !important;
 }
 .search-navigation__divider {
@@ -199,10 +199,10 @@ style.textContent = `/* --------------------------------------------------------
     background: var(--lighter-background) !important;
 }
 .panel__content {
-	background: var(--form) !important;
+    background: var(--form) !important;
 }
-.list-item:hover, .list-item:active {
-	background: var(--lighter-background) !important;
+.list-item:hover {
+    background: var(--lighter-background);
 }
 
 /* ----------------------------------------------------------------------- */
