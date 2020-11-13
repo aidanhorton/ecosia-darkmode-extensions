@@ -1,7 +1,7 @@
 <h2>Ecosia Dark Mode</h2>
 <p>Respository for ecosia dark mode for Chromium and Firefox</p>
 
-<p>Future planned development:</p>
+<b>Future planned development:</b>
 <ul>
 	<li>Keep the theme up-to-date!</li>
 	<li>Add a settings page with customizable options such as dark theme colours.</li>
