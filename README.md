@@ -5,7 +5,7 @@
 Visit the browser extension pages for [Chrome](https://chrome.google.com/webstore/detail/ecosia-dark-mode/hfpbjnmjofmfpnkcmdnkgndahgpjhpih?hl=en&authuser=0) and [FireFox](https://addons.mozilla.org/en-GB/firefox/addon/ecosia-dark-theme/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search) and install to begin using the dark mode.
 
 
-## Development
+## Development plan
 
 <ul>
 	<li>Keep the theme up-to-date!</li>
