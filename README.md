@@ -1,7 +1,12 @@
-<h2>Ecosia Dark Mode</h2>
-<p>Respository for ecosia dark mode for Chromium and Firefox</p>
+# Ecosia Dark Mode
 
-<h3>Future planned development:</h3>
+**Ecosia Dark Mode** is a simple Chrome & FireFox extension that sets the Ecosia search engine and related services to dark mode.
+
+Visit the browser extension pages for [Chrome](https://chrome.google.com/webstore/detail/ecosia-dark-mode/hfpbjnmjofmfpnkcmdnkgndahgpjhpih?hl=en&authuser=0) and [FireFox](https://addons.mozilla.org/en-GB/firefox/addon/ecosia-dark-theme/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search) and install to begin using the dark mode.
+
+
+## Development
+
 <ul>
 	<li>Keep the theme up-to-date!</li>
 	<li>Fix occasional bug where style only applies to part of the page.</li>
@@ -12,3 +17,8 @@
 	<li>Make the code more maintainable - separate styles from JS code.</lo>
 	<li>Contact Ecosia directly to see if any integration or partnership is possible.</li>
 </ul>
+
+
+## Contributions
+
+Contributions are welcome! If you find a bug please report it, and if you want any new features please add them to the issues list!
