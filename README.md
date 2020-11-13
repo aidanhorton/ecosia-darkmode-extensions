@@ -1,9 +1,10 @@
 <h2>Ecosia Dark Mode</h2>
 <p>Respository for ecosia dark mode for Chromium and Firefox</p>
 
-<p>Todo:</p>
+<p>Future planned development:</p>
 <ul>
-	<li>Add colour settings options (with animations)</li>
-	<li>Automatically install Ecosia extension, or set ecosia to default engine (have a setting for this)</li>
-	<li>Update settings page</li>
+	<li>Keep the theme up-to-date!</li>
+	<li>Add a settings page with customizable options such as dark theme colours.</li>
+	<li>Add a slider for setting Ecosia to be your default browser.</li>
+	<li>Contact Ecosia directly to see if any integration or partnership is possible.</li>
 </ul>
