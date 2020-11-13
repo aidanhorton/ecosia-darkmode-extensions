@@ -7,5 +7,6 @@
 	<li>Add a settings page with customizable options such as dark theme colours.</li>
 	<li>Add a slider for setting Ecosia to be your default browser.</li>
 	<li>See if it's possible to add tree-counter to Chrome new-tab page.</li>
+	<li>Make the code more maintainable - separate styles from JS code.</lo>
 	<li>Contact Ecosia directly to see if any integration or partnership is possible.</li>
 </ul>
