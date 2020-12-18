@@ -50,6 +50,11 @@ body {
 .search-header, .navbar-row, .results-wrapper {
     background: var(--dark-background) !important;
 }
+
+/* Background fix for 'Add Ecosia to Chrome' button */
+.col-lg-4 .margin-top-base {
+    background: var(--dark-background);
+}
 /* ---------- */
 
 

@@ -163,22 +163,22 @@ style.textContent = `/* --------------------------------------------------------
 /* ---------- */
 
 /* News cards */
-.search-result-title {
+.result-title {
     color: var(--link) !important;
 }
-.search-result-title a, .search-result-title a:hover, .search-result-title a:focus {
+.result-title a, .result-title a:hover, .result-title a:focus {
     color: var(--link) !important;
 }
-.search-result-title a:visited {
+.result-title a:visited {
     color: var(--link-visited) !important;
 }
 .result-url, .result-url:hover, .result-url:visited, .result-url:focus {
     color: var(--link-green) !important;
 }
-.search-result__source, .search-result__source:hover, .search-result__source:visited, .search-result__source:focus {
+.result__source, .result__source:hover, .result__source:visited, .result__source:focus {
     color: var(--link-green) !important;
 }
-.search-result__text {
+.result__description {
     color: var(--text);
 }
 .results-info {

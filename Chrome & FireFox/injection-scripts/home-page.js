@@ -74,6 +74,12 @@ body {
 .container {
     background: var(--dark-background) !important;
 }
+.info-section__content {
+    color: var(--text);
+}
+.info-section__background path {
+    color: var(--form) !important;
+}
 
 /* Logo */
 .logo > svg > g > path:nth-child(2) {

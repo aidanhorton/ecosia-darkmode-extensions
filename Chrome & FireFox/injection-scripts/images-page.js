@@ -97,7 +97,7 @@ style.textContent = `/* ------------------------------------------------ */
 }
 
 /* Image results */
-.image-thumbnail__details-title {
+.image-result__details-title {
     color: var(--text);
 }
 
