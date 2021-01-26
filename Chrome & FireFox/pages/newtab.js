@@ -1,27 +1,76 @@
 function buildPopupDom(mostVisitedURLs) {
+	// Uncomment to reset local storage:
+	chrome.storage.local.set({"blacklistedUrls": []});
+	
 	var mostVisited = document.getElementById('mostVisited');
-
-	var urls = 7;
-	if (urls > mostVisitedURLs.length) {
-		urls = mostVisitedURLs.length;
-	}
 	
-	for (var i = 0; i < urls; i++) {
-		var itemWrapper = mostVisited.appendChild(document.createElement('a'));
-		itemWrapper.href = mostVisitedURLs[i].url;
-		itemWrapper.className += "topSite";
-
-		var toolTipWrapper = itemWrapper.appendChild(document.createElement('div'));
-		toolTipWrapper.className += "toolTipWrapper";
-
-		var toolTip = toolTipWrapper.appendChild(document.createElement('span'));
-		toolTip.className += "toolTip";    
-		toolTip.appendChild(document.createTextNode(mostVisitedURLs[i].title));
+	var whitelistedUrls = [];
 	
-		var icon = itemWrapper.appendChild(document.createElement('img'));
-		icon.className += "icon";
-		icon.src = "https://www.google.com/s2/favicons?domain=" + mostVisitedURLs[i].url;
-	}
+	chrome.storage.local.get({"blacklistedUrls": []}, function (result) {
+		var blacklistedUrls = result.blacklistedUrls;
+		console.log(blacklistedUrls);
+		
+		for (var x = 0; x < mostVisitedURLs.length; x++) {
+			var isBlacklisted = false;
+			for (var i = 0; i < blacklistedUrls.length; i++) {
+				if (blacklistedUrls[i] === mostVisitedURLs[x].url) {
+					isBlacklisted = true;
+				}
+			}
+			
+			if (!isBlacklisted) {
+				whitelistedUrls.push(mostVisitedURLs[x]);
+			}
+		}
+
+		var urls = 7;
+		if (urls > whitelistedUrls.length) {
+			urls = whitelistedUrls.length;
+		}
+		
+		for (var i = 0; i < urls; i++) {
+			var itemAndCloseWrapper = mostVisited.appendChild(document.createElement('div'));
+			itemAndCloseWrapper.className += "itemAndCloseWrapper";
+			
+			var itemWrapper = itemAndCloseWrapper.appendChild(document.createElement('a'));
+			itemWrapper.href = whitelistedUrls[i].url;
+			itemWrapper.className += "topSite";
+	
+			var toolTipWrapper = itemWrapper.appendChild(document.createElement('div'));
+			toolTipWrapper.className += "toolTipWrapper";
+	
+			var toolTip = toolTipWrapper.appendChild(document.createElement('span'));
+			toolTip.className += "toolTip";    
+			toolTip.appendChild(document.createTextNode(whitelistedUrls[i].title));
+			
+			var close = itemAndCloseWrapper.appendChild(document.createElement('a'));
+			close.className = "closeButton";
+			
+			close.addEventListener('click', function(element) {
+				element = element || window.event;
+				var target = element.target || element.srcElement;
+				
+				chrome.storage.local.get({"blacklistedUrls": []}, function (result) {
+					var urls = result.blacklistedUrls;
+					
+					var topSite = target.parentElement.parentElement.querySelector('.topSite').href;
+					urls.push(topSite);
+					
+					chrome.storage.local.set({"blacklistedUrls": urls});
+				});
+				
+				target.parentElement.parentElement.parentElement.removeChild(target.parentElement.parentElement);
+			}, false);
+			
+			var closeImage = close.appendChild(document.createElement('img'));
+			closeImage.src = "Close.png";
+			closeImage.className = "closeImage";
+		
+			var icon = itemWrapper.appendChild(document.createElement('img'));
+			icon.className += "icon";
+			icon.src = "https://www.google.com/s2/favicons?domain=" + whitelistedUrls[i].url;
+		}
+	});
 }
 
 chrome.topSites.get(buildPopupDom);
