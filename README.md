@@ -26,7 +26,9 @@ Contributions are welcome! If you find a bug please report it, and if you want a
 ## Permissions & Privacy
 
 No personal data is collected, no data is sent/shared to third-parties, no data is used outside of this extension.
+
 This extension requires a few permissions in order to function - these are detailed below:
+
 
 <ul>
 	<li>Browser tabs - This permission lets the extension see which tab is active - so it can apply the dark theme to the correct pages.</li>
