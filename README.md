@@ -36,3 +36,6 @@ This extension requires a few permissions in order to function - these are detai
 	<li>Read & change data on blog.ecosia.org, info.ecosia.org, www.ecosia.org - This allows us to inject the dark-mode style into the webpages - without it there would be no dark mode!</li>
 	<li>Replace the page that you see when opening a new tab - In the Chrome browser, we replace the new-tab page, this is because Ecosia by default with their extension supplies their own new-tab page, but this is not in dark mode. Due to security concerns by Google, you cannot modify another extensions new-tab page, therefore I had to create my own version of this page to ensure a seamless dark-mode experience. You can disable this new-tab page upon installation if you'd prefer not to have it.</li>
 </ul>
+
+
+You are free to look at the code to verify how this extension uses the above permissions.
