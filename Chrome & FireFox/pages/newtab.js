@@ -1,6 +1,6 @@
 function buildPopupDom(mostVisitedURLs) {
 	// Uncomment to reset local storage:
-	chrome.storage.local.set({"blacklistedUrls": []});
+	// chrome.storage.local.set({"blacklistedUrls": []});
 	
 	var mostVisited = document.getElementById('mostVisited');
 	
