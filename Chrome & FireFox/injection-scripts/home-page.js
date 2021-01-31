@@ -71,11 +71,12 @@ body {
     box-shadow: 0 0px 7px 0 rgba(255, 255, 255, 0.2);
     background: var(--form);
 }
-.container {
+.container, .search-section__content, .above-fold-cta-section {
     background: var(--dark-background) !important;
+    color: var(--text) !important;
 }
-.info-section__content {
-    color: var(--text);
+.info-section__content, h2 {
+    color: var(--text) !important;
 }
 .info-section__background path {
     color: var(--form) !important;

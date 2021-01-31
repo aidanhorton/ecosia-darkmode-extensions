@@ -233,6 +233,9 @@ body {
 	color: var(--text) !important;
 	border: 1px solid var(--border);
 }
+[title="Wikipedia"] path {
+    fill: #CCCCCC !important;
+}
 
 /* Extra results buttons */
 .result-media .slider-control {
@@ -394,6 +397,9 @@ body {
 }
 .entity-disambiguation-text, .entity-disambiguation-headline, .entity-title, .entity p {
     color: var(--text);
+}
+.card-top {
+    background: var(--darker-background);
 }
 
 /* Sidebar shop */
