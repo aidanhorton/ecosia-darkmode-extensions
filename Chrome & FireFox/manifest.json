@@ -1,6 +1,6 @@
 {
     "name": "Ecosia Dark Mode",
-    "version": "1.2.3.3",
+    "version": "1.2.3.4",
     "description": "A dark theme for the Ecosia search engine",
 	"permissions": ["tabs", "storage", "topSites"],
 	"browser_action": {
