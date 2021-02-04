@@ -66,13 +66,13 @@ style.textContent = `/* --------------------------------------------------------
     background: #272727 !important;
     color: var(--text) !important;
 }
-.suggestions-wrapper li, .suggestion-list {
+.search-form__suggestions-list li {
     background: var(--form) !important;
 }
-.suggestions-wrapper li:hover {
+.search-form__suggestions-list li:hover {
     background: var(--lighter-background) !important;
 }
-.suggestions-wrapper a {
+.search-form__suggestions-list a {
     color: var(--text) !important;
 }
 

@@ -53,16 +53,16 @@ style.textContent = `/* ------------------------------------------------ */
 }
 
 /* Search bar */
-.search-form, .input {
+.search-form, input {
     background: #292929 !important;
     color: var(--text) !important;
 }
 
 /* Search suggestions */
-.suggestions {
+.search-form__suggestions-list {
     background: var(--form) !important;
 }
-.suggestions a {
+.search-form__suggestions-list a {
     color: var(--text) !important;
 }
 .suggestion-item.selected {
@@ -120,6 +120,14 @@ style.textContent = `/* ------------------------------------------------ */
     color: #949494 !important;
 }
 
+/* Navbar dropdowns (maps, more) */
+.dropdown li:hover {
+    background: var(--lighter-background) !important;
+}
+[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
+    fill: white;
+}
+
 /* Pill buttons */
 .pill {
     background: var(--dark-background) !important;
@@ -143,6 +151,11 @@ style.textContent = `/* ------------------------------------------------ */
     color: var(--text) !important;
 }
 .notifications-dropdown a:hover {
+    background: var(--lighter-background) !important;
+}
+
+/* Hamburger dropdown */
+.main-nav-menu li:hover {
     background: var(--lighter-background) !important;
 }
 

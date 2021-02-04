@@ -142,7 +142,7 @@ body {
     border: 1px solid var(--lighter-background);
 }
 .main-nav-menu li:hover {
-    background: var(--lighter-background);
+    background: var(--lighter-background) !important;
 }
 /* ---------- */
 
@@ -158,13 +158,13 @@ body {
 .suggestion-list {
     background: var(--form) !important;
 }
-.suggestions-wrapper li {
+.search-form__suggestions li {
     background: var(--form) !important;
 }
-.suggestions-wrapper li:hover {
+.search-form__suggestions li:hover {
     background: var(--lighter-background) !important;
 }
-.suggestions-wrapper a {
+.search-form__suggestions a {
     color: var(--text) !important;
 }
 
