@@ -1,6 +1,6 @@
 {
     "name": "Ecosia Dark Mode",
-    "version": "1.2.3.4",
+    "version": "1.2.3.5",
     "description": "A dark theme for the Ecosia search engine",
 	"permissions": ["tabs", "storage", "topSites"],
 	"browser_action": {
@@ -26,7 +26,7 @@
 	"chrome_url_overrides": {
 		"newtab": "pages/newtab.html"
 	},
-	"content_scripts": [
+	"content_scripts": [	
 		{
 			"matches": ["https://www.ecosia.org/*"],
 			"js": ["injection-scripts/home-page.js"],
