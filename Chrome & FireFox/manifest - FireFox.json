@@ -1,6 +1,6 @@
 {
     "name": "Ecosia Dark Mode",
-    "version": "1.2.3.5",
+    "version": "1.2.4.0",
     "description": "A dark theme for the Ecosia search engine",
 	"permissions": ["tabs", "storage", "topSites"],
 	"browser_action": {
@@ -25,11 +25,17 @@
     ],
 	"content_scripts": [
 		{
-			"matches": ["https://www.ecosia.org/*"],
+			"matches": ["https://www.ecosia.org/"],
 			"js": ["injection-scripts/home-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
 		},
+		{
+			"matches": ["https://www.ecosia.org/?*"],
+			"js": ["injection-scripts/home-page.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		},		
 		{
 			"matches": ["https://www.ecosia.org/search*"],
 			"js": ["injection-scripts/search-page.js"],
@@ -49,13 +55,13 @@
 			"all_frames": true
 		},
 		{
-			"matches": ["https://www.ecosia.org/account/login"],
+			"matches": ["https://www.ecosia.org/account/login*"],
 			"js": ["injection-scripts/login-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
 		},
 		{
-			"matches": ["https://www.ecosia.org/settings"],
+			"matches": ["https://www.ecosia.org/settings*"],
 			"js": ["injection-scripts/settings-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
