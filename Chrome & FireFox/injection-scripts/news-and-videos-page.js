@@ -132,6 +132,20 @@ style.textContent = `/* --------------------------------------------------------
     background: var(--lighter-background) !important;
 }
 
+/* Notifications banner */
+.banner {
+	background: var(--form) !important;
+}
+.banner__content {
+	color: var(--text) !important;
+}
+.banner__close:hover::after {
+	background: var(--form);
+}
+.banner__close {
+	background: var(--lighter-background) !important;
+}
+
 /* Burger menu */
 .main-nav button {
     background: var(--dark-background) !important;
@@ -183,6 +197,11 @@ style.textContent = `/* --------------------------------------------------------
 }
 .results-info {
     border-color: var(--border) !important;
+}
+
+/* No results */
+.no-results {
+	color: var(--text);
 }
 /* ---------- */
 

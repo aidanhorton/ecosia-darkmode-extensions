@@ -95,6 +95,20 @@ body {
 .popup {
     border: 1px solid;
 }
+
+/* Notifications banner */
+.banner {
+	background: var(--form) !important;
+}
+.banner__content {
+	color: var(--text) !important;
+}
+.banner__close:hover::after {
+	background: var(--form);
+}
+.banner__close {
+	background: var(--lighter-background) !important;
+}
 /* ---------- */
 
 
