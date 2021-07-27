@@ -183,6 +183,23 @@ body {
     background: var(--form);
 }
 
+/* Notifications banner */
+.notifications-banner {
+	background: var(--form);
+}
+.notifications-banner-content {
+	color: var(--text) !important;
+}
+.notifications-banner-close:hover::after {
+	background: var(--form);
+}
+.notifications-banner-close::after {
+	background: var(--lighter-background);
+}
+.notifications-banner-close {
+	color: var(--text) !important;
+}
+
 /* Dropdown menu */
 .dropdown-menu {
     background: var(--form);
@@ -312,6 +329,48 @@ body {
 }
 .highlighted-domain-hint-wrapper .popover-text {
     color: var(--text);
+}
+
+/* Attraction */
+.business-listing__section {
+    color: var(--text) !important;
+}
+.business-listing__tel-link, .business-listing-reviews__more {
+	color: var(--link);
+}
+.business-listing__tel-link:visited, .business-listing-reviews__more:visited {
+	color: var(--link-visited);
+}
+
+/* Weather */
+.widget{
+	background: var(--form) !important;
+}
+.weather-details-unit.active, .forecast-tab.active {
+	color: var(--text) !important;
+	font-weight: demi-bold;
+}
+.weather-details-unit, .forecast-tab {
+	color: #4a4a4a !important;
+}
+.weather-details-unit:hover, .forecast-tab:hover {
+	color: #666666 !important;
+}
+.weather-tile:hover {
+	transition: background-color .1s ease-in-out;
+	background: var(--lighter-background) !important;
+}
+.weather-tile-condition, .weather-tile-temperatures {
+	background: transparent !important;
+}
+.weather-tile-time {
+	color: #666666 !important;
+}
+.weather-tile.selected > .weather-tile-condition {
+	background: grey !important;
+}
+.weather-tile.selected > time, .weather-tile:hover > .weather-tile-time {
+	color: var(--text) !important;
 }
 /* ---------- */
 
