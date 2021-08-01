@@ -525,6 +525,11 @@ body {
     color: var(--text) !important;
 }
 
+.search-form input {
+    background: #292929 !important;
+    color: var(--text) !important;
+}
+
 /* Search suggestions */
 .search-form__suggestions-list {
     background: var(--form) !important;
@@ -650,6 +655,11 @@ body {
 }
 
 /* Hamburger dropdown */
+.main-nav-menu {
+    background: var(--form) !important;
+    border: 1px solid;
+}
+
 .main-nav-menu li:hover {
     background: var(--lighter-background) !important;
 }
