@@ -524,10 +524,10 @@ body {
     background: #292929 !important;
     color: var(--text) !important;
 }
-
 .search-form input {
     background: #292929 !important;
     color: var(--text) !important;
+    height: 38px;
 }
 
 /* Search suggestions */
