@@ -10,11 +10,11 @@ function injectOnLoad(items){
 // Subscribe to other necessary events.
 document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
 chrome.runtime.onMessage.addListener(toggleStyle);
- 
+
 // Moves style tag to the head once the document has loaded.
 function changeStyleImportance(){
 	document.removeEventListener('DOMContentLoaded', changeStyleImportance, false);
-	
+
 	var darkModeElement = document.getElementById('EcosiaDarkMode');
 	if (darkModeElement != null) {
 		document.getElementsByTagName('head')[0].appendChild(darkModeElement);
@@ -39,9 +39,6 @@ style.type = "text/css";
 style.textContent = `/* ------------------------------------------------------- */
 /* SEARCH ENGINE - The main Ecosia search engine & results */
 /* ------------------------------------------------------- */
-
-/* Change 'applies to' so that it only applies to results */
-
 
 /* MAIN BACKGROUND */
 body {
@@ -140,6 +137,7 @@ body {
     color: #8d8d8d !important;
 }
 /* ---------- */
+
 
 /* MENU BUTTONS */
 /* Tree-counter, menu main styling */
@@ -500,10 +498,198 @@ body {
     color: var(--text);
 }
 
+
+
+
+
+
+
+/* --------------------- */
+/* NEW SEARCH PAGE STYLE */
+/* --------------------- */
+
+/* LOGO & MAIN STYLES */
+/* Main */
+.main-header__content, .layout__content {
+    background: var(--dark-background) !important;
+}
+
+/* Logo */
+.logo__icon > g > path:nth-child(2) {
+    fill: white !important;
+}
+
+/* Search bar */
+.search-form {
+    background: #292929 !important;
+    color: var(--text) !important;
+}
+.search-form input {
+    background: #292929 !important;
+    color: var(--text) !important;
+    height: 38px;
+}
+
+/* Search suggestions */
+.search-form__suggestions-list {
+    background: var(--form) !important;
+}
+.search-form__suggestions-list a {
+    color: var(--text) !important;
+}
+.suggestion-item.selected {
+    background: var(--lighter-background) !important;
+}
+
+/* Navigation bar */
+.search-navigation__item a {
+    color: var(--text) !important;
+}
+.search-navigation__item > .tab > a:focus, .search-navigation__item > .tab > a:hover, .search-navigation__item:nth-child(2) > .tab > a {
+    color: #36acb8 !important;
+}
+
+/* Filters */
+.search-filters, .main-header {
+    background: var(--dark-background);
+}
+
+/* Query chips */
+.query-expansions__item {
+    background: var(--form) !important;
+}
+.chip__text {
+    color: var(--text) !important;
+}
+.chip__text > mark {
+    color: #888;
+}
+.query-expansions__button {
+    background: linear-gradient(90deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 12%, .8) 42%, var(--dark-background) 74%) !important;
+}
+
+/* Search results */
+.mainline__result {
+    background: var(--dark-background) !important;
+    color: var(--text); 
+}
+.result-title {
+    color: var(--link) !important;
+}
+.result-title a, .result-title a:hover, .result-title a:focus {
+    color: var(--link) !important;
+}
+.result-title a:visited {
+    color: var(--link-visited) !important;
+}
+.result-url, .result-url:hover, .result-url:visited, .result-url:focus {
+    color: var(--link-green) !important;
+}
+.result__source, .result__source:hover, .result__source:visited, .result__source:focus {
+    color: var(--link-green) !important;
+}
+.result__description {
+    color: var(--text);
+}
+.results-info {
+    border-color: var(--border) !important;
+}
+
+/* Loading button */
+.loading-button {
+    background: var(--dark-background) !important;
+}
+.loading-button__content {
+    color: var(--text) !important;
+}
+
+/* Country dropdown */
+.dropdown {
+    color: var(--text) !important;
+}
+.dropdown li:hover {
+    background: var(--lighter-background);
+}
+
+/* Search filters */
+.search-filters button {
+    background: var(--dark-background) !important;
+    color: var(--text) !important;
+}
+.search-filters button:hover {
+    color: #949494 !important;
+}
+
+/* Navbar dropdowns (maps, more) */
+.dropdown li:hover {
+    background: var(--lighter-background) !important;
+}
+[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
+    fill: white;
+}
+
+/* Pill buttons */
+.pill {
+    background: var(--dark-background) !important;
+}
+.personal-counter__text {
+    color: var(--text) !important;
+}
+.icon-button:hover, .icon-button:focus {
+    background: var(--lighter-background) !important;
+}
+.icon-button:hover path, .icon-button:focus path {
+    fill: var(--text) !important;
+}
+.notification-pill:hover path, .notification-pill:focus path {
+    fill: var(--text) !important;
+}
+
+/* Notifications dropdown */
+.notifications-dropdown a {
+    background: var(--form) !important;
+    color: var(--text) !important;
+}
+.notifications-dropdown a:hover {
+    background: var(--lighter-background) !important;
+}
+
+/* Hamburger dropdown */
+.main-nav-menu {
+    background: var(--form) !important;
+    border: 1px solid;
+}
+
+.main-nav-menu li:hover {
+    background: var(--lighter-background) !important;
+}
+
+/* No results */
+.search-no-results {
+    color: var(--text);
+}
+
+/* Mobile mode */
+.panel__content {
+    background: var(--form) !important;
+    color: var(--text);
+}
+.list-item:hover {
+    background: var(--lighter-background);
+}
+.settings-dropdown__content {
+    background: var(--form);
+}
+.modal-dropdown__content {
+    background: var(--form) !important;
+}
+.search-header-logo-group {
+	background: var(--dark-background);
+}
+
 /* ----------------------------------------------------------------------- */
 /* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */
 /* ----------------------------------------------------------------------- */
-
 * {
     border-color: var(--border) !important; 
     scrollbar-color: #3F3F3F #1C1E1F;
@@ -546,7 +732,6 @@ footer {
 ::-webkit-scrollbar-thumb {
     background: #626262;
 }
-
 ::-moz-selection, ::selection {
     background: #696969;
 }`;
