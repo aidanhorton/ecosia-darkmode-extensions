@@ -45,41 +45,68 @@ style.textContent = `/* ---------------------------------------- */
 body {
     background: var(--dark-background);
 }
-.search-section .content {
-    background: linear-gradient(var(--dark-background), var(--dark-background) 90%, hsla(0, 0%, 100%, 0)) bottom no-repeat !important;
+.main-header__content {
+	background: var(--dark-background) !important;
 }
-.search-section .content, .search-section .content h2 {
-    color: var(--text);
+h1, .tree-counter-section__description {
+	color: var(--text) !important;
 }
-.map-section {
-    color: var(--text);
+
+/* Extension Section */
+.extension-section {
+	background: #103636 !important;
 }
-.claims-section {
-    color: var(--text);
+.extension-section__item-content {
+	background: var(--dark-background) !important;
 }
-.land-background:after {
-    background: linear-gradient(rgba(0, 0, 0, 0) 80%, var(--dark-background)) bottom no-repeat, url(https://index-assets-cdn.ecosia.org/img/5a18884.png) bottom repeat-x !important;
+.extension-section__item-header, .extension-section__item-description {
+	color: var(--text) !important;
 }
-.info-section > .background {
-    color: var(--lighter-background);
-    background: var(--dark-background);
+
+/* Project Section */
+.projects-section {
+	background: var(--dark-background) !important;
 }
-.info-section > .content {
-    color: var(--text);
+.section-header__subtitle {
+	color: var(--text) !important;
 }
-.claim.card {
-    box-shadow: 0 0px 7px 0 rgba(255, 255, 255, 0.2);
-    background: var(--form);
+.projects-section__project-title, .projects-section__project-description {
+	color: var(--text) !important;
 }
-.container, .search-section__content, .above-fold-cta-section {
-    background: var(--dark-background) !important;
-    color: var(--text) !important;
+
+/* Before and After Section */
+.before-after-section {
+	background: var(--form) !important;
 }
-.info-section__content, h2 {
-    color: var(--text) !important;
+.before-after-section__text, .tree-counter__number, .tree-counter__digit::before {
+	color: var(--text) !important;
 }
-.info-section__background path {
-    color: var(--form) !important;
+.statistics__title, .statistics__description {
+	color: var(--text) !important;
+}
+.new-map-section__link span {
+	color: var(--text);
+}
+
+/* Financial Report Section */
+.financial-report-section {
+	background: #103636 !important;
+}
+.financial-report-section__text {
+	color: var(--text) !important;
+}
+
+/* New Map Section */
+.new-map-section {
+	background: var(--dark-background) !important;
+}
+
+/* Claims Values Section */
+.claims-values-section {
+	background: var(--dark-background) !important;
+}
+.claims-values-section__claim-title, .claims-values-section__claim-description {
+	color: var(--text) !important;
 }
 
 /* Logo */
@@ -163,9 +190,15 @@ body {
 
 /* SEARCH BAR */
 /* Search form */
-[aria-label="Search Form"] {
-    background: #272727 !important;
-    color: var(--text) !important;
+.search-form {
+	background: var(--form) !important;
+	color: var(--text) !important;
+}
+.search-form input {
+	color: var(--text);
+}
+.index-header button {
+	background: var(--form) !important;
 }
 
 /* Typeahead */
@@ -185,6 +218,9 @@ body {
 /* MOBILE MODE */
 /* Sidebar */
 .panel__content {
+	background: var(--form) !important;
+}
+.extension-section__controls, .extension-section__slider-inner {
 	background: var(--form) !important;
 }
 

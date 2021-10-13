@@ -220,7 +220,7 @@ body {
     color: var(--link);
 }
 .result-title:visited {
-    color: var(--link-visited);
+    color: var(--link-visited) !important;
 }
 .result-url, .result-url:hover, .result-url:visited, .result-url:focus {
     color: var(--link-green);
