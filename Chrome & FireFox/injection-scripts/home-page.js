@@ -53,10 +53,10 @@ h1, .tree-counter-section__description {
 }
 
 /* Extension Section */
-.extension-section {
+.extension-section, .extension-section__slider-item {
 	background: #103636 !important;
 }
-.extension-section__item-content {
+.extension-section__item-content, .extension-section__controls, .extension-section__slider-inner {
 	background: var(--dark-background) !important;
 }
 .extension-section__item-header, .extension-section__item-description {
@@ -92,7 +92,7 @@ h1, .tree-counter-section__description {
 .financial-report-section {
 	background: #103636 !important;
 }
-.financial-report-section__text {
+.financial-report-section__text, .financial-report-section__link > span {
 	color: var(--text) !important;
 }
 
@@ -190,7 +190,7 @@ h1, .tree-counter-section__description {
 
 /* SEARCH BAR */
 /* Search form */
-.search-form {
+.search-form, .search-form__input {
 	background: var(--form) !important;
 	color: var(--text) !important;
 }
@@ -218,9 +218,6 @@ h1, .tree-counter-section__description {
 /* MOBILE MODE */
 /* Sidebar */
 .panel__content {
-	background: var(--form) !important;
-}
-.extension-section__controls, .extension-section__slider-inner {
 	background: var(--form) !important;
 }
 

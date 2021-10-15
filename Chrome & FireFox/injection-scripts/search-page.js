@@ -234,7 +234,7 @@ body {
     background: var(--form);
     border: 1px solid var(--lighter-background);
 }
-.result-media .thumbnail-title, .result-media-video .thumbnail-title:hover {
+.result-media .thumbnail-title, .result-media-video .thumbnail-title:hover  {
     color: var(--link);
 }
 .result-media .result-url:visited .thumbnail-title {
@@ -250,6 +250,14 @@ body {
 }
 [title="Wikipedia"] path {
     fill: #CCCCCC !important;
+}
+
+/* New beta results */
+.snippet-card__title, .snippet-card__title:hover, .link--color-result, .link--color-result:hover {
+    color: var(--link) !important;
+}
+.snippet-card__title:visited, .link--color-result:visited {
+    color: var(--link-visited) !important;
 }
 
 /* Extra results buttons */
