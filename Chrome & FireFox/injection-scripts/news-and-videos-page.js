@@ -86,6 +86,9 @@ style.textContent = `/* --------------------------------------------------------
 [data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
     fill: var(--text);
 }
+.tab__link--highlighted-gradient {
+	background-image: linear-gradient(0deg, #1f3d40, var(--dark-background)) !important;
+}
 
 /* Dropdowns */
 .dropdown {

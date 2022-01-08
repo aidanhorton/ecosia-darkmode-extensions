@@ -90,6 +90,9 @@ style.textContent = `/* ------------------------------------------------ */
 .search-navigation__item > .tab > a:focus, .search-navigation__item > .tab > a:hover, .search-navigation__item:nth-child(2) > .tab > a {
     color: #36acb8 !important;
 }
+.tab__link--highlighted-gradient {
+	background-image: linear-gradient(0deg, #1f3d40, var(--dark-background)) !important;
+}
 
 /* Filters */
 .search-filters, .main-header {

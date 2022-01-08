@@ -203,18 +203,6 @@ body {
 .notifications-banner-close {
 	color: var(--text) !important;
 }
-.banner {
-	background: var(--form) !important;
-}
-.banner__content {
-	color: var(--text) !important;
-}
-.banner__close:hover::after {
-	background: var(--form);
-}
-.banner__close {
-	background: var(--lighter-background) !important;
-}
 
 /* Dropdown menu */
 .dropdown-menu {
@@ -234,303 +222,54 @@ body {
 
 /* RESULTS */
 /* Main text result color */
-.result-title, .result-title:hover, .result-title:focus {
-    color: var(--link);
+.product {
+	background: var(--dark-background) !important;
 }
-.result-title:visited {
-    color: var(--link-visited) !important;
+.product__name {
+	color: var(--link) !important;
 }
-.result-url, .result-url:hover, .result-url:visited, .result-url:focus {
-    color: var(--link-green);
-}
-.result-snippet, .query-context-text, .no-results {
-    color: var(--text);
-}
-
-/* Text results extra media */
-.card-web .result-media .result-url {
-    background: var(--form);
-    border: 1px solid var(--lighter-background);
-}
-.result-media .thumbnail-title, .result-media-video .thumbnail-title:hover  {
-    color: var(--link);
-}
-.result-media .result-url:visited .thumbnail-title {
-    color: var(--link-visited);
-}
-.result-media .thumbnail-publisher, .videos-snippet__source, .news-snippet__source {
-    color: var(--link-green) !important;
-}
-.callout-with-image {
-	background-color: var(--form) !important;
-	color: var(--text) !important;
-	border: 1px solid var(--border);
-}
-.heading {
+.product__price {
 	color: var(--text) !important;
 }
-[title="Wikipedia"] path {
-    fill: #CCCCCC !important;
+.product__source {
+	color: var(--link-green) !important;
 }
-.snippet-card {
-	border: 1px solid;
-}
-.sidebar__result {
-	border: 1px solid;
-}
-.disambiguation-item__description {
-	color: var(--text);
+.base-products__title {
+	color: var(--text) !important;
 }
 
-/* New beta results */
-.snippet-card__title, .snippet-card__title:hover, .link--color-result, .link--color-result:hover {
-    color: var(--link) !important;
-}
-.snippet-card__title:visited, .link--color-result:visited {
-    color: var(--link-visited) !important;
-}
-
-/* Extra results buttons */
-.result-media .slider-control {
-    background: #272727;
-    box-shadow: 0 0px 5px 0 rgba(255, 255, 255, 0.15), 0 0px 3px 0 rgba(255, 255, 255, 0.15);
-}
-.snippet__control {
+/* Filter dropdown */
+.input__element, .select__options {
 	background: var(--form) !important;
-}
-.snippet__control:hover {
-    color: var(--text) !important;
-    background: var(--lighter-background);
-}
-.snippet__control:focus {
-    color: #828282;
-}
-
-/* More results links */
-.more-results-link, .more-results-link:hover, .more-results-link:visited, .more-results-link:focus {
-    color: var(--link);
-}
-.more-results-link:visited {
-    color: var(--link-visited);
-}
-
-/* Results footer */
-.pagination-button:hover, .pagination-button.active, .small-footer-link:hover {
-    color: var(--text);
-}
-
-/* Image results */
-.image-result {
-    border-color: var(--dark-background) !important;
-}
-
-/* Climate impact */
-.entity-extra {
-    color: var(--text);
-}
-.entity-extra::before {
-    border-color: var(--border);
-}
-/* ---------- */
-
-
-/* INLINE WIDGETS */
-.card-news li, .card-videos li {
-    background: var(--form);
-    border: 1px solid;
-}
-.widget-container {
-    border: 1px solid;
-}
-.widget-container div {
-    background: var(--form);
-    color: var(--text);
-}
-.instant-answer {
-	border: 1px solid;
-}
-
-/* Flights */
-.card-flights {
-    background: var(--form);
-    border: 1px solid;
-}
-.card-flights div, .card-flights input {
-    background: var(--form) !important;
-    color: var(--text);
-}
-.bpk-button, .ReferralButton__cta___2Yxt0 {
-    background: var(--form) !important;
-    color: var(--text) !important;
-}
-
-/* Polluter */
-.tooltip__content {
-    background-color: #272727 !important;
 	color: var(--text) !important;
 }
-
-/* Attraction */
-.business-listing__section, .tripadvisor-details__info {
-    color: var(--text) !important;
-}
-.business-listing__tel-link, .business-listing-reviews__more {
-	color: var(--link);
-}
-.business-listing__tel-link:visited, .business-listing-reviews__more:visited {
-	color: var(--link-visited);
-}
-
-/* Weather */
-.widget{
-	background: var(--form) !important;
-}
-.weather-details-unit.active, .forecast-tab.active {
-	color: var(--text) !important;
-	font-weight: demi-bold;
-}
-.weather-details-unit, .forecast-tab {
-	color: #4a4a4a !important;
-}
-.weather-details-unit:hover, .forecast-tab:hover {
-	color: #666666 !important;
-}
-.weather-tile:hover {
-	transition: background-color .1s ease-in-out;
+.select__option:hover {
 	background: var(--lighter-background) !important;
 }
-.weather-tile-condition, .weather-tile-temperatures {
-	background: transparent !important;
-}
-.weather-tile-time {
-	color: #666666 !important;
-}
-.weather-tile.selected > .weather-tile-condition {
-	background: grey !important;
-}
-.weather-tile.selected > time, .weather-tile:hover > .weather-tile-time {
+/* ---------- */
+
+
+/* SIDEBAR */
+/* Main styles */
+.sidebar, .sidebar .heading {
 	color: var(--text) !important;
 }
 /* ---------- */
 
 
-/* MOBILE */
-/* Main results */
-.mainline-results .result, .results-page-stretcher {
-    background: var(--dark-background);
-}
-.search-form-addon .search-form-addon-button {
-    background: var(--dark-background);
-    color: var(--text);
-}
 
-/* Hamburger & tree counter */
-.popover-mobile {
-    background: var(--form);
-    color: var(--text);
+/* BANNER */
+.banner {
+	background: var(--form) !important;
 }
-.popover-treecounter {
-    border: 1px solid;
+.banner__content {
+	color: var(--text) !important;
 }
-.offcanvas-menu-header {
-    background: var(--form);
+.banner__close:hover::after {
+	background: var(--form);
 }
-
-/* Maps & more */
-.card-desktop .card-mobile {
-    background: var(--dark-background);
-}
-.navbar-item.hidden-desktop .navbar-link {
-    color: var(--text);
-}
-.container.hidden-desktop .row div {
-    background: var(--form);
-}
-#moreLinks.hidden-desktop li {
-    background: var(--form);
-}
-#moreLinks.hidden-desktop li:hover {
-    background: var(--lighter-background);
-}
-#moreLinks.hidden-desktop a {
-    color: var(--text);
-}
-#mapLinks.hidden-desktop li {
-    background: var(--form);
-}
-#mapLinks.hidden-desktop li:hover {
-    background: var(--lighter-background);
-}
-#mapLinks.hidden-desktop a {
-    color: var(--text);
-}
-.navbar-item-divider::before {
-    border-color: var(--border);
-}
-
-/* Filters & settings */
-.hidden-desktop .flags-dropdown-content {
-    color: var(--text);
-}
-.hidden-desktop .flags-dropdown-content li:hover {
-    background: var(--lighter-background);
-}
-/* ---------- */
-
-
-/* ADVERTISEMENTS */
-/* Sidebar ads */
-.entity {
-    border: 1px solid;
-    background: var(--form);
-}
-.entity-disambiguation-title, .entity-disambiguation-title:hover, .entity-disambiguation-title:focus, .entity-disambiguation-title:active {
-    color: var(--link);
-}
-.entity-description-more, .entity-description-more:hover, .entity-description-more:focus, .entity-description-more:active {
-    color: var(--link);
-}
-.entity-disambiguation-title:visited, .entity-description-more:visited {
-    color: var(--link-visited);
-}
-.entity-disambiguation-text, .entity-disambiguation-headline, .entity-title, .entity p {
-    color: var(--text);
-}
-.card-top {
-    background: var(--darker-background);
-}
-
-/* Sidebar shop */
-.sidebar-product-ad-container {
-    border: 1px solid;
-    background: var(--form);
-}
-.sidebar-product-ad-title, .sidebar-product-ad-title:hover, .sidebar-product-ad-title:focus, .sidebar-product-ad-title:active {
-    color: var(--link);
-}
-.sidebar-product-ad-title:visited {
-    color: var(--link-visited);
-}
-.sidebar-product-ad-seller {
-    color: var(--link-green);
-}
-
-/* Inline */
-.card-productads {
-    background: var(--dark-background);
-}
-.product-ad-heading {
-    color: var(--text);
-}
-.product-ad li {
-    background: var(--form);
-    border: 1px solid;
-}
-.thumbnail-extra {
-    color: var(--text);
-}
-.product-ads-carousel__source {
-	color: var(--link-green) !important;
+.banner__close {
+	background: var(--lighter-background) !important;
 }
 /* ---------- */
 
