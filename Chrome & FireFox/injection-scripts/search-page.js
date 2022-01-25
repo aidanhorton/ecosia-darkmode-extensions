@@ -592,6 +592,9 @@ body {
 .search-navigation__item > .tab > a:focus, .search-navigation__item > .tab > a:hover {
     color: #36acb8 !important;
 }
+[data-track-id="nav_shopping"] {
+	background: #153031 !important;
+}
 
 /* Filters */
 .search-filters, .main-header {
@@ -729,6 +732,12 @@ body {
 }
 .search-header-logo-group {
 	background: var(--dark-background);
+}
+
+/* Advertisements */
+.notice {
+	border: 1px solid var(--border);
+	color: var(--text);
 }
 
 /* ----------------------------------------------------------------------- */
