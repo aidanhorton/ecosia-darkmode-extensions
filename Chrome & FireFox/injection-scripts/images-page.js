@@ -130,6 +130,9 @@ style.textContent = `/* ------------------------------------------------ */
 .suggestion-item.selected {
     background: var(--lighter-background) !important;
 }
+.suggestion-item:hover {
+    background: var(--lighter-background) !important;
+}
 
 /* Navigation bar */
 .search-navigation__item a {
