@@ -249,6 +249,9 @@ style.textContent = `/* --------------------------------------------------------
 .results-info {
     border-color: var(--border) !important;
 }
+.result-thumbnail[data-v-5d01c662] {
+    background-color: #272727 !important;
+}
 
 /* No results */
 .no-results {
