@@ -329,6 +329,9 @@ body {
 .disambiguation-item__description {
 	color: var(--text);
 }
+.images-snippet__card[data-v-1dca0421] {
+    background: var(--lighter-background);
+}
 
 /* New beta results */
 .snippet-card__title, .snippet-card__title:hover, .link--color-result, .link--color-result:hover {

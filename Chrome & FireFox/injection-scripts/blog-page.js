@@ -172,6 +172,10 @@ a.c-post-card__title-link {
     color: var(--main-color);
 }
 
+div.c-post-hero__media {
+    background-color: var(--second-bg-color);
+}
+
 a.c-ecosia-search {
     color: var(--main-color);
 }

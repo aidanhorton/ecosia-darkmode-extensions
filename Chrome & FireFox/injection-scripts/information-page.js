@@ -95,6 +95,10 @@ style.textContent = `* {
     scrollbar-color: #3F3F3F #1C1E1F;
 }
 
+body {
+    background-color: var(--main-bg-color);
+}
+
 .logo-anchor path:nth-child(2) {
     fill: white;
 }
@@ -339,10 +343,6 @@ div.privacy-faq-answer {
     color: var(--main-color);
 }
 
-div.read-more {
-    background-color: var(--main-bg-color);
-}
-
 div.container.container-fluid {
     color: var(--main-color);
 }
@@ -381,4 +381,38 @@ span.material-text {
 
 a.typeahead-link {
     color: var(--main-color);
-}`;
+}
+
+.read-more {
+    background-image: linear-gradient(to bottom,rgba(255,255,255,0) 0%, var(--main-bg-color) 40%, var(--main-bg-color) 100%) !important;
+    background-color: transparent;
+}
+
+.read-more > button {
+    top: 25px;
+}
+
+.search::before {
+    background-color: var(--main-bg-color);
+    color: #9b9b9b;
+}
+
+.search > input {
+    background-color: var(--main-bg-color);
+}
+
+.search > input[type="search"] {
+    border: 1px solid var(--border-color) !important;
+    background-color: var(--main-bg-color);
+}
+
+@media only screen and (min-width:768px) {
+    .site-footer:before {
+        background: var(--main-bg-color) url(/assets/images/footer-3fe1e83701.png) repeat-x;
+    }
+}
+
+.c-post-card__media {
+    background-color: var(--second-bg-color);
+}
+`;

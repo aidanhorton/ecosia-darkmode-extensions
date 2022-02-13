@@ -73,7 +73,7 @@
 			"all_frames": true
 		},
 		{
-			"matches": ["https://info.ecosia.org/*"],
+			"matches": ["https://info.ecosia.org/*", "https://ecosia.zendesk.com/*"],
 			"js": ["injection-scripts/information-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
