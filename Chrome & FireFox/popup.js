@@ -8,7 +8,7 @@ lightLogo.src = chrome.runtime.getURL('images/EcosiaLogo.png');
 document.getElementById('logoText').src = chrome.runtime.getURL('images/EcosiaDarkMode.png');
 
 
-// Makes the dictionary for the settings
+// Makes the object for the settings
 let settings = {};
 
 function changeLogoBasedOnTime(settings) {
@@ -60,15 +60,9 @@ chrome.storage.local.get(['settings'], function(items) {
         sunset.disabled = false;
     };
 
-    function convertToTime(time) {
-        let hour = Math.floor(time/60);
-        let minute = time%60;
-        return `${(String(hour).length == 1) ? `0${hour}` : hour}:${(String(minute).length == 1) ? `0${minute}` : minute}`;
-    };
+    sunrise.valueAsNumber = settings['sunrise'] * 60000;
+    sunset.valueAsNumber = settings['sunset'] * 60000;
 
-    if (settings['sunrise'] != '360') { sunrise.value = convertToTime(Number(settings['sunrise'])) };
-
-    if (settings['sunset'] != '1080') { sunset.value = convertToTime(Number(settings['sunset'])) };
 
     // Gives the checkboxes their transition (hopefully after the checkboxes has been changed)
     setTimeout(function() {
@@ -110,75 +104,26 @@ chrome.storage.local.get(['settings'], function(items) {
         changeLogoBasedOnTime(settings);
     });
 
-    function correctTime(time) {
-        let correct = false;
-        time = [...time.matchAll(/[0-9]|:/g)].join('').replace(':', 'Q').replaceAll(':', '').replace('Q', ':');
-        if (time.length >= 4) {
-            let match = time.match(/[0-9][0-9]:[0-9][0-9]/);
-            let match2 = time.match(/[0-9]:[0-9][0-9]/);
-
-            if (match !== null) {
-                correct = true;
-            } else if (match2 !== null) {
-                time = `0${match2[0]}`;
-                correct = true;
-            };
-        };
-
-        if (correct) {
-            let totalMinutes = Number(time.substring(3)) + Number(time.substring(0, 2)*60);
-            if (totalMinutes > 1439) { totalMinutes = 1439 };
-            let hour = Math.floor(totalMinutes/60);
-            let minute = totalMinutes%60;
-            time = `${(String(hour).length === 1) ? `0${hour}` : hour}:${(String(minute).length === 1) ? `0${minute}` : minute}`; /* (String(hour).length === 1) ? `0${hour}` : hour */
-        };
-
-        return [time, correct];
-    };
-
     sunrise.addEventListener('input', (event) => {
-        let correctedSunriseTime = correctTime(sunrise.value);
-        sunrise.value = correctedSunriseTime[0];
-        let correct = correctedSunriseTime[1];
-
-        if (correct) {
-            sunrise.style.color = '';
-            settings['sunrise'] = Number(sunrise.value.substring(3)) + Number(sunrise.value.substring(0, 2))*60;
-            notifySettingsChange(settings);
-        } else {
-            sunrise.style.color = 'hsl(0, 90%, 50%)';
-        };
-
-        if (sunrise.value === '') {
-            sunrise.style.color = '';
+        if (isNaN(sunrise.valueAsNumber)) {
+            sunrise.valueAsNumber = 21600000;
             settings['sunrise'] = 360;
-            notifySettingsChange(settings);
         };
-
+        settings['sunrise'] = sunrise.valueAsNumber / 60000;
+        notifySettingsChange(settings);
         changeLogoBasedOnTime(settings);
     });
 
     sunset.addEventListener('input', (event) => {
-        let correctedSunsetTime = correctTime(sunset.value);
-        sunset.value = correctedSunsetTime[0];
-        let correct = correctedSunsetTime[1];
-
-        if (correct) {
-            sunset.style.color = '';
-            settings['sunset'] = Number(sunset.value.substring(3)) + Number(sunset.value.substring(0, 2))*60;
-            notifySettingsChange(settings);
-        } else {
-            sunset.style.color = 'hsl(0, 90%, 50%)';
-        };
-
-        if (sunset.value === '') {
-            sunset.style.color = '';
+        if (isNaN(sunset.valueAsNumber)) {
+            sunset.valueAsNumber = 64800000;
             settings['sunset'] = 1080;
-            notifySettingsChange(settings);
         };
-
+        settings['sunset'] = sunset.valueAsNumber / 60000;
+        notifySettingsChange(settings);
         changeLogoBasedOnTime(settings);
     });
+
 
     // Updates the logo every minute
     setTimeout(function() {
@@ -190,6 +135,7 @@ chrome.storage.local.get(['settings'], function(items) {
             changeLogoBasedOnTime(settings);
         }, 60000);
     }, (60 - (new Date().getSeconds())) * 1000);
+
 
     // Updates all the tabs' data, and current state
     function notifySettingsChange(settings) {
