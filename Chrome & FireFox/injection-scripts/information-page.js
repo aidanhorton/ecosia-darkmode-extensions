@@ -1,3 +1,13 @@
+// Creates the link-elements
+let spesificStyle = document.createElement('link');
+spesificStyle.id = "EcosiaDarkMode";
+spesificStyle.className = "EcosiaDarkMode";
+spesificStyle.rel = 'stylesheet';
+spesificStyle.href = chrome.runtime.getURL('injection-scripts/information-page.css');
+
+let styles = [spesificStyle];
+
+
 // Initial injection - checks if dark mode is enabled.
 chrome.storage.local.get(["settings"], injectOnLoad);
 
@@ -95,11 +105,3 @@ function updateStyle(message, sender, sendResponse) {
         }
     }
 }
-
-let spesificStyle = document.createElement('link');
-spesificStyle.id = "EcosiaDarkMode";
-spesificStyle.className = "EcosiaDarkMode";
-spesificStyle.rel = 'stylesheet';
-spesificStyle.href = chrome.runtime.getURL('injection-scripts/information-page.css');
-
-let styles = [spesificStyle];

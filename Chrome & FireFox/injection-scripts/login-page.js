@@ -1,3 +1,19 @@
+// Creates the link-elements
+let spesificStyle = document.createElement('link');
+spesificStyle.id = "EcosiaDarkMode";
+spesificStyle.className = "EcosiaDarkMode";
+spesificStyle.rel = 'stylesheet';
+spesificStyle.href = chrome.runtime.getURL('injection-scripts/login-page.css');
+
+let universalStyle = document.createElement('link');
+universalStyle.id = "EcosiaDarkModeUniversal";
+universalStyle.className = "EcosiaDarkMode";
+universalStyle.rel = 'stylesheet';
+universalStyle.href = chrome.runtime.getURL('injection-scripts/universal-styling.css');
+
+let styles = [spesificStyle, universalStyle];
+
+
 // Initial injection - checks if dark mode is enabled.
 chrome.storage.local.get(["settings"], injectOnLoad);
 
@@ -95,17 +111,3 @@ function updateStyle(message, sender, sendResponse) {
         }
     }
 }
-
-let spesificStyle = document.createElement('link');
-spesificStyle.id = "EcosiaDarkMode";
-spesificStyle.className = "EcosiaDarkMode";
-spesificStyle.rel = 'stylesheet';
-spesificStyle.href = chrome.runtime.getURL('injection-scripts/login-page.css');
-
-let universalStyle = document.createElement('link');
-universalStyle.id = "EcosiaDarkModeUniversal";
-universalStyle.className = "EcosiaDarkMode";
-universalStyle.rel = 'stylesheet';
-universalStyle.href = chrome.runtime.getURL('injection-scripts/universal-styling.css');
-
-let styles = [spesificStyle, universalStyle];
