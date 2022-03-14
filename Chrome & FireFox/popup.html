@@ -1,99 +1,178 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<style>
-			body {
-				height: 80px;
-				width: 227px;
-				background: #181A1B;
+    <head>
+        <meta charset="utf-8">
+        <style>
+            /* Others */
+            body {
+				height: 210px; /* 199px is perfect on chrome for having as much on the side of the last input as bellow. Too little on Firefox */
+				width: 250px;
+                padding-top: 10px;
+                margin: 0;
+				
+                background-color:  #181A1B;
 				font-family: Arial !important;
+                color: grey;
+                
+                display: flex;
+                flex-flow: column;
+                align-items: center;
+                gap: 8px;
 			}
-			
-			/* Toggle Button */
-			input[type=checkbox]{
-				height: 0;
-				width: 0;
-				visibility: hidden;
-			}
-			label {
-				cursor: pointer;
-				text-indent: -9999px;
-				width: 41px;
-				height: 21px;
-				background: grey;
-				display: block;
-				border-radius: 20px;
-				position: relative;
-			}
-			label:after {
-				content: '';
-				position: absolute;
-				top: 2.5px;
-				left: 2px;
-				width: 16px;
-				height: 16px;
-				background: #fff;
-				border-radius: 90px;
-			}
-			input:checked + label {
-				background: #4CAF50;
-                transition: 0.4s;
-			}
-			input:checked + label:after {
-				left: calc(100% - 3px);
-				transform: translateX(-100%);
-			}
-			label:active:after {
-				width: 26px;
-			}
-			.switch-transition:after {
-				transition: 0.3s;
-			}
-			.img-transition {
-				transition: opacity 0.4s linear;
-			}
-		
-			/* Logos */
-            #darkLogo, #lightLogo {
-				position: absolute;
+            hr {
+                width: 90%;
+                height: 1px;
+                border-style: solid;
+                border-bottom: 0px;
+                box-sizing: border-box;
             }
-			#logoText {
-				margin-left: 40px;
-				margin-top: 2px;
-			}
+            p {
+                margin: 0;
+            }
+            #top, .subsetting {
+                display: flex;
+                flex-flow: row;
+                width: 100%;
+                justify-content: flex-start; /* NOTE: Change this to center to have all settings be centered. #top gets this change further down. If this is changed, you could remove the other ones justify-content */
+                gap: 8px;
+                align-items: center;
+            }
 
-			/* Settings */
-			#container {
-				display: flex;
-				margin-left: 50px;
+            /* Settings */
+            .mainSetting {
+                display: flex;
+                flex-flow: column;
+                gap: 8px;
+                width: 90%;
+            }
+            .typing {
+                width: 34px;
+            }
+
+            /* Logo */
+            #logo {
+                position: relative;
+                width: 32px;
+                height: 32px;
+            }
+            #logo > * {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            #top {
+                margin-bottom: 12px;
+                justify-content: center;
+            }
+
+            /* Inputs */
+            /* Most of the CSS for the sliders are taken from "https://www.w3schools.com/howto/howto_css_switch.asp" */
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            .switch {
+                position: relative;
+                display: inline-block;
+                min-width: 41px;
+                height: 24px;
+            }
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                border-radius: 34px;
+            }
+            .slider-transition {
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 16px;
+                width: 16px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                border-radius: 50%;
+            }
+            input:checked + .slider {
+                background-color: #4caf50;
+            }
+            input:focus + .slider {
+                box-shadow: 0 0 1px #4caf50;
+            }
+            input:checked + .slider:before {
+                -webkit-transform: translateX(100%);
+                -ms-transform: translateX(100%);
+                transform: translateX(100%);
+            }
+            .slider:active:before {
+                height: 12px;
+                top: 6px;
+            }
+			#otherSettings {
+				transition: opacity 0.2s;
 			}
-			#onOffTextContainer {
-				margin-left: 10px;
-				margin-top: 15px;
-			}
-			#onOffTextContainer > p {
-				display: inline;
-				color: grey;
-				font-size: 15px;
-				margin-left: 3px;
-			}
-		</style>
-	</head>
-	<body id="main-body">
-		<div>
-			<img id="darkLogo" height="32" />
-			<img id="lightLogo" height="32" />
-			<img id="logoText" height="26" />
-		</div>
-		<div id="container">
-			<div id="toggleContainer">
-				<input type="checkbox" id="switch" onclick="toggleDark()" /><label for="switch" id="toggle"></label>
-			</div>
-			<div id="onOffTextContainer">
-				<p>Dark Mode</p>
-			</div>
-		</div>
-		
-		<script src="popup.js"></script>
-	</body>
+        </style>
+    </head>
+
+    <body>
+        <!-- Logo -->
+        <div id="top">
+            <div id="logo">
+                <img id="darkLogo" height="32">
+                <img id="lightLogo" height="32">
+            </div>
+			<img id="logoText" height="26">
+        </div>
+
+        <!-- Settings -->
+        <div class="mainSetting">
+            <div class="subsetting">
+                <label for="darkmodeOnOff" class="switch">
+                    <input id="darkmodeOnOff" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <p>Dark-mode</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="mainSetting" id="otherSettings">
+            <div class="subsetting">
+                <label for="timebasedActivationOnOff" class="switch">
+                    <input id="timebasedActivationOnOff" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <p>Time-based activation</p>
+            </div>
+
+            <div class="subsetting">
+                <label for="sunrise">
+                    <input id="sunrise" type="time" disabled>
+                </label>
+                <p>Light-mode start</p>
+            </div>
+                
+            <div class="subsetting">
+                <label for="sunset">
+                    <input id="sunset" type="time" disabled>
+                </label>
+                <p>Light-mode end</p>
+            </div>
+
+
+            </div>
+        </div>
+
+        <script src="popup.js"></script>
+    </body>
 </html>

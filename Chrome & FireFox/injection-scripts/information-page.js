@@ -1,38 +1,86 @@
 // Initial injection - checks if dark mode is enabled.
-chrome.storage.local.get(["darkMode"], injectOnLoad);
+chrome.storage.local.get(["settings"], injectOnLoad);
+
+// Sets a timeout to the next minute-change.
+setTimeout(function() {
+    // Runs it one time first because setInterval has to wait for one minute before it can start.
+    chrome.storage.local.get(["settings"], function(items) {
+        if (items['settings'] !== undefined) {
+            let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+            let element = document.getElementById('EcosiaDarkMode');
+            if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
+                if (element !== null) {
+                    element.parentElement.removeChild(element);
+                };
+            } else if ((items['settings']['darkmode'] !== 'off') && (element === null)) {
+                document.getElementsByTagName("head")[0].appendChild(style);
+            };
+        };
+    });
+
+    // Checks the time every minute.
+    setInterval(function() {
+        chrome.storage.local.get(["settings"], function(items) {
+            if (items['settings'] !== undefined) {
+                let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+                let element = document.getElementById('EcosiaDarkMode');
+                if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
+		            if (element !== null) {
+                        element.parentElement.removeChild(element);
+                    };
+                } else if ((items['settings']['darkmode'] !== 'off') && (element === null)) {
+                    document.getElementsByTagName("head")[0].appendChild(style);
+                };
+            };
+        });
+    }, 60000);
+}, (60 - (new Date().getSeconds())) * 1000);
 
 function injectOnLoad(items){
-    if (items["darkMode"] != 'off') {
-		(document.body || document.head || document.documentElement).appendChild(style);
-	}
+    if (items["settings"] !== undefined) {
+        let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+        if ((items["settings"]['darkmode'] !== 'off') && (items["settings"]['timebasedDarkmode'] !== 'on')) {
+            (document.body || document.head || document.documentElement).appendChild(style);
+        } else if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && !((Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset'])))) {
+            (document.body || document.head || document.documentElement).appendChild(style);
+        }
+    } else {
+        (document.body || document.head || document.documentElement).appendChild(style);
+    }
 }
 
 // Subscribe to other necessary events.
 document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
-chrome.runtime.onMessage.addListener(toggleStyle);
+chrome.runtime.onMessage.addListener(updateStyle);
  
 // Moves style tag to the head once the document has loaded.
-function changeStyleImportance(){
+function changeStyleImportance() {
 	document.removeEventListener('DOMContentLoaded', changeStyleImportance, false);
 	
-	var darkModeElement = document.getElementById('EcosiaDarkMode');
+	let darkModeElement = document.getElementById('EcosiaDarkMode');
 	if (darkModeElement != null) {
 		document.getElementsByTagName('head')[0].appendChild(darkModeElement);
 	}
 }
 
-// Toggle style on/off when toggle is activated.
-function toggleStyle(message, sender, sendResponse) {
-	if (message.action == 'on') {
-		document.getElementsByTagName("head")[0].appendChild(style);
-	}
-	else if (message.action == 'off') {
-		var element = document.getElementById('EcosiaDarkMode');
-		element.parentElement.removeChild(element);
-	}
+// Updates the style when changes to the settings has been made.
+function updateStyle(message, sender, sendResponse) {
+	let element = document.getElementById('EcosiaDarkMode');
+    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+
+	if (((message.data['darkmode'] === 'on') && (message.data['timebasedDarkmode'] === 'on') && (Number(message.data['sunrise']) <= totalMinutes) && (totalMinutes < Number(message.data['sunset']))) || (message.data['darkmode'] === 'off')) {
+        if (element !== null) {
+            element.parentElement.removeChild(element);
+        }
+
+    } else if ((message.data['darkmode'] === 'on')) {
+        if (element === null) {
+            document.getElementsByTagName("head")[0].appendChild(style);
+        }
+    }
 }
 
-var style = document.createElement('style');
+let style = document.createElement('style');
 style.id = "EcosiaDarkMode";
 style.className = "EcosiaDarkMode";
 style.type = "text/css";
@@ -45,6 +93,10 @@ style.textContent = `* {
     --color-two: #7A8436;
     --color-three: #cb421f;
     scrollbar-color: #3F3F3F #1C1E1F;
+}
+
+body {
+    background-color: var(--main-bg-color);
 }
 
 .logo-anchor path:nth-child(2) {
@@ -291,10 +343,6 @@ div.privacy-faq-answer {
     color: var(--main-color);
 }
 
-div.read-more {
-    background-color: var(--main-bg-color);
-}
-
 div.container.container-fluid {
     color: var(--main-color);
 }
@@ -333,4 +381,38 @@ span.material-text {
 
 a.typeahead-link {
     color: var(--main-color);
-}`;
+}
+
+.read-more {
+    background-image: linear-gradient(to bottom,rgba(255,255,255,0) 0%, var(--main-bg-color) 40%, var(--main-bg-color) 100%) !important;
+    background-color: transparent;
+}
+
+.read-more > button {
+    top: 25px;
+}
+
+.search::before {
+    background-color: var(--main-bg-color);
+    color: #9b9b9b;
+}
+
+.search > input {
+    background-color: var(--main-bg-color);
+}
+
+.search > input[type="search"] {
+    border: 1px solid var(--border-color) !important;
+    background-color: var(--main-bg-color);
+}
+
+@media only screen and (min-width:768px) {
+    .site-footer:before {
+        background: var(--main-bg-color) url(/assets/images/footer-3fe1e83701.png) repeat-x;
+    }
+}
+
+.c-post-card__media {
+    background-color: var(--second-bg-color);
+}
+`;
