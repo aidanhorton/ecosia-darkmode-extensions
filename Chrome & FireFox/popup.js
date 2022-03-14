@@ -7,6 +7,7 @@ lightLogo.src = chrome.runtime.getURL('images/EcosiaLogo.png');
 // Sets the source of an empty img element to the Ecosia darkmode logo
 document.getElementById('logoText').src = chrome.runtime.getURL('images/EcosiaDarkMode.png');
 
+let otherSettings = document.getElementById('otherSettings');
 
 // Makes the object for the settings
 let settings = {};
@@ -47,8 +48,13 @@ chrome.storage.local.get(['settings'], function(items) {
     if (settings['darkmode'] == 'on') {
         darkmodeOnOff.checked = true;
         lightLogo.style.opacity = '0';
+		
+		otherSettings.style.opacity = '1';
+		otherSettings.style.pointerEvents = 'all';
     } else {
         darkLogo.style.opacity = '0';
+		otherSettings.style.opacity = '0.3';
+		otherSettings.style.pointerEvents = 'none';
     };
 
     let timebasedDarkmode = document.getElementById('timebasedActivationOnOff');
@@ -81,10 +87,16 @@ chrome.storage.local.get(['settings'], function(items) {
             settings['darkmode'] = 'off';
             lightLogo.style.opacity = '1';
             darkLogo.style.opacity = '0';
+			
+			otherSettings.style.opacity = '0.3';
+			otherSettings.style.pointerEvents = 'none';
         } else {
             settings['darkmode'] = 'on';
             lightLogo.style.opacity = '0';
             darkLogo.style.opacity = '1';
+			
+			otherSettings.style.opacity = '1';
+			otherSettings.style.pointerEvents = 'all';
         };
         notifySettingsChange(settings);
         changeLogoBasedOnTime(settings);

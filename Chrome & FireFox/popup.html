@@ -6,7 +6,7 @@
             /* Others */
             body {
 				height: 210px; /* 199px is perfect on chrome for having as much on the side of the last input as bellow. Too little on Firefox */
-				width: 240px;
+				width: 250px;
                 padding-top: 10px;
                 margin: 0;
 				
@@ -117,6 +117,9 @@
                 height: 12px;
                 top: 6px;
             }
+			#otherSettings {
+				transition: opacity 0.2s;
+			}
         </style>
     </head>
 
@@ -137,33 +140,33 @@
                     <input id="darkmodeOnOff" type="checkbox">
                     <span class="slider"></span>
                 </label>
-                <p>Darkmode</p>
+                <p>Dark-mode</p>
             </div>
         </div>
 
         <hr>
 
-        <div class="mainSetting">
+        <div class="mainSetting" id="otherSettings">
             <div class="subsetting">
                 <label for="timebasedActivationOnOff" class="switch">
                     <input id="timebasedActivationOnOff" type="checkbox">
                     <span class="slider"></span>
                 </label>
-                <p>Time based activation</p>
+                <p>Time-based activation</p>
             </div>
 
             <div class="subsetting">
                 <label for="sunrise">
                     <input id="sunrise" type="time" disabled>
                 </label>
-                <p>Lightmode start</p>
+                <p>Light-mode start</p>
             </div>
                 
             <div class="subsetting">
                 <label for="sunset">
                     <input id="sunset" type="time" disabled>
                 </label>
-                <p>Lightmode end</p>
+                <p>Light-mode end</p>
             </div>
 
 
