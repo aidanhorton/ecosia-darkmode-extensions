@@ -1,0 +1,48 @@
+/* ----------------------------------------------------------------------- */
+/* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */
+/* ----------------------------------------------------------------------- */
+* {
+    border-color: var(--border) !important; 
+    scrollbar-color: #3F3F3F #1C1E1F;
+    --dark-background: #181A1B;
+    --form: #1F1F1F;
+    --border: #595959;
+    --text: #CCCCCC;
+    --link: #6E9BF4;
+    --link-visited: #CF70FF;
+    --link-green: #71D89A;
+    --lighter-background: #3F3F3F;
+}
+:focus {
+    outline: 0;
+}
+
+/* Logo */
+[aria-label="Ecosia logo"] path:nth-child(2) {
+    fill: white;
+}
+.land-background path {
+    fill: var(--dark-background);
+}
+
+/* Footer */
+footer {
+    background: var(--form) !important;
+}
+
+/* Scrollbar Chrome */
+::-webkit-scrollbar {
+    width: 15px;
+}
+::-webkit-scrollbar-track {
+    background: #2a2a2a;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #868686;
+}
+::-webkit-scrollbar-thumb {
+    background: #626262;
+}
+::-moz-selection, ::selection {
+    background: #696969;
+}
