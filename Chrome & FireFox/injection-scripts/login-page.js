@@ -3,13 +3,13 @@ let spesificStyle = document.createElement('link');
 spesificStyle.id = "EcosiaDarkMode";
 spesificStyle.className = "EcosiaDarkMode";
 spesificStyle.rel = 'stylesheet';
-spesificStyle.href = chrome.runtime.getURL('injection-scripts/login-page.css');
+spesificStyle.href = chrome.runtime.getURL('injection-styling/login-page.css');
 
 let universalStyle = document.createElement('link');
 universalStyle.id = "EcosiaDarkModeUniversal";
 universalStyle.className = "EcosiaDarkMode";
 universalStyle.rel = 'stylesheet';
-universalStyle.href = chrome.runtime.getURL('injection-scripts/universal-styling.css');
+universalStyle.href = chrome.runtime.getURL('injection-styling/universal-styling.css');
 
 let styles = [spesificStyle, universalStyle];
 
