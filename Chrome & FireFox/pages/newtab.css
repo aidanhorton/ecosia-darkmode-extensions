@@ -45,6 +45,9 @@
     outline: none;
     margin-right: 10px;
 }
+.button-submit > svg > path {
+    transition: fill 0.1s ease-in-out;
+}
 .button-submit:hover > svg > path {
     fill: white;
 }
@@ -102,10 +105,16 @@
     position: absolute;
     height: 12px;
     width: 12px;
-    opacity: 0.4;
+    opacity: 0;
+    padding: 2px 7px;
+    transition: opacity 0.4s ease-out;
 }
 .closeButton:hover {
     opacity: 0.7;
+    transition: opacity 0.2s ease-out;
+}
+.topSite:hover ~ .closeButton {
+    opacity: 0.4;
 }
 .closeImage {
     position: absolute;

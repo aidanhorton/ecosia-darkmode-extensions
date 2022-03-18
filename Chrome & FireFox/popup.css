@@ -1,7 +1,7 @@
 /* Others */
 
 body {
-    height: 210px;
+    height: 260px;
     width: 250px;
     padding-top: 10px;
     margin: 0;
@@ -132,4 +132,22 @@ input:checked + .slider:before {
 
 #otherSettings {
     transition: opacity 0.2s;
+}
+
+button.warning {
+    background-color: hsl(0, 100%, 60%);
+}
+button.warning:hover {
+    background-color: hsl(0, 100%, 50%);
+}
+button.warning:active {
+    background-color: hsl(0, 100%, 40%);
+}
+button {
+    border: none;
+    border-radius: 3px;
+    padding: 4px 8px;
+}
+.buttonDesc {
+    width: 50%;
 }

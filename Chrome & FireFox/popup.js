@@ -160,3 +160,12 @@ chrome.storage.local.get(['settings'], function(items) {
     };
 
 });
+
+
+function removeAllBlacklistedURLs() {
+    chrome.storage.local.get({"blacklistedUrls": []}, function (result) {
+        chrome.storage.local.set({"blacklistedUrls": []});
+    });
+}
+
+document.getElementById('resetTopSites').addEventListener('click', removeAllBlacklistedURLs);

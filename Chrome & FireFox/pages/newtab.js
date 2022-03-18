@@ -73,7 +73,9 @@ function buildPopupDom(mostVisitedURLs) {
 	});
 }
 
-chrome.topSites.get(buildPopupDom);
+document.addEventListener('DOMContentLoaded', (event) => {
+    chrome.topSites.get(buildPopupDom);
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     let link = document.getElementById('dropdown-button');
@@ -169,12 +171,12 @@ body, form, input, a, button, .nav-menu-group, #dropdown-list {
 	color: #4A4A4A !important;
 }
 
-a:hover, button:hover {
+a.nav-link:hover, a.topSite:hover, button.dropdown-button:hover {
 	background: #E0E0E0 !important;
 }
 
-.logo:hover {
-	background: #FFF !important;
+.button-submit:hover > svg > path {
+    fill: #353535 !important;
 }
 
 .logo-text {
