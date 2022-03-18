@@ -21,7 +21,17 @@
     },
 	"web_accessible_resources": [
 		"images/EcosiaLogo.png",
-		"pages/Close.png"
+		"pages/Close.png",
+		"injection-styling/blog-page.css",
+		"injection-styling/home-page.css",
+		"injection-styling/images-page.css",
+		"injection-styling/information-page.css",
+		"injection-styling/login-page.css",
+		"injection-styling/news-and-videos-page.css",
+		"injection-styling/search-page.css",
+		"injection-styling/settings-page.css",
+		"injection-styling/shopping-page.css",
+		"injection-styling/universal-styling.css"
     ],
 	"chrome_url_overrides": {
 		"newtab": "pages/newtab.html"
