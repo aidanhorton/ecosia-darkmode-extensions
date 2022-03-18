@@ -1,0 +1,17 @@
+/* ---------------------------------------------------------- */
+/* LOGIN PAGE - Select 'sign-in' in the tree-counter dropdown */
+/* ---------------------------------------------------------- */
+
+/* Background & text */
+body {
+    background: var(--dark-background);
+}
+.login, h1, .login p {
+    color: var(--text) !important;
+}
+
+/* Email form */
+input {
+    background: var(--form);
+    color: var(--text) !important;
+}

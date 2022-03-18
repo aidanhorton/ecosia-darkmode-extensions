@@ -1,3 +1,13 @@
+// Creates the link-elements
+let spesificStyle = document.createElement('link');
+spesificStyle.id = "EcosiaDarkMode";
+spesificStyle.className = "EcosiaDarkMode";
+spesificStyle.rel = 'stylesheet';
+spesificStyle.href = chrome.runtime.getURL('injection-styling/information-page.css');
+
+let styles = [spesificStyle];
+
+
 // Initial injection - checks if dark mode is enabled.
 chrome.storage.local.get(["settings"], injectOnLoad);
 
@@ -7,12 +17,14 @@ setTimeout(function() {
     chrome.storage.local.get(["settings"], function(items) {
         if (items['settings'] !== undefined) {
             let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-            let element = document.getElementById('EcosiaDarkMode');
+            let elements = document.querySelectorAll('.EcosiaDarkMode');
             if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
-                if (element !== null) {
-                    element.parentElement.removeChild(element);
+                if (elements.length !== 0) {
+                    elements.forEach((element) => {
+                        element.parentElement.removeChild(element);
+                    });
                 };
-            } else if ((items['settings']['darkmode'] !== 'off') && (element === null)) {
+            } else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
                 document.getElementsByTagName("head")[0].appendChild(style);
             };
         };
@@ -23,12 +35,14 @@ setTimeout(function() {
         chrome.storage.local.get(["settings"], function(items) {
             if (items['settings'] !== undefined) {
                 let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-                let element = document.getElementById('EcosiaDarkMode');
+                let elements = document.querySelectorAll('.EcosiaDarkMode');
                 if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
-		            if (element !== null) {
-                        element.parentElement.removeChild(element);
+		            if (elements.length !== 0) {
+                        elements.forEach((element) => {
+                            element.parentElement.removeChild(element);
+                        });
                     };
-                } else if ((items['settings']['darkmode'] !== 'off') && (element === null)) {
+                } else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
                     document.getElementsByTagName("head")[0].appendChild(style);
                 };
             };
@@ -40,379 +54,54 @@ function injectOnLoad(items){
     if (items["settings"] !== undefined) {
         let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
         if ((items["settings"]['darkmode'] !== 'off') && (items["settings"]['timebasedDarkmode'] !== 'on')) {
-            (document.body || document.head || document.documentElement).appendChild(style);
+            styles.forEach((style) => {
+                (document.body || document.head || document.documentElement).appendChild(style);
+            });
         } else if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && !((Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset'])))) {
-            (document.body || document.head || document.documentElement).appendChild(style);
+            styles.forEach((style) => {
+                (document.body || document.head || document.documentElement).appendChild(style);
+            });
         }
     } else {
-        (document.body || document.head || document.documentElement).appendChild(style);
+        styles.forEach((style) => {
+            (document.body || document.head || document.documentElement).appendChild(style);
+        });
     }
 }
 
 // Subscribe to other necessary events.
 document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
 chrome.runtime.onMessage.addListener(updateStyle);
- 
+
 // Moves style tag to the head once the document has loaded.
 function changeStyleImportance() {
 	document.removeEventListener('DOMContentLoaded', changeStyleImportance, false);
-	
-	let darkModeElement = document.getElementById('EcosiaDarkMode');
-	if (darkModeElement != null) {
-		document.getElementsByTagName('head')[0].appendChild(darkModeElement);
+
+	let darkModeElements = document.querySelectorAll('.EcosiaDarkMode');
+	if (darkModeElements.length !== 0) {
+		darkModeElements.forEach((darkModeElement) => {
+            document.getElementsByTagName('head')[0].appendChild(darkModeElement);
+        });
 	}
 }
 
 // Updates the style when changes to the settings has been made.
 function updateStyle(message, sender, sendResponse) {
-	let element = document.getElementById('EcosiaDarkMode');
+	let elements = document.querySelectorAll('.EcosiaDarkMode');
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
 
 	if (((message.data['darkmode'] === 'on') && (message.data['timebasedDarkmode'] === 'on') && (Number(message.data['sunrise']) <= totalMinutes) && (totalMinutes < Number(message.data['sunset']))) || (message.data['darkmode'] === 'off')) {
-        if (element !== null) {
-            element.parentElement.removeChild(element);
+        if (elements.length !== 0) {
+            elements.forEach((element) => {
+                element.parentElement.removeChild(element);
+            });
         }
 
     } else if ((message.data['darkmode'] === 'on')) {
-        if (element === null) {
-            document.getElementsByTagName("head")[0].appendChild(style);
+        if (elements.length === 0) {
+            styles.forEach((style) => {
+                document.getElementsByTagName("head")[0].appendChild(style);
+            });
         }
     }
 }
-
-let style = document.createElement('style');
-style.id = "EcosiaDarkMode";
-style.className = "EcosiaDarkMode";
-style.type = "text/css";
-style.textContent = `* {
-    --main-color: #F7F7F7;
-    --main-bg-color: #181A1B;
-    --second-bg-color: #3F3F3F;
-    --border-color: #5F5F5F;
-    --color-one: #3dbfbc;
-    --color-two: #7A8436;
-    --color-three: #cb421f;
-    scrollbar-color: #3F3F3F #1C1E1F;
-}
-
-body {
-    background-color: var(--main-bg-color);
-}
-
-.logo-anchor path:nth-child(2) {
-    fill: white;
-}
-
-.jobs {
-	background-color: var(--main-bg-color);
-}
-
-.a {
-    color: var(--main-color) !important;
-}
-
-a.typeahead-link {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-}
-
-.typeahead-suggestion, .typeahead-suggestion:not(:last-of-type) {
-    border-bottom: 1px solid var(--border-color);
-}
-
-.typeahead {
-    border: 1px solid var(--border-color);
-}
-
-div.lSSlideOuter {
-    background-color: var(--color-two);
-    color: var(--main-color);
-}
-
-div.offcanvas-menu-header {
-    background-color: var(--second-bg-color);
-}
-
-nav.dropdown-menu.dropdown-menu-right {
-    background-color: var(--main-bg-color);
-}
-
-.dropdown-menu-group {
-    border-bottom: 1px solid var(--border-color);
-}
-
-label.js-offcanvas-menu-close.offcanvas-menu-close {
-    background-color: none;
-}
-
-a.typeahead-link:hover {
-    background-color: #2F2F2F;
-    color: var(--main-color);
-}
-
-a.typeahead-link:visited {
-    color: #AAAAAA;
-}
-
-h1.h1 {
-    color: var(--main-color);
-}
-
-p.intro-text {
-    color: var(--main-color);
-}
-
-p.custom-select-chosen.js-select-chosen {
-    background-color: none;
-    color: none;
-}
-
-input.js-search-input.search-form-input {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-}
-
-div.search-form-wrapper {
-    background-color: var(--main-bg-color);
-}
-
-div.dropdown-menu-group a.dropdown-link:hover {
-    background-color: #4D4D4D;
-    border-bottom: 1px solid var(--border-color);
-}
-
-div.dropdown-menu-group a.dropdown-link {
-    color: var(--main-color) !important;
-}
-
-div.search-form-addon-button.js-offcanvas-menu-trigger {
-    background-color: var(--main-bg-color);
-    border-left: none;
-}
-
-div.dropdown-menu.custom-select-options {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-    box-shadow: inset 0 -1px 2px 0 var(--main-color);
-}
-
-nav.search-header.js-search-header.search-header-show {
-    background-color: var(--main-bg-color);
-}
-
-nav.search-header.js-search-header.search-header-inversed {
-    background-color: var(--main-bg-color);
-}
-
-section#history.statistics.statistics-history.section-scrolled-to.section-half.section-padding.text-center {
-    background-color: var(--main-bg-color);
-}
-
-section#reports.reports.section-scrolled-to {
-    background-color: var(--main-bg-color);
-}
-
-section#contact.contact.section-padding.section-scrolled-to {
-    background-color: var(--main-bg-color);
-}
-
-section#jobs.jobs.section-padding.section-scrolled-to.text-center {
-    background-color: var(--second-bg-color);
-}
-
-section#newsletter.section-half.section-padding.section-scrolled-to.newsletter.newsletter.text-center {
-    background-color: var(--main-bg-color);
-}
-
-footer#footer.site-footer {
-    background-color: var(--main-bg-color);
-}
-
-span.how-text {
-    color: var(--main-color);
-}
-
-span.statistics-value-description {
-    color: var(--main-color);
-}
-
-b.statistics-value-highlight {
-    color: var(--main-color);
-}
-
-div.col-lg-2.col-md-4.col-sm-12.footer-force-height a {
-    color: var(--main-color);
-}
-
-div.col-lg-2.col-md-4.col-sm-12.footer-force-height a:hover {
-    color: #9b9b9b;
-}
-
-div.map-headline {
-    opacity: 0.9;
-    background-color: var(--color-one);
-}
-
-section.map.map-project.section-full.section-padding {
-    background-color: var(--color-one);
-}
-
-div.snapshot-content {
-    background-color: var(--color-two);
-}
-
-.btn btn-large btn-primary js-share-button {
-    background-color: var(--main-bg-color);
-}
-
-section.how.text-center.section-padding.section-scrolled-to.section-half {
-    background-color: var(--main-bg-color);
-}
-
-section.statistics.statistics-what.section-half.section-padding.text-center {
-    background-color: var(--main-bg-color);
-}
-
-div.statistics-content {
-    background-color: var(--main-bg-color);
-}
-
-div.media.desktop.text-center {
-    background-color: var(--main-bg-color) !important;
-}
-
-input#mce-EMAIL.required.email.newsletter-input {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-}
-
-input.contact-element-text.contact-input-element {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-}
-
-textarea.contact-message-textarea.contact-input-element {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-}
-
-h1, h2, h3, h4, h5, p {
-    color: var(--main-color) !important;
-}
-
-select.select.form-flex-item {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-    scrollbar-color: #2A2C2E #1C1E1F !important;
-}
-
-input.input.form-flex-item.form-flex-item-grow {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-}
-
-div.hero-mobile {
-    background-color: var(--color-three);
-}
-
-a.text-small {
-    color: var(--main-color);
-}
-
-section#privacy-claims.privacy-claims {
-    background-color: var(--main-bg-color);
-}
-
-section.privacy-small-header.privacy-faq-header {
-    background-color: var(--color-one);
-}
-
-section#faq.section-padding {
-    background-color: var(--main-bg-color);
-}
-
-section.privacy-small-header {
-    background-color: var(--color-two);
-}
-
-main {
-    background-color: var(--main-bg-color);
-}
-
-div.privacy-faq-answer {
-    color: var(--main-color);
-}
-
-div.container.container-fluid {
-    color: var(--main-color);
-}
-
-a:link {
-    color: #60B3CE;
-}
-
-a.btn {
-    color: white;
-}
-
-a.btn.btn-large.btn-primary.js-scroll-to-section {
-    color: var(--main-color);
-}
-
-a.btn.btn-large.btn-outline-inverse {
-    color: var(--main-color);
-}
-
-a.btn.btn-outline-secondary {
-    color: var(--main-color);
-}
-
-a.btn.btn-outline-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-section#press-materials.materials.section-half.section-padding.text-center {
-    background-color: var(--main-bg-color);
-}
-
-span.material-text {
-    color: var(--main-color);
-}
-
-a.typeahead-link {
-    color: var(--main-color);
-}
-
-.read-more {
-    background-image: linear-gradient(to bottom,rgba(255,255,255,0) 0%, var(--main-bg-color) 40%, var(--main-bg-color) 100%) !important;
-    background-color: transparent;
-}
-
-.read-more > button {
-    top: 25px;
-}
-
-.search::before {
-    background-color: var(--main-bg-color);
-    color: #9b9b9b;
-}
-
-.search > input {
-    background-color: var(--main-bg-color);
-}
-
-.search > input[type="search"] {
-    border: 1px solid var(--border-color) !important;
-    background-color: var(--main-bg-color);
-}
-
-@media only screen and (min-width:768px) {
-    .site-footer:before {
-        background: var(--main-bg-color) url(/assets/images/footer-3fe1e83701.png) repeat-x;
-    }
-}
-
-.c-post-card__media {
-    background-color: var(--second-bg-color);
-}
-`;
