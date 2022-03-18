@@ -8,7 +8,7 @@ spesificStyle.href = chrome.runtime.getURL('injection-styling/information-page.c
 let styles = [spesificStyle];
 
 
-// Initial injection - checks if dark mode is enabled.
+// Initial injection - gets the settings and apply them.
 chrome.storage.local.get(["settings"], injectOnLoad);
 
 // Sets a timeout to the next minute-change.

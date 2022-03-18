@@ -1,8 +1,7 @@
 function buildPopupDom(mostVisitedURLs) {
-	// Uncomment to reset local storage:
-	// chrome.storage.local.set({"blacklistedUrls": []});
 	
 	let mostVisited = document.getElementById('mostVisited');
+	while (mostVisited.firstChild) mostVisited.removeChild(mostVisited.lastChild);
 	
 	let whitelistedUrls = [];
 	
@@ -57,9 +56,10 @@ function buildPopupDom(mostVisitedURLs) {
 					urls.push(topSite);
 					
 					chrome.storage.local.set({"blacklistedUrls": urls});
+					chrome.topSites.get(buildPopupDom);
 				});
 				
-				target.parentElement.parentElement.parentElement.removeChild(target.parentElement.parentElement);
+				mostVisited.removeChild(target.closest('.itemAndCloseWrapper'));
 			}, false);
 			
 			let closeImage = close.appendChild(document.createElement('img'));
@@ -73,11 +73,10 @@ function buildPopupDom(mostVisitedURLs) {
 	});
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    chrome.topSites.get(buildPopupDom);
-});
-
 document.addEventListener('DOMContentLoaded', function() {
+	chrome.topSites.get(buildPopupDom);
+
+	/* Remove if CSS should control this. Will make tabbing open the dropdown without pressing enter. 
     let link = document.getElementById('dropdown-button');
 	
     link.addEventListener('click', function() {
@@ -92,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			link.style.background = "#3F3F3F";
 		}
     });
+	*/
 });
 
 // Updates the style when changes to the settings has been made.
@@ -159,7 +159,19 @@ function injectOnLoad(items){
     }
 }
 
-chrome.runtime.onMessage.addListener(updateStyle);
+// Messagehandler
+function messageReceiver(message, sender, sendResponse) {
+	if (message.data !== undefined) {
+		updateStyle(message, sender, sendResponse);
+	}
+	if (message.resetMostVisited !== undefined) {
+		chrome.topSites.get(buildPopupDom);
+	}
+}
+
+chrome.runtime.onMessage.addListener(messageReceiver);
+
+
 let style = document.createElement('style');
 style.id = "EcosiaLightMode";
 style.className = "EcosiaLightMode";
@@ -173,6 +185,10 @@ body, form, input, a, button, .nav-menu-group, #dropdown-list {
 
 a.nav-link:hover, a.topSite:hover, button.dropdown-button:hover {
 	background: #E0E0E0 !important;
+}
+
+.closeButton:hover > img, .topSite:hover ~ .closeButton > img {
+    filter: brightness(0.2) !important;
 }
 
 .button-submit:hover > svg > path {
