@@ -138,6 +138,7 @@ input:checked + .slider:before {
 button.warning {
     background-color: hsl(0, 100%, 60%);
 	color: white;
+	margin-right: 2px;
 }
 button.warning:hover {
     background-color: hsl(0, 100%, 50%);
