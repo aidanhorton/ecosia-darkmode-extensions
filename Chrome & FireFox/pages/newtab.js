@@ -76,8 +76,7 @@ function buildPopupDom(mostVisitedURLs) {
 document.addEventListener('DOMContentLoaded', function() {
 	chrome.topSites.get(buildPopupDom);
 
-	/* Remove if CSS should control this. Will make tabbing open the dropdown without pressing enter. 
-    let link = document.getElementById('dropdown-button');
+	let link = document.getElementById('dropdown-button');
 	
     link.addEventListener('click', function() {
 		let link = document.getElementById('dropdown-button');
@@ -85,13 +84,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		if (list.style.display === "block") {
 			list.style.display = "none";
-			link.style.background = "#181A1B";
+			link.style.background = "";
 		} else {
 			list.style.display = "block";
 			link.style.background = "#3F3F3F";
 		}
     });
-	*/
 });
 
 // Updates the style when changes to the settings has been made.

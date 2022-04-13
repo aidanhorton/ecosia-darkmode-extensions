@@ -17,6 +17,8 @@
 
         <!-- Settings -->
         <div class="mainSetting">
+            <h3 class="settingtitle">Main settings</h2>
+
             <div class="subsetting">
                 <label for="darkmodeOnOff" class="switch">
                     <input id="darkmodeOnOff" type="checkbox">
@@ -29,6 +31,8 @@
         <hr>
 
         <div class="mainSetting" id="otherSettings">
+            <h3 class="settingtitle">Time-based</h2>
+
             <div class="subsetting">
                 <label for="timebasedActivationOnOff" class="switch">
                     <input id="timebasedActivationOnOff" type="checkbox">
@@ -55,11 +59,12 @@
             </div>
         </div>
 
-        <hr>
+        <hr class="hideOnFirefox">
 
-        <div class="mainSetting">
-            <div class="subsetting">
-                <p class="buttonDesc">Reset all filtered top sites on new tab: </p>
+        <div class="mainSetting hideOnFirefox">
+            <h3 class="settingtitle">Most visited sites</h2>
+
+            <div class="subsetting centerInner">
                 <button class="warning" id="resetTopSites">Reset</button>
             </div>
         </div>

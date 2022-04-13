@@ -7,7 +7,6 @@ import zipfile
 import traceback
 
 
-
 # A function which gets the paths of all the files inside of the folder that is to be zipped
 def get_all_filedirectories(src_dir: str) -> list:
     # Creates an empty list for filepaths to the files that are to be zipped

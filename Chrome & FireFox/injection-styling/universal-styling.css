@@ -46,3 +46,8 @@ footer {
 ::-moz-selection, ::selection {
     background: #696969;
 }
+
+/* Cookies */
+.banner__headline, .banner__description {
+    color: var(--text) !important;
+}

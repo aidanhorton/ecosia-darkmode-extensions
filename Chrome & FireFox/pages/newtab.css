@@ -180,10 +180,10 @@
     border-radius: 20px;
     background: #1F1F1F;
 }
-.dropdown-button:focus-within { /* Was .dropdown-button:focus. If JS should control the dropdown, redo this */
+.dropdown-button:focus {
     outline: none;
 }
-.dropdown-button:hover, .dropdown-button:focus-within { /* Was only .dropdown-button:hover. If JS should control the dropdown, redo this */
+.dropdown-button:hover, .dropdown-button:focus-visible {
     background: #3F3F3F;
 }
 
@@ -196,10 +196,7 @@
     top: 55px;
     right: 0;
     min-width: 240px;
-    text-align: start; /* Was added bacause CSS for some reason centered the text. If JS should control the dropdown, remove this */
-}
-.dropdown-button:focus-within > #dropdown-list { /* This ruleset was added for the dropdown to be controlled by CSS. If JS should control the dropdown, remove this ruleset */
-    display: block;
+    text-align: start;
 }
 .nav-menu-group {
     border-bottom: 1px solid #595959;
