@@ -2,7 +2,7 @@
 
 body {
     height: 330px;
-    width: 250px;
+    width: 260px;
     padding-top: 10px;
     margin: 0;
     
@@ -22,6 +22,7 @@ hr {
     border-style: solid;
     border-bottom: 0px;
     box-sizing: border-box;
+	opacity: 0.5;
 }
 
 p, h3 {
@@ -144,12 +145,16 @@ input:checked + .slider:before {
 
 button.warning {
     background-color: hsl(0, 100%, 60%);
+	color: white;
+	margin-right: 2px;
 }
 button.warning:hover {
     background-color: hsl(0, 100%, 50%);
+	cursor: pointer;
 }
 button.warning:active {
     background-color: hsl(0, 100%, 40%);
+	
 }
 button {
     border: none;

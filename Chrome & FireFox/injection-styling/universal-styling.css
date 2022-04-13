@@ -25,6 +25,34 @@
     fill: var(--dark-background);
 }
 
+/* Nav bar */
+.tab__link {
+    color: var(--text) !important;
+	background-color: var(--dark-background) !important;
+}
+.tab__link:hover, .tab--highlighted > a {
+    color: #36acb8 !important;
+}
+
+/* Navbar dropdowns (maps, more) */
+.list-item:hover, .list-item:active {
+    background-color: var(--lighter-background) !important;
+}
+.list-item > a {
+    color: var(--text);
+}
+[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
+    fill: white;
+}
+
+/* Nav bar buttons */
+.main-nav__button {
+	background: var(--dark-background) !important;
+}
+.main-nav__button:hover path, .main-nav__button:active path, .main-nav__button:focus path {
+	fill: var(--text) !important;
+}
+
 /* Footer */
 footer {
     background: var(--form) !important;
