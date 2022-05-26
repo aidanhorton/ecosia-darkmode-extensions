@@ -76,8 +76,8 @@ function buildPopupDom(mostVisitedURLs) {
 document.addEventListener('DOMContentLoaded', function() {
 	chrome.topSites.get(buildPopupDom);
 
+	// Handles the dropdown-button
 	let link = document.getElementById('dropdown-button');
-	
     link.addEventListener('click', function() {
 		let link = document.getElementById('dropdown-button');
         let list = document.getElementById("dropdown-list");
@@ -90,6 +90,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			link.style.background = "#3F3F3F";
 		}
     });
+	link.addEventListener('focusout', function() {
+		if (!link.matches(':focus-within:not(:focus)')) {
+			let link = document.getElementById('dropdown-button');
+			let list = document.getElementById("dropdown-list");
+
+			list.style.display = "none";
+			link.style.background = "";
+		}
+	});
 });
 
 // Updates the style when changes to the settings has been made.

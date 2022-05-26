@@ -1,7 +1,7 @@
 /* Others */
 
 body {
-    height: 330px;
+    height: 380px;
     width: 260px;
     padding-top: 10px;
     margin: 0;
@@ -38,10 +38,6 @@ p, h3 {
     align-items: center;
 }
 
-.settingtitle {
-    text-align: center;
-}
-
 .centerInner {
     justify-content: center;
 }
@@ -58,6 +54,33 @@ p, h3 {
 
 #resetTopSites {
     color: black;
+}
+
+.settingtitle {
+    text-align: start;
+    margin-bottom: 5px;
+}
+
+.subsettingsection {
+    width: 70%;
+    margin-top: 10px;
+    display: grid;
+    grid-template-areas: 'hr1 . hr2';
+    grid-template-columns: fr auto fr;
+    align-self: center;
+}
+
+.subsettingsection > p {
+    display: inline;
+    text-align: center;
+}
+
+.subsettingsection:nth-child(1) {
+    grid-area: hr1;
+}
+
+.subsettingsection:nth-child(3) {
+    grid-area: hr2;
 }
 
 
@@ -157,8 +180,7 @@ button.warning:hover {
 	cursor: pointer;
 }
 button.warning:active {
-    background-color: hsl(0, 100%, 40%);
-	
+    background-color: hsl(0, 100%, 85%);
 }
 button {
     border: none;
@@ -171,9 +193,11 @@ button {
 
 
 /* Browserspecifics */
+
+/* Firefox */
 @-moz-document url-prefix() {
     body {
-        height: 270px;
+        height: 280px;
         width: 260px;
         overflow-x: clip;
     }
