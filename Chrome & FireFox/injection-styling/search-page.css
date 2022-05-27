@@ -199,7 +199,7 @@ body {
 .result-media .thumbnail-publisher, .videos-snippet__source, .news-snippet__source {
     color: var(--link-green) !important;
 }
-.callout-with-image {
+.callout-with-image, .snippet-card, .notifications-item__image {
 	background-color: var(--form) !important;
 	color: var(--text) !important;
 	border: 1px solid var(--border);
@@ -207,11 +207,8 @@ body {
 .heading {
 	color: var(--text) !important;
 }
-[title="Wikipedia"] path {
+[title="Wikipedia"] path, [data-test-id="entity-links-icon-wikipedia"] path {
     fill: #CCCCCC !important;
-}
-.snippet-card {
-	border: 1px solid;
 }
 .sidebar__result {
 	border: 1px solid;

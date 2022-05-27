@@ -16,6 +16,9 @@
 :focus {
     outline: 0;
 }
+::selection {
+    background: var(--lighter-background);
+}
 
 /* Logo */
 [aria-label="Ecosia logo"] path:nth-child(2) {
