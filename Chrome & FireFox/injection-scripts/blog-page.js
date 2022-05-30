@@ -8,7 +8,7 @@ spesificStyle.href = chrome.runtime.getURL('injection-styling/blog-page.css');
 let styles = [spesificStyle];
 
 
-// Initial injection - gets the settings and apply them.
+// Initial injection - gets the settings and applies them.
 chrome.storage.local.get(["settings"], injectOnLoad);
 
 // Sets a timeout to the next minute-change.

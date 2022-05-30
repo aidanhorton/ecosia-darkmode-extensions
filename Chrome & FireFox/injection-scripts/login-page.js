@@ -14,7 +14,7 @@ universalStyle.href = chrome.runtime.getURL('injection-styling/universal-styling
 let styles = [spesificStyle, universalStyle];
 
 
-// Initial injection - gets the settings and apply them.
+// Initial injection - gets the settings and applies them.
 chrome.storage.local.get(["settings"], injectOnLoad);
 
 // Sets a timeout to the next minute-change.

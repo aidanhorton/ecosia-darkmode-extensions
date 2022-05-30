@@ -112,12 +112,14 @@
 .closeButton:hover {
     opacity: 0.7;
     transition: opacity 0.2s ease-out;
+    cursor: pointer;
 }
 .closeButton > img {
     transition: filter 0.4s ease-out;
 }
 .topSite:hover ~ .closeButton {
     opacity: 0.4;
+    cursor: pointer;
 }
 .closeImage {
     position: absolute;
