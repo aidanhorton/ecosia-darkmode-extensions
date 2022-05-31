@@ -1,8 +1,7 @@
 function buildPopupDom(mostVisitedURLs) {
-	// Uncomment to reset local storage:
-	// chrome.storage.local.set({"blacklistedUrls": []});
 	
 	let mostVisited = document.getElementById('mostVisited');
+	while (mostVisited.firstChild) mostVisited.removeChild(mostVisited.lastChild);
 	
 	let whitelistedUrls = [];
 	
@@ -57,9 +56,10 @@ function buildPopupDom(mostVisitedURLs) {
 					urls.push(topSite);
 					
 					chrome.storage.local.set({"blacklistedUrls": urls});
+					chrome.topSites.get(buildPopupDom);
 				});
 				
-				target.parentElement.parentElement.parentElement.removeChild(target.parentElement.parentElement);
+				mostVisited.removeChild(target.closest('.itemAndCloseWrapper'));
 			}, false);
 			
 			let closeImage = close.appendChild(document.createElement('img'));
@@ -73,23 +73,32 @@ function buildPopupDom(mostVisitedURLs) {
 	});
 }
 
-chrome.topSites.get(buildPopupDom);
-
 document.addEventListener('DOMContentLoaded', function() {
-    let link = document.getElementById('dropdown-button');
-	
+	chrome.topSites.get(buildPopupDom);
+
+	// Handles the dropdown-button
+	let link = document.getElementById('dropdown-button');
     link.addEventListener('click', function() {
 		let link = document.getElementById('dropdown-button');
         let list = document.getElementById("dropdown-list");
 		
 		if (list.style.display === "block") {
 			list.style.display = "none";
-			link.style.background = "#181A1B";
+			link.style.background = "";
 		} else {
 			list.style.display = "block";
 			link.style.background = "#3F3F3F";
 		}
     });
+	link.addEventListener('focusout', function() {
+		if (!link.matches(':focus-within:not(:focus)')) {
+			let link = document.getElementById('dropdown-button');
+			let list = document.getElementById("dropdown-list");
+
+			list.style.display = "none";
+			link.style.background = "";
+		}
+	});
 });
 
 // Updates the style when changes to the settings has been made.
@@ -157,7 +166,19 @@ function injectOnLoad(items){
     }
 }
 
-chrome.runtime.onMessage.addListener(updateStyle);
+// Messagehandler
+function messageReceiver(message, sender, sendResponse) {
+	if (message.data !== undefined) {
+		updateStyle(message, sender, sendResponse);
+	}
+	if (message.resetMostVisited !== undefined) {
+		chrome.topSites.get(buildPopupDom);
+	}
+}
+
+chrome.runtime.onMessage.addListener(messageReceiver);
+
+
 let style = document.createElement('style');
 style.id = "EcosiaLightMode";
 style.className = "EcosiaLightMode";
@@ -169,12 +190,16 @@ body, form, input, a, button, .nav-menu-group, #dropdown-list {
 	color: #4A4A4A !important;
 }
 
-a:hover, button:hover {
+a.nav-link:hover, a.topSite:hover, button.dropdown-button:hover {
 	background: #E0E0E0 !important;
 }
 
-.logo:hover {
-	background: #FFF !important;
+.closeButton:hover > img, .topSite:hover ~ .closeButton > img {
+    filter: brightness(0.2) !important;
+}
+
+.button-submit:hover > svg > path {
+    fill: #353535 !important;
 }
 
 .logo-text {

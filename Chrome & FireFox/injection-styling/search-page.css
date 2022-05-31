@@ -59,30 +59,6 @@ body {
 
 
 /* NAVBAR */
-/* Main navbar style */
-.navbar-container a, .navbar-container a:visited {
-    color: var(--text);
-}
-.navbar-container a:hover {
-    color: #36acb8;
-}
-.navbar-container button {
-    color: var(--text);
-}
-.tab__link--highlighted-gradient {
-	background-image: linear-gradient(0deg, #1f3d40, var(--dark-background)) !important;
-}
-
-/* Navbar dropdowns */
-.icons-dropdown-list li:hover {
-    background: var(--lighter-background);
-}
-.icons-dropdown-list li:hover a, .icons-dropdown-list a:focus, .icons-dropdown-list a:active {
-    color: var(--text);
-}
-[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
-    fill: var(--text);
-}
 
 /* Filters & settings */
 .flags-dropdown {
@@ -210,9 +186,10 @@ body {
 }
 
 /* Text results extra media */
-.card-web .result-media .result-url {
+.card-web .result-media .result-url, .sidebar__result {
     background: var(--form);
-    border: 1px solid var(--lighter-background);
+    /*border: 1px solid var(--lighter-background);*/
+    box-shadow: 0 0 2px 0 var(--color-elevation-m),0 1px 3px 0 var(--color-elevation-m);
 }
 .result-media .thumbnail-title, .result-media-video .thumbnail-title:hover  {
     color: var(--link);
@@ -223,28 +200,32 @@ body {
 .result-media .thumbnail-publisher, .videos-snippet__source, .news-snippet__source {
     color: var(--link-green) !important;
 }
-.callout-with-image {
+.callout-with-image, .snippet-card, .notifications-item__image {
 	background-color: var(--form) !important;
 	color: var(--text) !important;
-	border: 1px solid var(--border);
+	/*border: 1px solid var(--border);*/
+    box-shadow: 0 0 2px 0 var(--color-elevation-m),0 1px 3px 0 var(--color-elevation-m);
 }
 .heading {
 	color: var(--text) !important;
 }
-[title="Wikipedia"] path {
+[title="Wikipedia"] path, [data-test-id="entity-links-icon-wikipedia"] path {
     fill: #CCCCCC !important;
-}
-.snippet-card {
-	border: 1px solid;
 }
 .sidebar__result {
 	border: 1px solid;
 }
-.disambiguation-item__description {
+.disambiguation-item__description, .query-correction__corrected, .query-correction__override {
 	color: var(--text);
 }
 .images-snippet__card[data-v-1dca0421] {
     background: var(--lighter-background);
+}
+.thumbnail__fallback g {
+    fill: transparent;
+}
+.entity__image {
+    background-color: transparent !important;
 }
 
 /* New beta results */
@@ -261,6 +242,7 @@ body {
     box-shadow: 0 0px 5px 0 rgba(255, 255, 255, 0.15), 0 0px 3px 0 rgba(255, 255, 255, 0.15);
 }
 .snippet__control {
+    color: var(--border) !important;
 	background: var(--form) !important;
 }
 .snippet__control:hover {
@@ -553,14 +535,6 @@ body {
     background: var(--lighter-background) !important;
 }
 
-/* Navigation bar */
-.search-navigation__item a {
-    color: var(--text) !important;
-}
-.search-navigation__item > .tab > a:focus, .search-navigation__item > .tab > a:hover {
-    color: #36acb8 !important;
-}
-
 /* Filters */
 .search-filters, .main-header {
     background: var(--dark-background);
@@ -598,7 +572,7 @@ body {
     color: var(--link-green) !important;
 }
 .result__source, .result__source:hover, .result__source:visited, .result__source:focus {
-    color: var(--link-green) !important;
+    color: var(--text) !important;
 }
 .result__description {
     color: var(--text);
@@ -637,13 +611,7 @@ body {
     color: #949494 !important;
 }
 
-/* Navbar dropdowns (maps, more) */
-.dropdown li:hover {
-    background: var(--lighter-background) !important;
-}
-[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
-    fill: white;
-}
+
 
 /* Pill buttons */
 .pill {

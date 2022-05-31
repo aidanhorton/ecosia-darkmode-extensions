@@ -14,7 +14,7 @@ universalStyle.href = chrome.runtime.getURL('injection-styling/universal-styling
 let styles = [spesificStyle, universalStyle];
 
 
-// Initial injection - checks if dark mode is enabled.
+// Initial injection - gets the settings and applies them.
 chrome.storage.local.get(["settings"], injectOnLoad);
 
 // Sets a timeout to the next minute-change.
@@ -31,7 +31,9 @@ setTimeout(function() {
                     });
                 };
             } else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
-                document.getElementsByTagName("head")[0].appendChild(style);
+                styles.forEach((style) => {
+                    document.getElementsByTagName("head")[0].appendChild(style);
+                });
             };
         };
     });
@@ -49,7 +51,9 @@ setTimeout(function() {
                         });
                     };
                 } else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
-                    document.getElementsByTagName("head")[0].appendChild(style);
+                    styles.forEach((style) => {
+                        document.getElementsByTagName("head")[0].appendChild(style);
+                    });
                 };
             };
         });

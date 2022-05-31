@@ -160,3 +160,17 @@ chrome.storage.local.get(['settings'], function(items) {
     };
 
 });
+
+
+function removeAllBlacklistedURLs() {
+    chrome.storage.local.get({"blacklistedUrls": []}, function (result) {
+        chrome.storage.local.set({"blacklistedUrls": []});
+        chrome.tabs.query({}, function(tabs) {
+            for (let i = 0; i < tabs.length; i++) {
+                chrome.tabs.sendMessage(tabs[i].id, {resetMostVisited: 'reset'});
+            };
+        });
+    });
+}
+
+document.getElementById('resetTopSites').addEventListener('click', removeAllBlacklistedURLs);

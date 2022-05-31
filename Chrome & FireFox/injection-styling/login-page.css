@@ -9,6 +9,9 @@ body {
 .login, h1, .login p {
     color: var(--text) !important;
 }
+.land-background::after {
+    background: linear-gradient(transparent 80%, var(--form)) bottom no-repeat !important;
+}
 
 /* Email form */
 input {

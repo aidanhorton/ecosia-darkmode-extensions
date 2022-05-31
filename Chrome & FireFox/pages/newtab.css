@@ -45,6 +45,9 @@
     outline: none;
     margin-right: 10px;
 }
+.button-submit > svg > path {
+    transition: fill 0.1s ease-in-out;
+}
 .button-submit:hover > svg > path {
     fill: white;
 }
@@ -102,10 +105,21 @@
     position: absolute;
     height: 12px;
     width: 12px;
-    opacity: 0.4;
+    opacity: 0;
+    padding: 2px 7px;
+    transition: opacity 0.4s ease-out;
 }
 .closeButton:hover {
     opacity: 0.7;
+    transition: opacity 0.2s ease-out;
+    cursor: pointer;
+}
+.closeButton > img {
+    transition: filter 0.4s ease-out;
+}
+.topSite:hover ~ .closeButton {
+    opacity: 0.4;
+    cursor: pointer;
 }
 .closeImage {
     position: absolute;
@@ -171,7 +185,7 @@
 .dropdown-button:focus {
     outline: none;
 }
-.dropdown-button:hover {
+.dropdown-button:hover, .dropdown-button:focus-visible {
     background: #3F3F3F;
 }
 
@@ -184,6 +198,7 @@
     top: 55px;
     right: 0;
     min-width: 240px;
+    text-align: start;
 }
 .nav-menu-group {
     border-bottom: 1px solid #595959;

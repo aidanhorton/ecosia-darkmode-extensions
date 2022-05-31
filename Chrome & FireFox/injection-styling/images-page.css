@@ -48,17 +48,6 @@
     background: var(--lighter-background) !important;
 }
 
-/* Navigation bar */
-.search-navigation__item a {
-    color: var(--text) !important;
-}
-.search-navigation__item > .tab > a:focus, .search-navigation__item > .tab > a:hover, .search-navigation__item:nth-child(2) > .tab > a {
-    color: #36acb8 !important;
-}
-[data-track-id="nav_shopping"] {
-	background: #153031 !important;
-}
-
 /* Filters */
 .search-filters, .main-header {
     background: var(--dark-background);
@@ -105,9 +94,6 @@
 /* Navbar dropdowns (maps, more) */
 .dropdown li:hover {
     background: var(--lighter-background) !important;
-}
-[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
-    fill: white;
 }
 
 /* Pill buttons */

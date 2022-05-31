@@ -1,8 +1,8 @@
 /* Others */
 
 body {
-    height: 210px;
-    width: 250px;
+    height: 380px;
+    width: 260px;
     padding-top: 10px;
     margin: 0;
     
@@ -22,9 +22,10 @@ hr {
     border-style: solid;
     border-bottom: 0px;
     box-sizing: border-box;
+	opacity: 0.5;
 }
 
-p {
+p, h3 {
     margin: 0;
 }
 
@@ -37,6 +38,10 @@ p {
     align-items: center;
 }
 
+.centerInner {
+    justify-content: center;
+}
+
 
 /* Settings */
 
@@ -45,6 +50,37 @@ p {
     flex-flow: column;
     gap: 8px;
     width: 90%;
+}
+
+#resetTopSites {
+    color: black;
+}
+
+.settingtitle {
+    text-align: start;
+    margin-bottom: 5px;
+}
+
+.subsettingsection {
+    width: 70%;
+    margin-top: 10px;
+    display: grid;
+    grid-template-areas: 'hr1 . hr2';
+    grid-template-columns: fr auto fr;
+    align-self: center;
+}
+
+.subsettingsection > p {
+    display: inline;
+    text-align: center;
+}
+
+.subsettingsection:nth-child(1) {
+    grid-area: hr1;
+}
+
+.subsettingsection:nth-child(3) {
+    grid-area: hr2;
 }
 
 
@@ -132,4 +168,40 @@ input:checked + .slider:before {
 
 #otherSettings {
     transition: opacity 0.2s;
+}
+
+button.warning {
+    background-color: hsl(0, 100%, 60%);
+	color: white;
+	margin-right: 2px;
+}
+button.warning:hover {
+    background-color: hsl(0, 100%, 50%);
+	cursor: pointer;
+}
+button.warning:active {
+    background-color: hsl(0, 100%, 85%);
+}
+button {
+    border: none;
+    border-radius: 3px;
+    padding: 4px 8px;
+}
+.buttonDesc {
+    width: 50%;
+}
+
+
+/* Browserspecifics */
+
+/* Firefox */
+@-moz-document url-prefix() {
+    body {
+        height: 280px;
+        width: 260px;
+        overflow-x: clip;
+    }
+    .hideOnFirefox {
+        display: none;
+    }
 }

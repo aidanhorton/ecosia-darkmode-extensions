@@ -38,20 +38,6 @@
     color: var(--text) !important;
 }
 
-/* Nav bar */
-.search-navigation a {
-    color: var(--text) !important;
-}
-.search-navigation a:hover, .tab--highlighted a {
-    color: #36acb8 !important;
-}
-[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
-    fill: var(--text);
-}
-[data-track-id="nav_shopping"] {
-	background: #153031 !important;
-}
-
 /* Dropdowns */
 .dropdown {
     background: var(--form) !important;
