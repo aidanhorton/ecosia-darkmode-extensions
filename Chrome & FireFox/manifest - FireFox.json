@@ -2,8 +2,9 @@
     "name": "Ecosia Dark Mode",
     "version": "1.3.1.0",
     "description": "A dark theme for the Ecosia search engine",
+	"manifest_version": 3,
 	"permissions": ["tabs", "storage", "topSites"],
-	"browser_action": {
+	"action": {
 		"default_popup": "popup.html",
 		"default_title": "Ecosia dark",
 		"default_icon": {
@@ -19,20 +20,23 @@
 		"48": "images/EcosiaLogo48.png",
 		"128": "images/EcosiaLogo128.png"
     },
-	"web_accessible_resources": [
-		"images/EcosiaLogo.png",
-		"pages/Close.png",
-		"injection-styling/blog-page.css",
-		"injection-styling/home-page.css",
-		"injection-styling/images-page.css",
-		"injection-styling/information-page.css",
-		"injection-styling/login-page.css",
-		"injection-styling/news-and-videos-page.css",
-		"injection-styling/search-page.css",
-		"injection-styling/settings-page.css",
-		"injection-styling/shopping-page.css",
-		"injection-styling/universal-styling.css"
-    ],
+	"web_accessible_resources": [{
+		"resources": [
+			"images/EcosiaLogo.png",
+			"pages/Close.png",
+			"injection-styling/blog-page.css",
+			"injection-styling/home-page.css",
+			"injection-styling/images-page.css",
+			"injection-styling/information-page.css",
+			"injection-styling/login-page.css",
+			"injection-styling/news-and-videos-page.css",
+			"injection-styling/search-page.css",
+			"injection-styling/settings-page.css",
+			"injection-styling/shopping-page.css",
+			"injection-styling/universal-styling.css"
+		],
+		"matches": ["<all_urls>"]
+	}],
 	"content_scripts": [
 		{
 			"matches": ["https://www.ecosia.org/"],
@@ -94,6 +98,5 @@
 			"run_at": "document_start",
 			"all_frames": true
 		}
-	],
-    "manifest_version": 2
+	]
 }
