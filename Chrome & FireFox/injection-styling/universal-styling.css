@@ -1,64 +1,57 @@
 /* ----------------------------------------------------------------------- */
 /* UNIVERSAL CODE - Code used between pages -> scrollbar, variables etc... */
 /* ----------------------------------------------------------------------- */
-* {
-    border-color: var(--border) !important; 
+
+/* Override existing color variables with our own */
+:root {
     scrollbar-color: #3F3F3F #1C1E1F;
-    --dark-background: #181A1B;
-    --form: #1F1F1F;
-    --border: #595959;
-    --text: #CCCCCC;
-    --link: #6E9BF4;
-    --link-visited: #CF70FF;
-    --link-green: #71D89A;
-    --lighter-background: #3F3F3F;
-}
-:focus {
-    outline: 0;
-}
-::selection {
-    background: var(--lighter-background);
+	
+	--color-border: #595959 !important;
+	
+	--color-button-primary-focus: #3F3F3F !important;
+	
+	--color-background-primary: #181A1B !important;
+	--color-highlight-primary: #3F3F3F !important;
+	
+	--color-background-secondary: #1F1F1F !important;
+	
+	--color-text-primary: #CCCCCC !important;
+	
+	--color-url: #71D89A !important;
+	--color-link-results-default: #6E9BF4 !important;
+	--color-link-results-visited: #CF70FF !important;
+	--color-highlighter: #3F3F3F !important;
+	
+	--color-elevation-s: rgba(255, 255, 255, 0.1) !important;
+	--color-elevation-m: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Logo */
-[aria-label="Ecosia logo"] path:nth-child(2) {
+/* Ecosia logo */
+.logo__icon path:nth-child(2), [aria-label="Ecosia logo"] path:nth-child(2) {
     fill: white;
 }
-.land-background path {
-    fill: var(--dark-background);
-}
 
-/* Nav bar */
+/* Navbar page links */
 .tab__link {
-    color: var(--text) !important;
-	background-color: var(--dark-background) !important;
+	color: var(--color-text-primary) !important;
 }
-.tab__link:hover, .tab--highlighted > a {
-    color: #36acb8 !important;
-}
-
-/* Navbar dropdowns (maps, more) */
-.list-item:hover, .list-item:active {
-    background-color: var(--lighter-background) !important;
-}
-.list-item > a {
-    color: var(--text);
-}
-[data-track-id="more_wikipedia"] path, [data-track-id="more_amazon"] path {
-    fill: white;
+.tab__link:hover, .tab--highlighted > .tab__link {
+	color: var(--color-brand-primary) !important;
 }
 
-/* Nav bar buttons */
-.main-nav__button {
-	background: var(--dark-background) !important;
-}
-.main-nav__button:hover path, .main-nav__button:active path, .main-nav__button:focus path {
-	fill: var(--text) !important;
+/* Input text boxes + dropdowns */
+input {
+	background-color: var(--color-background-primary) !important;
+	color: var(--color-text-primary) !important;
+	border-color: var(--color-border) !important;
 }
 
-/* Footer */
-footer {
-    background: var(--form) !important;
+/* Pill buttons */
+.notifications-item__link:hover {
+	background-color: var(--color-highlight-primary) !important;
+}
+.notification-pill:hover path, .notification-pill:focus path {
+	fill: var(--color-text-primary) !important;
 }
 
 /* Scrollbar Chrome */
@@ -76,9 +69,4 @@ footer {
 }
 ::-moz-selection, ::selection {
     background: #696969;
-}
-
-/* Cookies */
-.banner__headline, .banner__description {
-    color: var(--text) !important;
 }

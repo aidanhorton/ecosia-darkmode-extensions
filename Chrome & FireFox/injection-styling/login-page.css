@@ -2,19 +2,10 @@
 /* LOGIN PAGE - Select 'sign-in' in the tree-counter dropdown */
 /* ---------------------------------------------------------- */
 
-/* Background & text */
-body {
-    background: var(--dark-background);
-}
-.login, h1, .login p {
-    color: var(--text) !important;
-}
+/* Land background */
 .land-background::after {
-    background: linear-gradient(transparent 80%, var(--form)) bottom no-repeat !important;
+	background: linear-gradient(rgba(230, 242, 242, 0) 80%, var(--color-background-primary)) bottom no-repeat !important;
 }
-
-/* Email form */
-input {
-    background: var(--form);
-    color: var(--text) !important;
+.land-background__mountains > path {
+	fill: var(--color-background-tertiary);
 }

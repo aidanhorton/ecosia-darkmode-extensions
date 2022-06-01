@@ -1,0 +1,73 @@
+----------------------------------------------------------
+TESTING CONSIDERATIONS
+
+What to consider testing before a release is published.
+How to test (or atleast view) the feature.
+
+These specifically target features that may break.
+
+These are not mandatory, as the extension owner will check before release :)
+----------------------------------------------------------
+
+Test:
+- Mobile mode
+
+How to test:
+- Collapse your browser window horizontally until Ecosia enters mobile mode (it will look different!)
+- Perform ad-hoc tests to ensure that it works as expected
+- Recommended to test the below tests in mobile mode too
+
+----
+
+Test:
+- Navbar links
+
+How to test:
+- Navbar links are found on any main search page, they let you navigate between search types (images, news etc...)
+- Ensure that the page you are currently on has its text and icon highlighted in blue
+- Ensure on hover that the icon and text are highlighted in blue
+- Ensure that by default the icons and text are white
+
+----
+
+Test:
+- Flights widget
+
+How to test:
+- Type 'Flights from Bristol' and the widget should appear
+
+----
+
+Test:
+- Pill button icon colours
+
+How to test:
+- On any page, see the 3 pill buttons in the top right (usually tree counter, notifications & hamburger)
+- Ensure appropriate colour on hover & click
+
+----
+
+Test:
+- Ecosia logo
+
+How to test:
+- The Ecosia logo should be visible on all pages
+- Ensure the Ecosia text is white and stands-out from the background
+
+----
+
+Test:
+- Alternate homepage sections
+
+How to test:
+- On the homepage, check that the alternate background colour segments are appropriately coloured
+
+----
+
+Test:
+- Query chips
+
+How to test:
+- The query chips are found on the images page, where it gives image type suggestions in the form of pill icons
+- If the options overflow the edge of the screen, a gradient button will apear that lets you scroll these options
+- Ensure this is appropriately coloured, and check for each direction
