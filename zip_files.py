@@ -1,5 +1,5 @@
 __author__ = 'OppnedKatt'
-__version__ = 1.0
+__version__ = 1.1
 
 import os
 import shutil
@@ -60,6 +60,10 @@ def main(src_dir: str, original_dir: str) -> None:
         os.chdir(original_dir)
         os.replace(os.path.join('temp', 'FireFox.zip'), os.path.join('Latest Builds', 'FireFox.zip'))
         print('Successfully zipped "FireFox.zip"')
+        
+        # Makes the zip for Edge
+        shutil.copyfile(os.path.join('Latest Builds', 'FireFox.zip'), os.path.join('Latest Builds', 'Edge.zip'))
+        print('Successfully zipped "Edge.zip"')
 
     except:
         # Changes the directory back to the original directory if the program runs into an error
