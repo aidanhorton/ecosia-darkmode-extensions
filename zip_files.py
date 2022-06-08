@@ -1,4 +1,4 @@
-__auther__ = 'OppnedKatt'
+__author__ = 'OppnedKatt'
 __version__ = 1.0
 
 import os
@@ -38,7 +38,7 @@ def main(src_dir: str, original_dir: str) -> None:
             for file in filepaths:
                 zip.write(file)
         os.chdir(original_dir)
-        os.replace(os.path.join(src_dir, 'Chrome.zip'), 'Chrome.zip')
+        os.replace(os.path.join(src_dir, 'Chrome.zip'), os.path.join('Latest Builds', 'Chrome.zip'))
         print('\nSuccessfully zipped "Chrome.zip"')
         
         # Makes a temporary folder for renameing the manifests
@@ -58,7 +58,7 @@ def main(src_dir: str, original_dir: str) -> None:
             for file in filepaths:
                 zip.write(file)
         os.chdir(original_dir)
-        os.replace(os.path.join('temp', 'FireFox.zip'), 'FireFox.zip')
+        os.replace(os.path.join('temp', 'FireFox.zip'), os.path.join('Latest Builds', 'FireFox.zip'))
         print('Successfully zipped "FireFox.zip"')
 
     except:
