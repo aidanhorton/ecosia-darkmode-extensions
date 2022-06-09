@@ -1,5 +1,5 @@
 __author__ = 'OppnedKatt'
-__version__ = 1.1
+__version__ = '1.1.1'
 
 import os
 import shutil
@@ -73,8 +73,19 @@ def main(src_dir: str, original_dir: str) -> None:
         os.replace(os.path.join('temp', 'FireFox.zip'), os.path.join('Latest Builds', 'FireFox.zip'))
         print('Successfully zipped "FireFox.zip"')
         
+        # Changes up the filenames and the filepaths in the filepath-lookup variable to be fit for Edge
+        os.chdir('temp')
+        os.rename('manifest.json', 'manifest - FireFox.json')
+        os.rename('manifest - Edge.json', 'manifest.json')
+        filepaths.remove('manifest - Edge.json')
+        filepaths.append('manifest - FireFox.json')
+        
         # Makes the zip for Edge
-        shutil.copyfile(os.path.join('Latest Builds', 'FireFox.zip'), os.path.join('Latest Builds', 'Edge.zip'))
+        with zipfile.ZipFile('Edge.zip', 'w') as zip:
+            for file in filepaths:
+                zip.write(file)
+        os.chdir(original_dir)
+        os.replace(os.path.join('temp', 'Edge.zip'), os.path.join('Latest Builds', 'Edge.zip'))
         print('Successfully zipped "Edge.zip"')
 
     except:
