@@ -7,13 +7,18 @@
     scrollbar-color: #3F3F3F #1C1E1F;
 	
 	--color-border: #595959 !important;
+	--color-decorative-border-1:  #595959 !important;
+	--color-form-border-default: #595959 !important;
 	
 	--color-button-primary-focus: #3F3F3F !important;
 	
-	--color-background-primary: #181A1B !important;
 	--color-highlight-primary: #3F3F3F !important;
 	
+	--color-background-primary: #181A1B !important;
 	--color-background-secondary: #1F1F1F !important;
+	--color-background-quaternary:  #1F1F1F !important;
+	
+	--color-background-alt: #2a2a2a !important;
 	
 	--color-text-primary: #CCCCCC !important;
 	
@@ -24,6 +29,15 @@
 	
 	--color-elevation-s: rgba(255, 255, 255, 0.1) !important;
 	--color-elevation-m: rgba(255, 255, 255, 0.15) !important;
+	
+	--color-button-background-secondary: #181A1B !important;
+	--color-button-background-secondary-hover: #1F1F1F !important;
+	--color-button-background-secondary-active: #1F1F1F !important;
+	
+	--color-button-content-secondary: #CCCCCC !important;
+	
+	--color-brand-primary: #72ff7c;
+	--color-brand-secondary: #a3d3c2;
 }
 
 /* Ecosia logo */
@@ -41,7 +55,6 @@
 
 /* Input text boxes + dropdowns */
 input {
-	background-color: var(--color-background-primary) !important;
 	color: var(--color-text-primary) !important;
 	border-color: var(--color-border) !important;
 }

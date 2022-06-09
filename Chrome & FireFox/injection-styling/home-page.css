@@ -3,11 +3,11 @@
 /* ---------------------------------------- */
 
 /* Homepage sections */
-.section-wrapper--alternate {
-	background: var(--color-background-tertiary) !important;
+section {
+	background-color: var(--color-background-alt) !important;
 }
 
-/* Financial reports */
-.link--color-dark {
-	color: var(--color-text) !important;
+/* Projects */
+.projects-section__project-description, .projects-section__project-title {
+	color: white !important;
 }
