@@ -3,12 +3,6 @@
     "version": "1.4.0.0",
     "description": "A dark theme for the Ecosia search engine",
 	"manifest_version": 3,
-	"browser_specific_settings": {
-		"gecko": {
-			"id": "{56c1cdd6-be90-4dbd-9c9d-da84f9ac43a4}",
-			"strict_min_version": "42.0"
-		}
-	},
 	"permissions": ["tabs", "storage", "topSites"],
 	"action": {
 		"default_popup": "popup.html",
