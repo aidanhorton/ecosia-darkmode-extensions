@@ -3,10 +3,10 @@
 /* ---------------------------------------- */
 
 /* Homepage sections */
-.above-fold-section {
+.above-fold-section, .forest-section--variant-primary {
 	background-color: var(--color-background-primary) !important;
 }
-.financial-report-section, .claims-values-section {
+.financial-report-section, .claims-values-section, .wave-seperator--variant-primary, .wave-seperator--variant-quarternary {
 	background-color: var(--color-background-secondary) !important;
 }
 
