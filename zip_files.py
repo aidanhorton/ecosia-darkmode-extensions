@@ -1,5 +1,5 @@
 __author__ = 'OppnedKatt'
-__version__ = '1.1.1'
+__version__ = 1.2
 
 import os
 import shutil
@@ -24,11 +24,44 @@ def get_all_filedirectories(src_dir: str) -> list:
         for filename in filenames:
             filepath = os.path.join(dirpath.replace(src_dir, '').replace(os.path.join('Q', 'Q').replace('Q', ''), '', 1), filename)
             filepaths.append(filepath)
-            
-            print(filepath)
         
     # Returns the list of filepaths to the files that are to be zipped
     return filepaths
+
+
+def create_zip(name: str, filepaths: list, original_dir: str) -> None:
+    """Zips for a desired browser
+
+    Args:
+        name (str): Name of the browser
+        filepaths (list): The list of all paths to the files that are to be zipped
+        original_dir (str): The path to the directory at the start of the program
+    """
+    current_path = os.getcwd()
+    
+    # Changes up the filenames and the filepaths in the filepath-lookup variable
+    if name != 'Chrome':
+        os.rename('manifest.json', 'manifest - Chrome.json')
+        os.rename(f'manifest - {name}.json', 'manifest.json')
+        filepaths.remove(f'manifest - {name}.json')
+        filepaths.append('manifest - Chrome.json')
+    
+    # Makes the zip
+    with zipfile.ZipFile(f'{name}.zip', 'w') as zip:
+        for file in filepaths:
+            zip.write(file)
+    os.chdir(original_dir)
+    os.replace(os.path.join('temp', f'{name}.zip'), os.path.join('Latest Builds', f'{name}.zip'))
+    
+    print(f'Successfully zipped "{name}.zip"')
+    os.chdir(current_path)
+    
+    # Reverts changes
+    if name != 'Chrome':
+        os.rename('manifest.json', f'manifest - {name}.json')
+        os.rename('manifest - Chrome.json', 'manifest.json')
+        filepaths.remove('manifest - Chrome.json')
+        filepaths.append(f'manifest - {name}.json')
 
 
 def main(src_dir: str, original_dir: str) -> None:
@@ -42,61 +75,25 @@ def main(src_dir: str, original_dir: str) -> None:
         # Gets the paths to all the files in the folder that is to be zipped
         filepaths = get_all_filedirectories(src_dir)
         
-        # Changes the current directory to be inside the folder that is to be zipped
-        os.chdir(src_dir)
-        
-        # Makes the zip for Chrome
-        with zipfile.ZipFile('Chrome.zip', 'w') as zip:
-            for file in filepaths:
-                zip.write(file)
-        os.chdir(original_dir)
-        os.replace(os.path.join(src_dir, 'Chrome.zip'), os.path.join('Latest Builds', 'Chrome.zip'))
-        print('\nSuccessfully zipped "Chrome.zip"')
-        
         # Makes a temporary folder for renameing the manifests
         if os.path.exists('temp'):
             shutil.rmtree('temp')
         shutil.copytree(src_dir, 'temp')
         os.chdir('temp')
         
-        # Changes up the filenames and the filepaths in the filepath-lookup variable to be fit for Firefox
-        os.rename('manifest.json', 'manifest - Chrome.json')
-        os.rename('manifest - FireFox.json', 'manifest.json')
-        filepaths.remove('manifest - FireFox.json')
-        filepaths.append('manifest - Chrome.json')
+        # Zips for the different browsers
+        create_zip('Chrome', filepaths, original_dir)
+        create_zip('FireFox', filepaths, original_dir)
+        create_zip('Edge', filepaths, original_dir)
         
-        # Makes the zip for Firefox
-        with zipfile.ZipFile('FireFox.zip', 'w') as zip:
-            for file in filepaths:
-                zip.write(file)
-        os.chdir(original_dir)
-        os.replace(os.path.join('temp', 'FireFox.zip'), os.path.join('Latest Builds', 'FireFox.zip'))
-        print('Successfully zipped "FireFox.zip"')
-        
-        # Changes up the filenames and the filepaths in the filepath-lookup variable to be fit for Edge
-        os.chdir('temp')
-        os.rename('manifest.json', 'manifest - FireFox.json')
-        os.rename('manifest - Edge.json', 'manifest.json')
-        filepaths.remove('manifest - Edge.json')
-        filepaths.append('manifest - FireFox.json')
-        
-        # Makes the zip for Edge
-        with zipfile.ZipFile('Edge.zip', 'w') as zip:
-            for file in filepaths:
-                zip.write(file)
-        os.chdir(original_dir)
-        os.replace(os.path.join('temp', 'Edge.zip'), os.path.join('Latest Builds', 'Edge.zip'))
-        print('Successfully zipped "Edge.zip"')
 
     except:
-        # Changes the directory back to the original directory if the program runs into an error
-        os.chdir(original_dir)
-        
-        # Prints out the traceback as the try & except blocks stopped it from being printed
+        # Prints out the error-message
         traceback.print_exc()
         
     finally:
-        # Removes the temporary folder if the zipping is finished, or if the zipping ended prematurely
+        # Removes the temporary folder
+        os.chdir(original_dir)
         if os.path.exists('temp'):
             shutil.rmtree('temp')
 
