@@ -36,9 +36,11 @@
 	
 	--color-button-content-secondary: #CCCCCC !important;
 	
-	--color-brand-primary: #72ff7c;
-	--color-brand-secondary: #a3d3c2;
-}
+	--color-brand-primary: #72ff7c !important;
+	--color-brand-secondary: #a3d3c2 !important;
+	
+	--color-disabled: #b9b9b9 !important;
+	}
 
 /* Ecosia logo */
 .logo__icon path:nth-child(2), [aria-label="Ecosia logo"] path:nth-child(2) {
