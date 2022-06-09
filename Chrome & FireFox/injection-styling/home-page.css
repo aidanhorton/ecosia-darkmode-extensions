@@ -3,11 +3,19 @@
 /* ---------------------------------------- */
 
 /* Homepage sections */
-section {
-	background-color: var(--color-background-alt) !important;
+.above-fold-section {
+	background-color: var(--color-background-primary) !important;
+}
+.financial-report-section, .claims-values-section {
+	background-color: var(--color-background-secondary) !important;
 }
 
 /* Projects */
 .projects-section__project-description, .projects-section__project-title {
 	color: white !important;
+}
+
+/* Waves */
+.above-fold-section__wave path {
+	fill: var(--color-background-primary) !important;
 }
