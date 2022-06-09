@@ -22,8 +22,9 @@ def get_all_filedirectories(src_dir: str) -> list:
     # Walks through every file in the folder that is to be zipped, and adds their paths to a list
     for (dirpath, dirnames, filenames) in os.walk(src_dir):
         for filename in filenames:
-            filepath = os.path.join(dirpath.replace(src_dir, '').replace(os.path.join('Q', 'Q').replace('Q', ''), '', 1), filename)
-            filepaths.append(filepath)
+            if not filename.startswith('manifest - '):
+                filepath = os.path.join(dirpath.replace(src_dir, '').replace(os.path.join('Q', 'Q').replace('Q', ''), '', 1), filename)
+                filepaths.append(filepath)
         
     # Returns the list of filepaths to the files that are to be zipped
     return filepaths
@@ -39,12 +40,10 @@ def create_zip(name: str, filepaths: list, original_dir: str) -> None:
     """
     current_path = os.getcwd()
     
-    # Changes up the filenames and the filepaths in the filepath-lookup variable
+    # Changes up the filenames
     if name != 'Chrome':
         os.rename('manifest.json', 'manifest - Chrome.json')
         os.rename(f'manifest - {name}.json', 'manifest.json')
-        filepaths.remove(f'manifest - {name}.json')
-        filepaths.append('manifest - Chrome.json')
     
     # Makes the zip
     with zipfile.ZipFile(f'{name}.zip', 'w') as zip:
@@ -60,8 +59,6 @@ def create_zip(name: str, filepaths: list, original_dir: str) -> None:
     if name != 'Chrome':
         os.rename('manifest.json', f'manifest - {name}.json')
         os.rename('manifest - Chrome.json', 'manifest.json')
-        filepaths.remove('manifest - Chrome.json')
-        filepaths.append(f'manifest - {name}.json')
 
 
 def main(src_dir: str, original_dir: str) -> None:
