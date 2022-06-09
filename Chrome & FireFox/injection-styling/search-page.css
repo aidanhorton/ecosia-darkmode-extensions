@@ -2,3 +2,8 @@
 /* SEARCH ENGINE - The main Ecosia search engine & results */
 /* ------------------------------------------------------- */
 
+[data-track-id="more_wikipedia"] path,
+[data-track-id="more_amazon"] path,
+[data-test-id="entity-links-icon-wikipedia"] path {
+    fill: white;
+}
