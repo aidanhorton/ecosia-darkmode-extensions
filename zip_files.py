@@ -1,5 +1,5 @@
-__auther__ = 'OppnedKatt'
-__version__ = 1.0
+__author__ = 'OppnedKatt'
+__version__ = 1.1
 
 import os
 import shutil
@@ -7,8 +7,15 @@ import zipfile
 import traceback
 
 
-# A function which gets the paths of all the files inside of the folder that is to be zipped
 def get_all_filedirectories(src_dir: str) -> list:
+    """Gets the paths of all the files inside a folder
+
+    Args:
+        src_dir (str): The path to the directory with the files
+
+    Returns:
+        list: List of filepaths
+    """
     # Creates an empty list for filepaths to the files that are to be zipped
     filepaths = []
     
@@ -24,8 +31,13 @@ def get_all_filedirectories(src_dir: str) -> list:
     return filepaths
 
 
-# The main funtion that runs the program
 def main(src_dir: str, original_dir: str) -> None:
+    """Zips the desired files
+
+    Args:
+        src_dir (str): The path of the directory with the files that should be zipped
+        original_dir (str): The path of src_dir's parent-directory
+    """
     try:
         # Gets the paths to all the files in the folder that is to be zipped
         filepaths = get_all_filedirectories(src_dir)
@@ -38,7 +50,7 @@ def main(src_dir: str, original_dir: str) -> None:
             for file in filepaths:
                 zip.write(file)
         os.chdir(original_dir)
-        os.replace(os.path.join(src_dir, 'Chrome.zip'), 'Chrome.zip')
+        os.replace(os.path.join(src_dir, 'Chrome.zip'), os.path.join('Latest Builds', 'Chrome.zip'))
         print('\nSuccessfully zipped "Chrome.zip"')
         
         # Makes a temporary folder for renameing the manifests
@@ -58,8 +70,12 @@ def main(src_dir: str, original_dir: str) -> None:
             for file in filepaths:
                 zip.write(file)
         os.chdir(original_dir)
-        os.replace(os.path.join('temp', 'FireFox.zip'), 'FireFox.zip')
+        os.replace(os.path.join('temp', 'FireFox.zip'), os.path.join('Latest Builds', 'FireFox.zip'))
         print('Successfully zipped "FireFox.zip"')
+        
+        # Makes the zip for Edge
+        shutil.copyfile(os.path.join('Latest Builds', 'FireFox.zip'), os.path.join('Latest Builds', 'Edge.zip'))
+        print('Successfully zipped "Edge.zip"')
 
     except:
         # Changes the directory back to the original directory if the program runs into an error
@@ -75,7 +91,7 @@ def main(src_dir: str, original_dir: str) -> None:
 
 
 # Checks if the program is being run as the main program, and is not being imported
-if __name__ == "__main__":
-    src_dir = 'Chrome & FireFox' # The folder that is to be zipped
-    original_dir = os.getcwd() # Stores the original directory
+if __name__ == '__main__':
+    src_dir = 'Chrome & FireFox'  # The folder that is to be zipped
+    original_dir = os.getcwd()  # Stores the original directory
     main(src_dir, original_dir)

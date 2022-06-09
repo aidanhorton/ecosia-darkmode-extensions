@@ -1,3 +1,6 @@
+let rootstyle = document.querySelector(':root').style;
+rootstyle.setProperty('--color-background-primary', '#181A1B');
+
 // Creates the link-elements
 let spesificStyle = document.createElement('link');
 spesificStyle.id = "EcosiaDarkMode";
@@ -11,7 +14,7 @@ universalStyle.className = "EcosiaDarkMode";
 universalStyle.rel = 'stylesheet';
 universalStyle.href = chrome.runtime.getURL('injection-styling/universal-styling.css');
 
-let styles = [spesificStyle, universalStyle];
+let styles = [universalStyle, spesificStyle];
 
 
 // Initial injection - gets the settings and applies them.
@@ -21,18 +24,20 @@ chrome.storage.local.get(["settings"], injectOnLoad);
 setTimeout(function() {
     // Runs it one time first because setInterval has to wait for one minute before it can start.
     chrome.storage.local.get(["settings"], function(items) {
-        if (items['settings'] !== undefined) {
+        if (items['settings']) {
             let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
             let elements = document.querySelectorAll('.EcosiaDarkMode');
             if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
-                if (elements.length !== 0) {
-                    elements.forEach((element) => {
-                        element.parentElement.removeChild(element);
+                if (elements.length) {
+                    elements.forEach(element => {
+                        element.remove();
                     });
                 };
-            } else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
-                styles.forEach((style) => {
-                    document.getElementsByTagName("head")[0].appendChild(style);
+            }
+            
+            else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
+                styles.forEach(style => {
+                    document.head.appendChild(style);
                 });
             };
         };
@@ -41,18 +46,20 @@ setTimeout(function() {
     // Checks the time every minute.
     setInterval(function() {
         chrome.storage.local.get(["settings"], function(items) {
-            if (items['settings'] !== undefined) {
+            if (items['settings']) {
                 let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
                 let elements = document.querySelectorAll('.EcosiaDarkMode');
                 if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
-		            if (elements.length !== 0) {
-                        elements.forEach((element) => {
-                            element.parentElement.removeChild(element);
+		            if (elements.length) {
+                        elements.forEach(element => {
+                            element.remove();
                         });
                     };
-                } else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
-                    styles.forEach((style) => {
-                        document.getElementsByTagName("head")[0].appendChild(style);
+                }
+                
+                else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
+                    styles.forEach(style => {
+                        document.head.appendChild(style);
                     });
                 };
             };
@@ -60,22 +67,39 @@ setTimeout(function() {
     }, 60000);
 }, (60 - (new Date().getSeconds())) * 1000);
 
-function injectOnLoad(items){
-    if (items["settings"] !== undefined) {
+function injectOnLoad(items) {
+    if (items["settings"]) {
         let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
         if ((items["settings"]['darkmode'] !== 'off') && (items["settings"]['timebasedDarkmode'] !== 'on')) {
-            styles.forEach((style) => {
+            styles.forEach(style => {
                 (document.body || document.head || document.documentElement).appendChild(style);
             });
-        } else if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && !((Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset'])))) {
-            styles.forEach((style) => {
-                (document.body || document.head || document.documentElement).appendChild(style);
-            });
+            setTimeout(() => {
+                document.querySelector(':root').style = '';
+            }, 200);
         }
-    } else {
-        styles.forEach((style) => {
+        
+        else if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && !((Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset'])))) {
+            styles.forEach(style => {
+                (document.body || document.head || document.documentElement).appendChild(style);
+            });
+            setTimeout(() => {
+                document.querySelector(':root').style = '';
+            }, 200);
+        }
+        
+        else {
+            document.querySelector(':root').style = '';
+        }
+    }
+    
+    else {
+        styles.forEach(style => {
             (document.body || document.head || document.documentElement).appendChild(style);
         });
+        setTimeout(() => {
+            document.querySelector(':root').style = '';
+        }, 200);
     }
 }
 
@@ -88,9 +112,9 @@ function changeStyleImportance() {
 	document.removeEventListener('DOMContentLoaded', changeStyleImportance, false);
 
 	let darkModeElements = document.querySelectorAll('.EcosiaDarkMode');
-	if (darkModeElements.length !== 0) {
-		darkModeElements.forEach((darkModeElement) => {
-            document.getElementsByTagName('head')[0].appendChild(darkModeElement);
+	if (darkModeElements.length) {
+		darkModeElements.forEach(darkModeElement => {
+            document.head.appendChild(darkModeElement);
         });
 	}
 }
@@ -101,18 +125,19 @@ function updateStyle(message, sender, sendResponse) {
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
 
 	if (((message.data['darkmode'] === 'on') && (message.data['timebasedDarkmode'] === 'on') && (Number(message.data['sunrise']) <= totalMinutes) && (totalMinutes < Number(message.data['sunset']))) || (message.data['darkmode'] === 'off')) {
-        if (elements.length !== 0) {
-            elements.forEach((element) => {
-                element.parentElement.removeChild(element);
+        if (elements.length) {
+            elements.forEach(element => {
+                element.remove();
             });
         }
 
-    } else if ((message.data['darkmode'] === 'on')) {
+    }
+    
+    else if ((message.data['darkmode'] === 'on')) {
         if (elements.length === 0) {
-            styles.forEach((style) => {
-                document.getElementsByTagName("head")[0].appendChild(style);
+            styles.forEach(style => {
+                document.head.appendChild(style);
             });
         }
     }
 }
-

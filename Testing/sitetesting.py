@@ -1,4 +1,4 @@
-__auther__ = 'OppnedKatt'
+__author__ = 'OppnedKatt'
 __version__ = 1.0
 
 import subprocess
