@@ -1,6 +1,12 @@
 let rootstyle = document.querySelector(':root').style;
 rootstyle.setProperty('--color-background-primary', '#181A1B');
 
+// Creates the link-elements
+let spesificStyle = document.createElement('link');
+spesificStyle.id = "EcosiaDarkMode";
+spesificStyle.className = "EcosiaDarkMode";
+spesificStyle.rel = 'stylesheet';
+
 let universalStyle = document.createElement('link');
 universalStyle.id = "EcosiaDarkModeUniversal";
 universalStyle.className = "EcosiaDarkMode";
