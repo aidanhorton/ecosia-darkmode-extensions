@@ -3,7 +3,7 @@
 
 **Ecosia Dark Mode** is a simple Chrome, FireFox & Edge extension that sets the Ecosia search engine and related services to dark mode.
 
-Visit the browser extension pages for [Chrome](https://chrome.google.com/webstore/detail/ecosia-dark-mode/hfpbjnmjofmfpnkcmdnkgndahgpjhpih?hl=en&authuser=0), [FireFox](https://addons.mozilla.org/en-GB/firefox/addon/ecosia-dark-theme/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search) & [Edge](https://microsoftedge.microsoft.com/addons/detail/ecosia-dark-mode/bcegabpbpglfkoelpjgdoofgfgmicjdk) and install to begin using the dark mode.
+Visit the browser extension pages for [Chrome](https://chrome.google.com/webstore/detail/ecosia-dark-mode/hfpbjnmjofmfpnkcmdnkgndahgpjhpih), [FireFox](https://addons.mozilla.org/en-GB/firefox/addon/ecosia-dark-theme/) & [Edge](https://microsoftedge.microsoft.com/addons/detail/ecosia-dark-mode/bcegabpbpglfkoelpjgdoofgfgmicjdk) and install to begin using the dark mode.
 
 
 ## **Development plan**
