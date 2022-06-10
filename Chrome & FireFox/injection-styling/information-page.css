@@ -1,16 +1,12 @@
 * {
-    --main-color: #F7F7F7;
-    --main-bg-color: #181A1B;
     --second-bg-color: #3F3F3F;
-    --border-color: #5F5F5F;
     --color-one: #3dbfbc;
     --color-two: #7A8436;
     --color-three: #cb421f;
-    scrollbar-color: #3F3F3F #1C1E1F;
 }
 
 body {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 .logo-anchor path:nth-child(2) {
@@ -18,29 +14,29 @@ body {
 }
 
 .jobs {
-	background-color: var(--main-bg-color);
+	background-color: var(--color-background-primary);
 }
 
 .a {
-    color: var(--main-color) !important;
+    color: var(--color-text-primary) !important;
 }
 
 a.typeahead-link {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
 }
 
 .typeahead-suggestion, .typeahead-suggestion:not(:last-of-type) {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--color-background-primary);
 }
 
 .typeahead {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-background-primary);
 }
 
 div.lSSlideOuter {
     background-color: var(--color-two);
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.offcanvas-menu-header {
@@ -48,11 +44,11 @@ div.offcanvas-menu-header {
 }
 
 nav.dropdown-menu.dropdown-menu-right {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 .dropdown-menu-group {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--color-background-primary);
 }
 
 label.js-offcanvas-menu-close.offcanvas-menu-close {
@@ -61,7 +57,7 @@ label.js-offcanvas-menu-close.offcanvas-menu-close {
 
 a.typeahead-link:hover {
     background-color: #2F2F2F;
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 a.typeahead-link:visited {
@@ -69,11 +65,11 @@ a.typeahead-link:visited {
 }
 
 h1.h1 {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 p.intro-text {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 p.custom-select-chosen.js-select-chosen {
@@ -82,52 +78,52 @@ p.custom-select-chosen.js-select-chosen {
 }
 
 input.js-search-input.search-form-input {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
 }
 
 div.search-form-wrapper {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 div.dropdown-menu-group a.dropdown-link:hover {
     background-color: #4D4D4D;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--color-background-primary);
 }
 
 div.dropdown-menu-group a.dropdown-link {
-    color: var(--main-color) !important;
+    color: var(--color-text-primary) !important;
 }
 
 div.search-form-addon-button.js-offcanvas-menu-trigger {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
     border-left: none;
 }
 
 div.dropdown-menu.custom-select-options {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
-    box-shadow: inset 0 -1px 2px 0 var(--main-color);
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
+    box-shadow: inset 0 -1px 2px 0 var(--color-text-primary);
 }
 
 nav.search-header.js-search-header.search-header-show {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 nav.search-header.js-search-header.search-header-inversed {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 section#history.statistics.statistics-history.section-scrolled-to.section-half.section-padding.text-center {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 section#reports.reports.section-scrolled-to {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 section#contact.contact.section-padding.section-scrolled-to {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 section#jobs.jobs.section-padding.section-scrolled-to.text-center {
@@ -135,27 +131,27 @@ section#jobs.jobs.section-padding.section-scrolled-to.text-center {
 }
 
 section#newsletter.section-half.section-padding.section-scrolled-to.newsletter.newsletter.text-center {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 footer#footer.site-footer {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 span.how-text {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 span.statistics-value-description {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 b.statistics-value-highlight {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.col-lg-2.col-md-4.col-sm-12.footer-force-height a {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.col-lg-2.col-md-4.col-sm-12.footer-force-height a:hover {
@@ -176,53 +172,53 @@ div.snapshot-content {
 }
 
 .btn btn-large btn-primary js-share-button {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 section.how.text-center.section-padding.section-scrolled-to.section-half {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 section.statistics.statistics-what.section-half.section-padding.text-center {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 div.statistics-content {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 div.media.desktop.text-center {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--color-background-primary) !important;
 }
 
 input#mce-EMAIL.required.email.newsletter-input {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
 }
 
 input.contact-element-text.contact-input-element {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
 }
 
 textarea.contact-message-textarea.contact-input-element {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
 }
 
 h1, h2, h3, h4, h5, p {
-    color: var(--main-color) !important;
+    color: var(--color-text-primary) !important;
 }
 
 select.select.form-flex-item {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
     scrollbar-color: #2A2C2E #1C1E1F !important;
 }
 
 input.input.form-flex-item.form-flex-item-grow {
-    background-color: var(--main-bg-color);
-    color: var(--main-color);
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
 }
 
 div.hero-mobile {
@@ -230,11 +226,11 @@ div.hero-mobile {
 }
 
 a.text-small {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 section#privacy-claims.privacy-claims {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 section.privacy-small-header.privacy-faq-header {
@@ -242,7 +238,7 @@ section.privacy-small-header.privacy-faq-header {
 }
 
 section#faq.section-padding {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 section.privacy-small-header {
@@ -250,15 +246,15 @@ section.privacy-small-header {
 }
 
 main {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 div.privacy-faq-answer {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.container.container-fluid {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 a:link {
@@ -270,15 +266,15 @@ a.btn {
 }
 
 a.btn.btn-large.btn-primary.js-scroll-to-section {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 a.btn.btn-large.btn-outline-inverse {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 a.btn.btn-outline-secondary {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 a.btn.btn-outline-secondary:hover {
@@ -286,19 +282,19 @@ a.btn.btn-outline-secondary:hover {
 }
 
 section#press-materials.materials.section-half.section-padding.text-center {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 span.material-text {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 a.typeahead-link {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 .read-more {
-    background-image: linear-gradient(to bottom,rgba(255,255,255,0) 0%, var(--main-bg-color) 40%, var(--main-bg-color) 100%) !important;
+    background-image: linear-gradient(to bottom,rgba(255,255,255,0) 0%, var(--color-background-primary) 40%, var(--color-background-primary) 100%) !important;
     background-color: transparent;
 }
 
@@ -307,22 +303,22 @@ a.typeahead-link {
 }
 
 .search::before {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
     color: #9b9b9b;
 }
 
 .search > input {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 .search > input[type="search"] {
-    border: 1px solid var(--border-color) !important;
-    background-color: var(--main-bg-color);
+    border: 1px solid var(--color-background-primary) !important;
+    background-color: var(--color-background-primary);
 }
 
 @media only screen and (min-width:768px) {
     .site-footer:before {
-        background: var(--main-bg-color) url(/assets/images/footer-3fe1e83701.png) repeat-x;
+        background: var(--color-background-primary) url(/assets/images/footer-3fe1e83701.png) repeat-x;
     }
 }
 
