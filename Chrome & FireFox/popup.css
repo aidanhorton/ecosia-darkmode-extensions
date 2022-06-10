@@ -3,7 +3,7 @@
     --colour-button-handle: hsl(0, 0%, 90%);
 
     --colour-text: grey;
-    --colour-text-input: hsl(0, 0%, 60%);
+    --colour-text-input: hsl(0, 0%, 70%);
 }
 
 /* Others */
@@ -182,6 +182,10 @@ input[type="time"] {
 
     color: var(--colour-text-input);
     text-align: center;
+}
+
+input[type="time"]:disabled {
+    color: var(--colour-text);
 }
 
 #otherSettings {
