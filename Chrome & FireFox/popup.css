@@ -1,3 +1,11 @@
+:root {
+    --colour-button-background: hsl(0, 0%, 20%);
+    --colour-button-handle: hsl(0, 0%, 90%);
+
+    --colour-text: grey;
+    --colour-text-input: hsl(0, 0%, 60%);
+}
+
 /* Others */
 
 body {
@@ -8,7 +16,7 @@ body {
     
     background-color:  #181A1B;
     font-family: Arial !important;
-    color: grey;
+    color: var(--colour-text);
     
     display: flex;
     flex-flow: column;
@@ -127,7 +135,7 @@ p, h3 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: var(--colour-button-background);
     border-radius: 34px;
 }
 
@@ -143,7 +151,7 @@ p, h3 {
     width: 16px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: var(--colour-button-handle);
     border-radius: 50%;
 }
 
@@ -166,6 +174,16 @@ input:checked + .slider:before {
     top: 6px;
 }
 
+input[type="time"] {
+    border: none;
+    border-radius: 3px;
+
+    background-color: var(--colour-button-background);
+
+    color: var(--colour-text-input);
+    text-align: center;
+}
+
 #otherSettings {
     transition: opacity 0.2s;
 }
@@ -174,6 +192,7 @@ button.warning {
     background-color: hsl(0, 100%, 60%);
 	color: white;
 	margin-right: 2px;
+    font-weight: 700;
 }
 button.warning:hover {
     background-color: hsl(0, 100%, 50%);
