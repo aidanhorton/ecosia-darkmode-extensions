@@ -155,7 +155,7 @@ p, h3 {
     border-radius: 50%;
 }
 
-input:checked + .slider {
+input[type="checkbox"]:checked + .slider {
     background-color: #4caf50;
 }
 
@@ -163,9 +163,8 @@ input:focus + .slider {
     box-shadow: 0 0 1px #4caf50;
 }
 
-input:checked + .slider:before {
+input[type="checkbox"]:checked + .slider:before {
     -webkit-transform: translateX(100%);
-    -ms-transform: translateX(100%);
     transform: translateX(100%);
 }
 
