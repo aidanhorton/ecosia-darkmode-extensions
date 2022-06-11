@@ -120,11 +120,18 @@ function updateStyle(message, sender, sendResponse) {
     let timebasedOn = message.data['timebasedDarkmode'] === 'on';
     let afterSunrise = Number(message.data['sunrise']) <= totalMinutes;
     let beforeSunset = totalMinutes < Number(message.data['sunset']);
+    let isDaytime = darkmodeOn && timebasedOn && afterSunrise && beforeSunset;
+    
+    let darkmodeOff = message.data['darkmode'] === 'off';
 
-	if (((darkmodeOn && timebasedOn && afterSunrise && beforeSunset) || (message.data['darkmode'] === 'off')) && elements.length) {
-        elements.forEach(element => {
-            element.remove();
-        });
+    if (elements.length) {
+        if (isDaytime
+            || darkmodeOff
+        ) {
+            elements.forEach(element => {
+                element.remove();
+            });
+        }
     }
     else if (darkmodeOn && !elements.length) {
         styles.forEach(style => {
