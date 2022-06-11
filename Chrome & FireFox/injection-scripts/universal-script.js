@@ -1,5 +1,7 @@
+// Makes the background dark avoid a white flash at load
 let rootstyle = document.querySelector(':root').style;
 rootstyle.setProperty('--color-background-primary', '#181A1B');
+
 
 // Creates the link-elements
 let spesificStyle = document.createElement('link');
@@ -19,92 +21,82 @@ let styles = [universalStyle];
 // Initial injection - gets the settings and applies them.
 chrome.storage.local.get(["settings"], injectOnLoad);
 
-// Sets a timeout to the next minute-change.
-setTimeout(function() {
-    // Runs it one time first because setInterval has to wait for one minute before it can start.
+function inject(styles) {
+    styles.forEach(style => {
+        (document.body || document.head || document.documentElement).appendChild(style);
+    });
+    setTimeout(() => {
+        document.querySelector(':root').style = '';
+    }, 200);
+}
+
+function injectOnLoad(items) {
+    if (items['settings']) {
+        let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+
+        let darkmodeOff = items['settings']['darkmode'] === 'off';
+        let timebasedOn = items['settings']['timebasedDarkmode'] === 'on';
+        let afterSunrise = Number(items['settings']['sunrise']) <= totalMinutes;
+        let beforeSunset = totalMinutes < Number(items['settings']['sunset']);
+        
+        if (!darkmodeOff && !timebasedOn) {
+            inject(styles);
+        }
+        else if (!darkmodeOff && timebasedOn && !(afterSunrise && beforeSunset)) {
+            inject(styles);
+        }
+        else {
+            document.querySelector(':root').style = '';
+        }
+    }
+    else {
+        inject(styles);
+    }
+}
+
+
+// Checks the time every minute to see if the theme needs changing
+function intervalcheck(styles) {
     chrome.storage.local.get(["settings"], function(items) {
         if (items['settings']) {
             let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+
+            let darkmodeOff = items['settings']['darkmode'] === 'off';
+            let timebasedOn = items['settings']['timebasedDarkmode'] === 'on';
+            let afterSunrise = Number(items['settings']['sunrise']) <= totalMinutes;
+            let beforeSunset = totalMinutes < Number(items['settings']['sunset']);
+
             let elements = document.querySelectorAll('.EcosiaDarkMode');
-            if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
-                if (elements.length) {
-                    elements.forEach(element => {
-                        element.remove();
-                    });
-                };
+            if (!darkmodeOff && timebasedOn && afterSunrise && beforeSunset && elements.length) {
+                elements.forEach(element => {
+                    element.remove();
+                });
             }
-            
-            else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
+            else if (!darkmodeOff && !elements.length) {
                 styles.forEach(style => {
                     document.head.appendChild(style);
                 });
             };
         };
     });
+}
+
+// Sets a timeout to the next minute-change.
+setTimeout(() => {
+    // Runs it one time first because setInterval has to wait for one minute before it can start.
+    intervalcheck(styles);
 
     // Checks the time every minute.
-    setInterval(function() {
-        chrome.storage.local.get(["settings"], function(items) {
-            if (items['settings']) {
-                let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-                let elements = document.querySelectorAll('.EcosiaDarkMode');
-                if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
-		            if (elements.length) {
-                        elements.forEach(element => {
-                            element.remove();
-                        });
-                    };
-                }
-                
-                else if ((items['settings']['darkmode'] !== 'off') && (elements.length === 0)) {
-                    styles.forEach(style => {
-                        document.head.appendChild(style);
-                    });
-                };
-            };
-        });
+    setInterval(() => {
+        intervalcheck(styles);
     }, 60000);
 }, (60 - (new Date().getSeconds())) * 1000);
 
-function injectOnLoad(items) {
-    if (items["settings"]) {
-        let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-        if ((items["settings"]['darkmode'] !== 'off') && (items["settings"]['timebasedDarkmode'] !== 'on')) {
-            styles.forEach(style => {
-                (document.body || document.head || document.documentElement).appendChild(style);
-            });
-            setTimeout(() => {
-                document.querySelector(':root').style = '';
-            }, 200);
-        }
-        
-        else if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && !((Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset'])))) {
-            styles.forEach(style => {
-                (document.body || document.head || document.documentElement).appendChild(style);
-            });
-            setTimeout(() => {
-                document.querySelector(':root').style = '';
-            }, 200);
-        }
-        
-        else {
-            document.querySelector(':root').style = '';
-        }
-    }
-    
-    else {
-        styles.forEach(style => {
-            (document.body || document.head || document.documentElement).appendChild(style);
-        });
-        setTimeout(() => {
-            document.querySelector(':root').style = '';
-        }, 200);
-    }
-}
 
 // Subscribe to other necessary events.
 document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
 chrome.runtime.onMessage.addListener(updateStyle);
+
 
 // Moves style tag to the head once the document has loaded.
 function changeStyleImportance() {
@@ -118,25 +110,25 @@ function changeStyleImportance() {
 	}
 }
 
+
 // Updates the style when changes to the settings has been made.
 function updateStyle(message, sender, sendResponse) {
 	let elements = document.querySelectorAll('.EcosiaDarkMode');
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+        
+    let darkmodeOn = message.data['darkmode'] === 'on';
+    let timebasedOn = message.data['timebasedDarkmode'] === 'on';
+    let afterSunrise = Number(message.data['sunrise']) <= totalMinutes;
+    let beforeSunset = totalMinutes < Number(message.data['sunset']);
 
-	if (((message.data['darkmode'] === 'on') && (message.data['timebasedDarkmode'] === 'on') && (Number(message.data['sunrise']) <= totalMinutes) && (totalMinutes < Number(message.data['sunset']))) || (message.data['darkmode'] === 'off')) {
-        if (elements.length) {
-            elements.forEach(element => {
-                element.remove();
-            });
-        }
-
+	if (((darkmodeOn && timebasedOn && afterSunrise && beforeSunset) || (message.data['darkmode'] === 'off')) && elements.length) {
+        elements.forEach(element => {
+            element.remove();
+        });
     }
-    
-    else if ((message.data['darkmode'] === 'on')) {
-        if (elements.length === 0) {
-            styles.forEach(style => {
-                document.head.appendChild(style);
-            });
-        }
+    else if (darkmodeOn && !elements.length) {
+        styles.forEach(style => {
+            document.head.appendChild(style);
+        });
     }
 }
