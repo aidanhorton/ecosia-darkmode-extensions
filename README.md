@@ -1,9 +1,3 @@
-<style>
-	li {
-		margin-bottom: 8px;
-	}
-</style>
-
 <img src="Chrome & FireFox\images\EcosiaDarkMode.png">
 <hr>
 
