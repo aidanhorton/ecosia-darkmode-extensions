@@ -8,7 +8,6 @@
 
 Visit the browser extension pages for [<u>Chrome</u>](https://chrome.google.com/webstore/detail/ecosia-dark-mode/hfpbjnmjofmfpnkcmdnkgndahgpjhpih), [<u>FireFox</u>](https://addons.mozilla.org/en-GB/firefox/addon/ecosia-dark-theme/) & [<u>Edge</u>](https://microsoftedge.microsoft.com/addons/detail/ecosia-dark-mode/bcegabpbpglfkoelpjgdoofgfgmicjdk) and install to begin using the dark mode.
 
-<hr>
 
 ## **Development plan**
 
@@ -23,7 +22,6 @@ Visit the browser extension pages for [<u>Chrome</u>](https://chrome.google.com/
 	<li>See more on our 'Issues' section. Raise any suggestions there!</li>
 </ul>
 
-<hr>
 
 ## **Permissions & Privacy**
 
@@ -40,7 +38,6 @@ This extension requires a few permissions in order to function - these are detai
 
 You are free to look at the code to verify how this extension uses the above permissions.
 
-<hr>
 
 ## **Contributions**
 
