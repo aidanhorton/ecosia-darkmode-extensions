@@ -1,4 +1,4 @@
-<img src="Chrome & FireFox\images\EcosiaDarkMode.png">
+<img src="Chrome & FireFox\images\EcosiaDarkMode.png" alt="Ecosia Dark Mode">
 <hr>
 
 
