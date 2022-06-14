@@ -55,40 +55,50 @@ function injectOnLoad(items) {
 }
 
 
+// Applied the correct theme
+function checkStyling(data) {
+    let elements = document.querySelectorAll('.EcosiaDarkMode');
+    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+        
+    let darkmodeOn = data['darkmode'] === 'on';
+    let timebasedOn = data['timebasedDarkmode'] === 'on';
+    let afterSunrise = Number(data['sunrise']) <= totalMinutes;
+    let beforeSunset = totalMinutes < Number(data['sunset']);
+    let isDaytime = darkmodeOn && timebasedOn && afterSunrise && beforeSunset;
+    
+    let darkmodeOff = data['darkmode'] === 'off';
+
+    if (isDaytime
+        || darkmodeOff
+    ) {
+        if (elements.length) {
+            elements.forEach(element => {
+                element.remove();
+            });
+        }
+    }
+    else if (darkmodeOn && !elements.length) {
+        styles.forEach(style => {
+            document.head.appendChild(style);
+        });
+    }
+}
+
 // Checks the time every minute to see if the theme needs changing
-function intervalcheck(styles) {
+function intervalcheck() {
     chrome.storage.local.get(["settings"], function(items) {
-        if (items['settings']) {
-            let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-
-            let darkmodeOff = items['settings']['darkmode'] === 'off';
-            let timebasedOn = items['settings']['timebasedDarkmode'] === 'on';
-            let afterSunrise = Number(items['settings']['sunrise']) <= totalMinutes;
-            let beforeSunset = totalMinutes < Number(items['settings']['sunset']);
-
-            let elements = document.querySelectorAll('.EcosiaDarkMode');
-            if (!darkmodeOff && timebasedOn && afterSunrise && beforeSunset && elements.length) {
-                elements.forEach(element => {
-                    element.remove();
-                });
-            }
-            else if (!darkmodeOff && !elements.length) {
-                styles.forEach(style => {
-                    document.head.appendChild(style);
-                });
-            };
-        };
+        checkStyling(items['settings']);
     });
 }
 
 // Sets a timeout to the next minute-change.
 setTimeout(() => {
     // Runs it one time first because setInterval has to wait for one minute before it can start.
-    intervalcheck(styles);
+    intervalcheck();
 
     // Checks the time every minute.
     setInterval(() => {
-        intervalcheck(styles);
+        intervalcheck();
     }, 60000);
 }, (60 - (new Date().getSeconds())) * 1000);
 
@@ -113,29 +123,5 @@ function changeStyleImportance() {
 
 // Updates the style when changes to the settings has been made.
 function updateStyle(message, sender, sendResponse) {
-	let elements = document.querySelectorAll('.EcosiaDarkMode');
-    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-        
-    let darkmodeOn = message.data['darkmode'] === 'on';
-    let timebasedOn = message.data['timebasedDarkmode'] === 'on';
-    let afterSunrise = Number(message.data['sunrise']) <= totalMinutes;
-    let beforeSunset = totalMinutes < Number(message.data['sunset']);
-    let isDaytime = darkmodeOn && timebasedOn && afterSunrise && beforeSunset;
-    
-    let darkmodeOff = message.data['darkmode'] === 'off';
-
-    if (elements.length) {
-        if (isDaytime
-            || darkmodeOff
-        ) {
-            elements.forEach(element => {
-                element.remove();
-            });
-        }
-    }
-    else if (darkmodeOn && !elements.length) {
-        styles.forEach(style => {
-            document.head.appendChild(style);
-        });
-    }
+	checkStyling(message.data);
 }
