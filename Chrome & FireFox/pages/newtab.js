@@ -37,7 +37,7 @@ function buildPopupDom(mostVisitedURLs) {
 			close.addEventListener('click', function() {
 				let target = this;
 				
-				chrome.storage.local.get({"blacklistedUrls": []}, result => {
+				chrome.storage.local.get({'blacklistedUrls': []}, result => {
 					let urls = result.blacklistedUrls;
 					
 					let topSite = target.parentElement.querySelector('.topSite').href;
@@ -56,7 +56,7 @@ function buildPopupDom(mostVisitedURLs) {
 		
 			let icon = itemWrapper.appendChild(document.createElement('img'));
 			icon.classList.add('icon');
-			icon.src = 'https://www.google.com/s2/favicons?domain=' + url.url;
+			icon.src = `https://www.google.com/s2/favicons?domain=${url.url}`;
 		});
 	});
 }
@@ -113,17 +113,18 @@ function updateStyle(message, sender, sendResponse) {
     }
 }
 
-chrome.storage.local.get(["settings"], injectOnLoad);
+chrome.storage.local.get(['settings'], injectOnLoad);
 
 // Sets a timeout to the next minute-change.
 setTimeout(function() {
     // Runs it one time first because setInterval has to wait for one minute before it can start.
-    chrome.storage.local.get(["settings"], function(items) {
-        if (items['settings'] !== undefined) {
+    chrome.storage.local.get(['settings'], function(items) {
+        if (items['settings']) {
             let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
             let element = document.getElementById('EcosiaLightMode');
 			let settings = items['settings'];
-            if (settings['darkmode'] !== 'off'
+            
+			if (settings['darkmode'] !== 'off'
 				&& settings['timebasedDarkmode'] === 'on'
 				&& settings['sunrise'] <= totalMinutes
 				&& totalMinutes < settings['sunset']
@@ -140,11 +141,12 @@ setTimeout(function() {
 
     // Checks the time every minute.
     setInterval(function() {
-        chrome.storage.local.get(["settings"], function(items) {
+        chrome.storage.local.get(['settings'], function(items) {
 			if (items['settings'] !== undefined) {
 				let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
 				let element = document.getElementById('EcosiaLightMode');
 				let settings = items['settings'];
+				
 				if (settings['darkmode'] !== 'off'
 					&& settings['timebasedDarkmode'] === 'on'
 					&& settings['sunrise'] <= totalMinutes
@@ -159,13 +161,13 @@ setTimeout(function() {
 			};
 		});
     }, 60000);
-}, (60 - (new Date().getSeconds())) * 1000);
+}, (60 - new Date().getSeconds()) * 1000);
 
 function injectOnLoad(items) {
-    if (items["settings"] !== undefined) {
+    if (items['settings'] !== undefined) {
         let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
 		let settings = items['settings'];
-        if ((settings['darkmode'] === 'off')) {
+        if (settings['darkmode'] === 'off') {
             (document.body || document.head || document.documentElement).appendChild(style);
         }
 		else if (settings['darkmode'] !== 'off'
