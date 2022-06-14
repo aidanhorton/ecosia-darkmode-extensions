@@ -36,8 +36,8 @@ function injectOnLoad(items) {
 
         let darkmodeOff = items['settings']['darkmode'] === 'off';
         let timebasedOn = items['settings']['timebasedDarkmode'] === 'on';
-        let afterSunrise = Number(items['settings']['sunrise']) <= totalMinutes;
-        let beforeSunset = totalMinutes < Number(items['settings']['sunset']);
+        let afterSunrise = items['settings']['sunrise'] <= totalMinutes;
+        let beforeSunset = totalMinutes < items['settings']['sunset'];
         
         if (!darkmodeOff && !timebasedOn) {
             inject(styles);
@@ -62,8 +62,8 @@ function checkStyling(data) {
         
     let darkmodeOff = data['darkmode'] === 'off';
     let timebasedOn = data['timebasedDarkmode'] === 'on';
-    let afterSunrise = Number(data['sunrise']) <= totalMinutes;
-    let beforeSunset = totalMinutes < Number(data['sunset']);
+    let afterSunrise = data['sunrise'] <= totalMinutes;
+    let beforeSunset = totalMinutes < data['sunset'];
     let isDaytime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset;
 
     if (isDaytime
