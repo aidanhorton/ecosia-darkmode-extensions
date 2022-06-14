@@ -159,7 +159,7 @@ chrome.storage.local.get(['settings'], function(items) {
         setInterval(function() {
             changeLogoBasedOnTime(settings);
         }, 60000);
-    }, (60 - (new Date().getSeconds())) * 1000);
+    }, (60 - new Date().getSeconds()) * 1000);
 
 
     // Updates all the tabs' data, and current state
@@ -177,8 +177,8 @@ chrome.storage.local.get(['settings'], function(items) {
 
 // Removes all sites being hidden from most visited sites
 function removeAllBlacklistedURLs() {
-    chrome.storage.local.get({"blacklistedUrls": []}, function(result) {
-        chrome.storage.local.set({"blacklistedUrls": []});
+    chrome.storage.local.get({'blacklistedUrls': []}, function(result) {
+        chrome.storage.local.set({'blacklistedUrls': []});
         chrome.tabs.query({}, function(tabs) {
             tabs.forEach(tab => {
                 chrome.tabs.sendMessage(tab.id, {resetMostVisited: 'reset'});

@@ -5,13 +5,13 @@ rootstyle.setProperty('--color-background-primary', '#181A1B');
 
 // Creates the link-elements
 let spesificStyle = document.createElement('link');
-spesificStyle.id = "EcosiaDarkMode";
-spesificStyle.className = "EcosiaDarkMode";
+spesificStyle.id = 'EcosiaDarkModeSpecific';
+spesificStyle.className = 'EcosiaDarkMode';
 spesificStyle.rel = 'stylesheet';
 
 let universalStyle = document.createElement('link');
-universalStyle.id = "EcosiaDarkModeUniversal";
-universalStyle.className = "EcosiaDarkMode";
+universalStyle.id = 'EcosiaDarkModeUniversal';
+universalStyle.className = 'EcosiaDarkMode';
 universalStyle.rel = 'stylesheet';
 universalStyle.href = chrome.runtime.getURL('injection-styling/universal-styling.css');
 
@@ -19,7 +19,7 @@ let styles = [universalStyle];
 
 
 // Initial injection - gets the settings and applies them.
-chrome.storage.local.get(["settings"], injectOnLoad);
+chrome.storage.local.get(['settings'], injectOnLoad);
 
 function inject(styles) {
     styles.forEach(style => {
@@ -82,7 +82,7 @@ function checkStyling(data) {
 
 // Checks the time every minute to see if the theme needs changing
 function intervalcheck() {
-    chrome.storage.local.get(["settings"], function(items) {
+    chrome.storage.local.get(['settings'], function(items) {
         checkStyling(items['settings']);
     });
 }

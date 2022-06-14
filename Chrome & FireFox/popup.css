@@ -17,11 +17,12 @@ body {
 }
 
 hr {
+    box-sizing: border-box;
     width: 90%;
     height: 1px;
     border-style: solid;
     border-bottom: 0px;
-    box-sizing: border-box;
+
 	opacity: 0.5;
 }
 
@@ -30,12 +31,13 @@ p, h3 {
 }
 
 #top, .subsetting {
+    width: 100%;
+
     display: flex;
     flex-flow: row;
-    width: 100%;
     justify-content: flex-start;
-    gap: 8px;
     align-items: center;
+    gap: 8px;
 }
 
 .centerInner {
@@ -46,10 +48,11 @@ p, h3 {
 /* Settings */
 
 .mainSetting {
+    width: 90%;
+
     display: flex;
     flex-flow: column;
     gap: 8px;
-    width: 90%;
 }
 
 #resetTopSites {
@@ -57,13 +60,15 @@ p, h3 {
 }
 
 .settingtitle {
-    text-align: start;
     margin-bottom: 5px;
+    
+    text-align: start;
 }
 
 .subsettingsection {
     width: 70%;
     margin-top: 10px;
+
     display: grid;
     grid-template-areas: 'hr1 . hr2';
     grid-template-columns: fr auto fr;
@@ -100,6 +105,7 @@ p, h3 {
 
 #top {
     margin-bottom: 12px;
+
     justify-content: center;
 }
 
@@ -108,27 +114,33 @@ p, h3 {
 /* Most of the CSS for the sliders are taken from "https://www.w3schools.com/howto/howto_css_switch.asp" */
 
 .switch input {
-    opacity: 0;
     width: 0;
     height: 0;
+
+    opacity: 0;
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
     min-width: 41px;
     height: 24px;
+
+    display: inline-block;
+
+    position: relative;
 }
 
 .slider {
+    border-radius: 34px;
+
     position: absolute;
-    cursor: pointer;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+
     background-color: #ccc;
-    border-radius: 34px;
+
+    cursor: pointer;
 }
 
 .slider-transition {
@@ -137,14 +149,17 @@ p, h3 {
 }
 
 .slider:before {
-    position: absolute;
     content: "";
-    height: 16px;
+
     width: 16px;
+    height: 16px;
+    border-radius: 50%;
+
+    position: absolute;
     left: 4px;
     bottom: 4px;
+    
     background-color: white;
-    border-radius: 50%;
 }
 
 input:checked + .slider {
@@ -171,12 +186,15 @@ input:checked + .slider:before {
 }
 
 button.warning {
-    background-color: hsl(0, 100%, 60%);
-	color: white;
 	margin-right: 2px;
+
+    background-color: hsl(0, 100%, 60%);
+
+	color: white;
 }
 button.warning:hover {
     background-color: hsl(0, 100%, 50%);
+
 	cursor: pointer;
 }
 button.warning:active {
@@ -199,6 +217,7 @@ button {
     body {
         height: 280px;
         width: 260px;
+        
         overflow-x: clip;
     }
     .hideOnFirefox {

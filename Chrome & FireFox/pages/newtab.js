@@ -1,75 +1,63 @@
 function buildPopupDom(mostVisitedURLs) {
 	
 	let mostVisited = document.getElementById('mostVisited');
-	while (mostVisited.firstChild) mostVisited.removeChild(mostVisited.lastChild);
+	while (mostVisited.firstChild) mostVisited.lastChild.remove();
 	
 	let whitelistedUrls = [];
 	
-	chrome.storage.local.get({"blacklistedUrls": []}, function (result) {
+	chrome.storage.local.get({'blacklistedUrls': []}, function(result) {
 		let blacklistedUrls = result.blacklistedUrls;
 		console.log(blacklistedUrls);
 		
-		for (let x = 0; x < mostVisitedURLs.length; x++) {
-			let isBlacklisted = false;
-			for (let i = 0; i < blacklistedUrls.length; i++) {
-				if (blacklistedUrls[i] === mostVisitedURLs[x].url) {
-					isBlacklisted = true;
-				}
+		mostVisitedURLs.forEach(url => {
+			if (!blacklistedUrls.includes(url.url)) {
+				whitelistedUrls.push(url);
 			}
-			
-			if (!isBlacklisted) {
-				whitelistedUrls.push(mostVisitedURLs[x]);
-			}
-		}
+		});
 
-		let urls = 7;
-		if (urls > whitelistedUrls.length) {
-			urls = whitelistedUrls.length;
-		}
-		
-		for (let i = 0; i < urls; i++) {
+		let urls = Math.min(7, whitelistedUrls.length);
+		whitelistedUrls.slice(0, urls).forEach(url => {
 			let itemAndCloseWrapper = mostVisited.appendChild(document.createElement('div'));
-			itemAndCloseWrapper.className += "itemAndCloseWrapper";
+			itemAndCloseWrapper.classList.add('itemAndCloseWrapper');
 			
 			let itemWrapper = itemAndCloseWrapper.appendChild(document.createElement('a'));
-			itemWrapper.href = whitelistedUrls[i].url;
-			itemWrapper.className += "topSite";
+			itemWrapper.href = url.url;
+			itemWrapper.classList.add('topSite');
 	
 			let toolTipWrapper = itemWrapper.appendChild(document.createElement('div'));
-			toolTipWrapper.className += "toolTipWrapper";
+			toolTipWrapper.classList.add('toolTipWrapper');
 	
 			let toolTip = toolTipWrapper.appendChild(document.createElement('span'));
-			toolTip.className += "toolTip";    
-			toolTip.appendChild(document.createTextNode(whitelistedUrls[i].title));
+			toolTip.classList.add('toolTip');    
+			toolTip.appendChild(document.createTextNode(url.title));
 			
 			let close = itemAndCloseWrapper.appendChild(document.createElement('a'));
-			close.className = "closeButton";
+			close.classList.add('closeButton');
 			
-			close.addEventListener('click', function(element) {
-				element = element || window.event;
-				let target = element.target || element.srcElement;
+			close.addEventListener('click', function() {
+				let target = this;
 				
-				chrome.storage.local.get({"blacklistedUrls": []}, function (result) {
+				chrome.storage.local.get({"blacklistedUrls": []}, result => {
 					let urls = result.blacklistedUrls;
 					
-					let topSite = target.parentElement.parentElement.querySelector('.topSite').href;
+					let topSite = target.parentElement.querySelector('.topSite').href;
 					urls.push(topSite);
 					
-					chrome.storage.local.set({"blacklistedUrls": urls});
+					chrome.storage.local.set({'blacklistedUrls': urls});
 					chrome.topSites.get(buildPopupDom);
 				});
 				
-				mostVisited.removeChild(target.closest('.itemAndCloseWrapper'));
+				this.parentElement.remove();
 			}, false);
 			
 			let closeImage = close.appendChild(document.createElement('img'));
-			closeImage.src = "Close.png";
-			closeImage.className = "closeImage";
+			closeImage.src = 'Close.png';
+			closeImage.classList.add('closeImage');
 		
 			let icon = itemWrapper.appendChild(document.createElement('img'));
-			icon.className += "icon";
-			icon.src = "https://www.google.com/s2/favicons?domain=" + whitelistedUrls[i].url;
-		}
+			icon.classList.add('icon');
+			icon.src = 'https://www.google.com/s2/favicons?domain=' + url.url;
+		});
 	});
 }
 
@@ -79,24 +67,24 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Handles the dropdown-button
 	let link = document.getElementById('dropdown-button');
     link.addEventListener('click', function() {
-		let link = document.getElementById('dropdown-button');
-        let list = document.getElementById("dropdown-list");
+        let list = document.getElementById('dropdown-list');
 		
-		if (list.style.display === "block") {
-			list.style.display = "none";
-			link.style.background = "";
-		} else {
-			list.style.display = "block";
-			link.style.background = "#3F3F3F";
+		if (list.style.display === 'block') {
+			list.style.display = 'none';
+			this.style.background = '';
+		}
+		else {
+			list.style.display = 'block';
+			this.style.background = '#3F3F3F';
 		}
     });
 	link.addEventListener('focusout', function() {
 		if (!link.matches(':focus-within:not(:focus)')) {
 			let link = document.getElementById('dropdown-button');
-			let list = document.getElementById("dropdown-list");
+			let list = document.getElementById('dropdown-list');
 
-			list.style.display = "none";
-			link.style.background = "";
+			list.style.display = 'none';
+			link.style.background = '';
 		}
 	});
 });
@@ -105,15 +93,22 @@ document.addEventListener('DOMContentLoaded', function() {
 function updateStyle(message, sender, sendResponse) {
 	let element = document.getElementById('EcosiaLightMode');
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-
-	if (((message.data['darkmode'] === 'on') && (message.data['timebasedDarkmode'] === 'on') && (Number(message.data['sunrise']) <= totalMinutes) && (totalMinutes < Number(message.data['sunset']))) || (message.data['darkmode'] === 'off')) {
+	let settings = message.data;
+	if ((settings['darkmode'] === 'on'
+		&& settings['timebasedDarkmode'] === 'on'
+		&& settings['sunrise'] <= totalMinutes
+		&& totalMinutes < settings['sunset']
+		)
+		|| settings['darkmode'] === 'off'
+	) {
         if (element === null) {
-			document.getElementsByTagName("head")[0].appendChild(style);
+			document.head.appendChild(style);
         }
 		
-    } else if ((message.data['darkmode'] === 'on')) {
-		if (element !== null) {
-			element.parentElement.removeChild(element);
+    }
+	else if (settings['darkmode'] === 'on') {
+		if (element) {
+			element.remove();
         }
     }
 }
@@ -127,12 +122,18 @@ setTimeout(function() {
         if (items['settings'] !== undefined) {
             let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
             let element = document.getElementById('EcosiaLightMode');
-            if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
+			let settings = items['settings'];
+            if (settings['darkmode'] !== 'off'
+				&& settings['timebasedDarkmode'] === 'on'
+				&& settings['sunrise'] <= totalMinutes
+				&& totalMinutes < settings['sunset']
+			) {
                 if (element === null) {
-					document.getElementsByTagName("head")[0].appendChild(style);
+					document.head.appendChild(style);
                 };
-            } else if ((items['settings']['darkmode'] !== 'off') && (element !== null)) {
-				element.parentElement.removeChild(element);
+            }
+			else if (settings['darkmode'] !== 'off' && element) {
+				element.remove();
             };
         };
     });
@@ -143,24 +144,35 @@ setTimeout(function() {
 			if (items['settings'] !== undefined) {
 				let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
 				let element = document.getElementById('EcosiaLightMode');
-				if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
+				let settings = items['settings'];
+				if (settings['darkmode'] !== 'off'
+					&& settings['timebasedDarkmode'] === 'on'
+					&& settings['sunrise'] <= totalMinutes
+					&& totalMinutes < settings['sunset']
+				) {
 					if (element === null) {
-						document.getElementsByTagName("head")[0].appendChild(style);
+						document.head.appendChild(style);
 					};
-				} else if ((items['settings']['darkmode'] !== 'off') && (element !== null)) {
-					element.parentElement.removeChild(element);
+				} else if (settings['darkmode'] !== 'off' && element) {
+					element.remove();
 				};
 			};
 		});
     }, 60000);
 }, (60 - (new Date().getSeconds())) * 1000);
 
-function injectOnLoad(items){
+function injectOnLoad(items) {
     if (items["settings"] !== undefined) {
         let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-        if ((items["settings"]['darkmode'] === 'off')) {
+		let settings = items['settings'];
+        if ((settings['darkmode'] === 'off')) {
             (document.body || document.head || document.documentElement).appendChild(style);
-        } else if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
+        }
+		else if (settings['darkmode'] !== 'off'
+			&& settings['timebasedDarkmode'] === 'on'
+			&& settings['sunrise'] <= totalMinutes
+			&& totalMinutes < settings['sunset']
+		) {
             (document.body || document.head || document.documentElement).appendChild(style);
         }
     }
@@ -168,10 +180,10 @@ function injectOnLoad(items){
 
 // Messagehandler
 function messageReceiver(message, sender, sendResponse) {
-	if (message.data !== undefined) {
+	if (message.data) {
 		updateStyle(message, sender, sendResponse);
 	}
-	if (message.resetMostVisited !== undefined) {
+	if (message.resetMostVisited) {
 		chrome.topSites.get(buildPopupDom);
 	}
 }
@@ -180,9 +192,9 @@ chrome.runtime.onMessage.addListener(messageReceiver);
 
 
 let style = document.createElement('style');
-style.id = "EcosiaLightMode";
-style.className = "EcosiaLightMode";
-style.type = "text/css";
+style.id = 'EcosiaLightMode';
+style.classList.add('EcosiaLightMode');
+style.type = 'text/css';
 style.textContent = `
 body, form, input, a, button, .nav-menu-group, #dropdown-list {
 	background: #FFF !important;
