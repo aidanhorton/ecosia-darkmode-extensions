@@ -60,24 +60,20 @@ function checkStyling(data) {
     let elements = document.querySelectorAll('.EcosiaDarkMode');
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
         
-    let darkmodeOn = data['darkmode'] === 'on';
+    let darkmodeOff = data['darkmode'] === 'off';
     let timebasedOn = data['timebasedDarkmode'] === 'on';
     let afterSunrise = Number(data['sunrise']) <= totalMinutes;
     let beforeSunset = totalMinutes < Number(data['sunset']);
-    let isDaytime = darkmodeOn && timebasedOn && afterSunrise && beforeSunset;
-    
-    let darkmodeOff = data['darkmode'] === 'off';
+    let isDaytime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset;
 
     if (isDaytime
         || darkmodeOff
     ) {
-        if (elements.length) {
-            elements.forEach(element => {
-                element.remove();
-            });
-        }
+        elements.forEach(element => {
+            element.remove();
+        });
     }
-    else if (darkmodeOn && !elements.length) {
+    else if (!darkmodeOff && !elements.length) {
         styles.forEach(style => {
             document.head.appendChild(style);
         });
