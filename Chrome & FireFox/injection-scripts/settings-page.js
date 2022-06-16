@@ -1,4 +1,4 @@
-// Gets the spesific CSS-file
-spesificStyle.href = chrome.runtime.getURL('injection-styling/settings-page.css');
+// Gets the specific CSS-file
+specificStyle.href = chrome.runtime.getURL('injection-styling/settings-page.css');
 
-styles.push(spesificStyle);
+styles.push(specificStyle);
