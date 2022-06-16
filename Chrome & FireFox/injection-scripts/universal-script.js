@@ -1,9 +1,8 @@
-// Makes the background dark avoid a white flash at load
+// Makes the background dark avoid a white flash at load.
 let rootstyle = document.querySelector(':root').style;
 rootstyle.setProperty('--color-background-primary', '#181A1B');
 
-
-// Creates the link-elements
+// Creates the link-elements.
 let spesificStyle = document.createElement('link');
 spesificStyle.id = 'EcosiaDarkModeSpecific';
 spesificStyle.className = 'EcosiaDarkMode';
@@ -17,10 +16,27 @@ universalStyle.href = chrome.runtime.getURL('injection-styling/universal-styling
 
 let styles = [universalStyle];
 
-
 // Initial injection - gets the settings and applies them.
 chrome.storage.local.get(['settings'], injectOnLoad);
 
+// Sets a timeout to the next minute-change.
+setTimeout(() => {
+    // Runs it one time first because setInterval has to wait for one minute before it can start.
+    intervalcheck();
+
+    // Checks the time every minute.
+    setInterval(() => {
+        intervalcheck();
+    }, 60000);
+}, (60 - (new Date().getSeconds())) * 1000);
+
+// Subscribe to other necessary events.
+document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
+chrome.runtime.onMessage.addListener(updateStyle);
+
+
+
+// Inject the style into the document.
 function inject(styles) {
     styles.forEach(style => {
         (document.body || document.head || document.documentElement).appendChild(style);
@@ -30,9 +46,10 @@ function inject(styles) {
     }, 200);
 }
 
+// Calculate if injection should be applied, and apply if so.
 function injectOnLoad(items) {
     if (items['settings']) {
-        let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+        let totalMinutes = new Date().getHours() * 60 + new Date().getMinutes();
 
         let darkmodeOff = items['settings']['darkmode'] === 'off';
         let timebasedOn = items['settings']['timebasedDarkmode'] === 'on';
@@ -54,8 +71,7 @@ function injectOnLoad(items) {
     }
 }
 
-
-// Applied the correct theme
+// Applied the correct theme.
 function checkStyling(data) {
     let elements = document.querySelectorAll('.EcosiaDarkMode');
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
@@ -80,29 +96,12 @@ function checkStyling(data) {
     }
 }
 
-// Checks the time every minute to see if the theme needs changing
+// Checks the time every minute to see if the theme needs changing.
 function intervalcheck() {
     chrome.storage.local.get(['settings'], function(items) {
         checkStyling(items['settings']);
     });
 }
-
-// Sets a timeout to the next minute-change.
-setTimeout(() => {
-    // Runs it one time first because setInterval has to wait for one minute before it can start.
-    intervalcheck();
-
-    // Checks the time every minute.
-    setInterval(() => {
-        intervalcheck();
-    }, 60000);
-}, (60 - (new Date().getSeconds())) * 1000);
-
-
-// Subscribe to other necessary events.
-document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
-chrome.runtime.onMessage.addListener(updateStyle);
-
 
 // Moves style tag to the head once the document has loaded.
 function changeStyleImportance() {
@@ -115,7 +114,6 @@ function changeStyleImportance() {
         });
 	}
 }
-
 
 // Updates the style when changes to the settings has been made.
 function updateStyle(message, sender, sendResponse) {
