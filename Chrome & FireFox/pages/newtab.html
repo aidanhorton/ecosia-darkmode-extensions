@@ -10,80 +10,77 @@
 	<body>
 		<div class="newtab">
 			<div class="main-nav">
-				<button type="button" role="button" aria-label="Toggle menu" class="main-nav__button">
+				<button type="button" role="button" aria-label="Toggle menu" class="main-nav__button" id="dropdown-button">
 					<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-hamburger">
 						<path clip-rule="evenodd" d="M15 2.8a.8.8 0 00-.8-.8H1.8a.8.8 0 100 1.6h12.4a.8.8 0 00.8-.8zm0 10a.8.8 0 00-.8-.8H1.8a.8.8 0 000 1.6h12.4a.8.8 0 00.8-.8zM14.2 7a.8.8 0 010 1.6H5.8a.8.8 0 110-1.6h8.4z" fill="currentColor">
 						</path>
 					</svg>
 				</button>
-			
-				<div class="main-nav__dropdown" style="display: none;">
-					<nav role="navigation" class="main-nav-menu">
-						<div class="main-nav-menu__group">
-							<ul class="list">
-								<li class="list-item list-item--transition" data-v-1d624df4="">
-									<span data-v-098a2609="" class="list-item__content">
-										<a href="https://info.ecosia.org/what" rel="noopener" class="main-nav-menu__link"> How Ecosia works </a>
-									</span>
-								</li>
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://info.ecosia.org/about" rel="noopener" class="main-nav-menu__link"> About us </a>
-									</span>
-								</li>
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://info.ecosia.org/mobile" rel="noopener" class="main-nav-menu__link"> Mobile app </a>
-									</span>
-								</li>
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://info.ecosia.org/privacy" rel="noopener" class="main-nav-menu__link"> Privacy </a>
-									</span>
-								</li>
-							</ul>
-						</div>
+				
+				<div id="dropdown-list">
+					<div class="nav-menu__group">
+						<ul class="nav-menu-group-list">
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://info.ecosia.org/what" class="main-nav-menu__link"> How Ecosia works </a>
+								</span>
+							</li>
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://info.ecosia.org/about" class="main-nav-menu__link"> About us </a>
+								</span>
+							</li>
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://info.ecosia.org/mobile" class="main-nav-menu__link"> Mobile app </a>
+								</span>
+							</li>
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://info.ecosia.org/privacy" class="main-nav-menu__link"> Privacy </a>
+								</span>
+							</li>
+						</ul>
+					</div>
+					<div class="nav-menu__group">
+						<ul class="nav-menu-group-list">
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://plant.ecosia.org" class="main-nav-menu__link"> Gift trees </a>
+								</span>
+							</li>
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://ecosia.teemill.com" class="main-nav-menu__link"> Shop </a>
+								</span>
+							</li>
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://blog.ecosia.org" class="main-nav-menu__link"> Blog </a>
+								</span
+							</li>
+							<li class="list-item">
+								<span data-v-098a2609="" class="list-item__content">
+									<a href="https://explore.ecosia.org/jobs" class="main-nav-menu__link"> Careers </a>
+								</span>
+							</li>
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://ecosia.helpscoutdocs.com/" class="main-nav-menu__link"> FAQ </a>
+								</span>
+							</li>
+						</ul>
+					</div>
 					
-						<div class="main-nav-menu__group">
-							<ul class="list">
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://plant.ecosia.org" rel="noopener" class="main-nav-menu__link"> Gift trees </a>
-									</span>
-								</li>
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://ecosia.teemill.com" rel="noopener" class="main-nav-menu__link"> Shop </a>
-									</span>
-								</li>
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://blog.ecosia.org" rel="noopener" class="main-nav-menu__link"> Blog </a>
-									</span>
-								</li>
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://explore.ecosia.org/jobs" rel="noopener" class="main-nav-menu__link"> Careers </a>
-									</span>
-								</li>
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://ecosia.helpscoutdocs.com/" rel="noopener" class="main-nav-menu__link"> FAQ </a>
-									</span>
-								</li>
-							</ul>
-						</div>
-						
-						<div class="main-nav-menu__group">
-							<ul class="list">
-								<li class="list-item list-item--transition">
-									<span class="list-item__content">
-										<a href="https://www.ecosia.org/settings" rel="noopener" class="main-nav-menu__link"> Settings </a>
-									</span>
-								</li>
-							</ul>
-						</div>
-					</nav>
+					<div class="nav-menu__group">
+						<ul class="nav-menu-group-list">
+							<li class="list-item">
+								<span class="list-item__content">
+									<a href="https://www.ecosia.org/settings" class="main-nav-menu__link"> Settings </a>
+								</span>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 			
@@ -112,8 +109,7 @@
 				</div>
 			</form>
 			
-			<!-- TOP SITES GO HERE -->
-			
+			<!-- Top sites -->
 			<div id="mostVisited">
 			</div>
 			
@@ -201,27 +197,6 @@
 				</svg>
 			</div>
 		
-		<script type="text/javascript" src="newtab.js"></script>
-	</body>
-			
-			
-			<!--<form action="https://www.ecosia.org/search" method="GET" class="search" accept-charset="utf-8">
-				<div class="input-wrapper">
-					<input placeholder="Search the web to plant trees..." type="search" name="q" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" autofocus="autofocus" required="required" class="input">
-				</div>
-				
-				<button type="submit" role="button" aria-label="Submit" class="button-submit">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-						<path fill="#CCCCCC" fill-rule="evenodd" d="M10.8 2.527a8.29 8.29 0 016.54 13.383l3.856 3.856a1 1 0 01-1.414 1.414l-3.851-3.852A8.29 8.29 0 1110.8 2.527zm0 2a6.29 6.29 0 100 12.58 6.29 6.29 0 000-12.58z"/>
-					</svg>
-				</button>
-				
-				<div class="suggestions-wrapper">
-				</div> 
-			</form>
-			
-			<div id="mostVisited">
-			</div>-->
 		</div>
 	</body>
 </html>
