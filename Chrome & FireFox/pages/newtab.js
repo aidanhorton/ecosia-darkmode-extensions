@@ -49,11 +49,11 @@ function buildPopupDom(mostVisitedURLs) {
 				element = element || window.event;
 				let target = element.target || element.srcElement;
 				
-				chrome.storage.local.get({"blacklistedUrls": []}, function (result) {
+				chrome.storage.local.get({"blacklistedUrls": []}, function(result) {
 					let urls = result.blacklistedUrls;
 					
-					let topSite = target.parentElement.parentElement.querySelector('.topSite').href;
-					urls.push(topSite);
+					let topSite = target?.parentElement?.parentElement?.querySelector('.topSite')?.href;
+					if (topSite) urls.push(topSite);
 					
 					chrome.storage.local.set({"blacklistedUrls": urls});
 					chrome.topSites.get(buildPopupDom);
