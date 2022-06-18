@@ -17,17 +17,33 @@ universalStyle.href = chrome.runtime.getURL('injection-styling/universal-styling
 
 let styles = [universalStyle];
 
+styles.addSpecificStyle = function(...items) {
+    this.push(...items);
+}
+
 
 // Initial injection - gets the settings and applies them.
 chrome.storage.local.get(['settings'], injectOnLoad);
 
-function inject(styles) {
+function injection() {
     styles.forEach(style => {
         (document.body || document.head || document.documentElement).appendChild(style);
     });
     setTimeout(() => {
         document.querySelector(':root').style = '';
     }, 200);
+}
+
+function inject(styles) {
+    if (styles.length == 2) {
+        injection();
+    }
+    else {
+        styles.addSpecificStyle = function(...items) {
+            this.push(...items);
+            injection();
+        }
+    }
 }
 
 function injectOnLoad(items) {

@@ -1,4 +1,4 @@
 // Gets the spesific CSS-file
 spesificStyle.href = chrome.runtime.getURL('injection-styling/blog-page.css');
 
-styles.push(spesificStyle);
+styles.addSpecificStyle(spesificStyle);
