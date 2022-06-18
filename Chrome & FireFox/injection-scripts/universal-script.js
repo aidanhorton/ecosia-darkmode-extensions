@@ -24,6 +24,23 @@ styles.addSpecificStyle = function(...items) {
 // Initial injection - gets the settings and applies them.
 chrome.storage.local.get(['settings'], injectOnLoad);
 
+// Sets a timeout to the next minute-change.
+setTimeout(() => {
+    // Runs it one time first because setInterval has to wait for one minute before it can start.
+    intervalcheck();
+
+    // Checks the time every minute.
+    setInterval(() => {
+        intervalcheck();
+    }, 60000);
+}, (60 - (new Date().getSeconds())) * 1000);
+
+// Subscribe to other necessary events.
+document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
+chrome.runtime.onMessage.addListener(updateStyle);
+
+
+// Adding the styles
 function injection() {
     styles.forEach(style => {
         (document.body || document.head || document.documentElement).appendChild(style);
@@ -33,8 +50,10 @@ function injection() {
     }, 200);
 }
 
+
+// Inject the style into the document.
 function inject(styles) {
-    if (styles.length == 2) {
+    if (styles.length === 2) {
         injection();
     }
     else {
@@ -45,6 +64,7 @@ function inject(styles) {
     }
 }
 
+// Calculate if injection should be applied, and apply if so.
 function injectOnLoad(items) {
     if (items['settings']) {
         let totalMinutes = new Date().getHours() * 60 + new Date().getMinutes();
@@ -53,7 +73,7 @@ function injectOnLoad(items) {
         let timebasedOn = items['settings']['timebasedDarkmode'] === 'on';
         let afterSunrise = items['settings']['sunrise'] <= totalMinutes;
         let beforeSunset = totalMinutes < items['settings']['sunset'];
-        
+
         if (!darkmodeOff && !timebasedOn) {
             inject(styles);
         }
@@ -73,7 +93,7 @@ function injectOnLoad(items) {
 function checkStyling(data) {
     let elements = document.querySelectorAll('.EcosiaDarkMode');
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-        
+
     let darkmodeOff = data['darkmode'] === 'off';
     let timebasedOn = data['timebasedDarkmode'] === 'on';
     let afterSunrise = data['sunrise'] <= totalMinutes;
