@@ -43,9 +43,10 @@ chrome.runtime.onMessage.addListener(updateStyle);
 // Adding the styles
 function injection() {
     styles.forEach(style => {
-        (document.body || document.head || document.documentElement).appendChild(style);
+        (document.body ?? document.head ?? document.documentElement).appendChild(style);
     });
     setTimeout(() => {
+        // Removes preapplied dark background
         document.querySelector(':root').style = '';
     }, 200);
 }
@@ -53,7 +54,7 @@ function injection() {
 
 // Inject the style into the document.
 function inject(styles) {
-    if (styles.length === 2) {
+    if (styles.find(style => style.id === specificStyle.id)) {
         injection();
     }
     else {
@@ -66,13 +67,14 @@ function inject(styles) {
 
 // Calculate if injection should be applied, and apply if so.
 function injectOnLoad(items) {
-    if (items['settings']) {
+    let settings = items['settings'];
+    if (settings) {
         let totalMinutes = new Date().getHours() * 60 + new Date().getMinutes();
 
-        let darkmodeOff = items['settings']['darkmode'] === 'off';
-        let timebasedOn = items['settings']['timebasedDarkmode'] === 'on';
-        let afterSunrise = items['settings']['sunrise'] <= totalMinutes;
-        let beforeSunset = totalMinutes < items['settings']['sunset'];
+        let darkmodeOff = settings['darkmode'] === 'off';
+        let timebasedOn = settings['timebasedDarkmode'] === 'on';
+        let afterSunrise = settings['sunrise'] <= totalMinutes;
+        let beforeSunset = totalMinutes < settings['sunset'];
 
         if (!darkmodeOff && !timebasedOn) {
             inject(styles);
@@ -81,6 +83,7 @@ function injectOnLoad(items) {
             inject(styles);
         }
         else {
+            // Removes preapplied dark background
             document.querySelector(':root').style = '';
         }
     }
