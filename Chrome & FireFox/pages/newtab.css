@@ -61,7 +61,7 @@ body {
 	fill: var(--color-button-content-secondary);
 }
 .tree-counter-wrapper {
-	opacity: 0.8;
+	opacity: 0.9;
 }
 
 /* Search form */
