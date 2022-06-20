@@ -14,6 +14,9 @@
 .before-after-section__text {
 	color: var(--color-text-primary) !important;
 }
+.section-header__title {
+	color: var(--color-brand-primary) !important;
+}
 
 /* Banner */
 .banner {
@@ -22,8 +25,8 @@
 
 /* Waves */
 .above-fold-section__wave path {
-	fill: var(--color-background-primary) !important;
+	fill: var(--color-background-secondary) !important;
 }
-.wave-seperator--variant-primary, .wave-seperator--variant-quarternary, .forest-section--variant-primary {
+.wave-seperator--variant-primary, .wave-seperator--variant-quarternary {
 	background-color: var(--color-background-secondary) !important;
 }
