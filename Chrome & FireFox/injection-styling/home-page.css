@@ -27,6 +27,6 @@
 .above-fold-section__wave path {
 	fill: var(--color-background-secondary) !important;
 }
-.wave-seperator--variant-primary, .wave-seperator--variant-quarternary {
+.wave-seperator--variant-primary, .wave-seperator--variant-quarternary, .indexpage-forest--addon {
 	background-color: var(--color-background-secondary) !important;
 }
