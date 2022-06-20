@@ -1,3 +1,11 @@
+:root {
+    --colour-button-background: hsl(0, 0%, 20%);
+    --colour-button-handle: hsl(0, 0%, 90%);
+
+    --colour-text: grey;
+    --colour-text-input: hsl(0, 0%, 70%);
+}
+
 /* Others */
 
 body {
@@ -8,7 +16,7 @@ body {
     
     background-color:  #181A1B;
     font-family: Arial !important;
-    color: grey;
+    color: var(--colour-text);
     
     display: flex;
     flex-flow: column;
@@ -127,7 +135,7 @@ p, h3 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: var(--colour-button-background);
     border-radius: 34px;
 }
 
@@ -143,11 +151,11 @@ p, h3 {
     width: 16px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: var(--colour-button-handle);
     border-radius: 50%;
 }
 
-input:checked + .slider {
+input[type="checkbox"]:checked + .slider {
     background-color: #4caf50;
 }
 
@@ -155,15 +163,28 @@ input:focus + .slider {
     box-shadow: 0 0 1px #4caf50;
 }
 
-input:checked + .slider:before {
+input[type="checkbox"]:checked + .slider:before {
     -webkit-transform: translateX(100%);
-    -ms-transform: translateX(100%);
     transform: translateX(100%);
 }
 
 .slider:active:before {
     height: 12px;
     top: 6px;
+}
+
+input[type="time"] {
+    border: none;
+    border-radius: 3px;
+
+    background-color: var(--colour-button-background);
+
+    color: var(--colour-text-input);
+    text-align: center;
+}
+
+input[type="time"]:disabled {
+    color: var(--colour-text);
 }
 
 #otherSettings {
@@ -174,6 +195,7 @@ button.warning {
     background-color: hsl(0, 100%, 60%);
 	color: white;
 	margin-right: 2px;
+    font-weight: 700;
 }
 button.warning:hover {
     background-color: hsl(0, 100%, 50%);

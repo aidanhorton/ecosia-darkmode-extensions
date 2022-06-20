@@ -16,9 +16,7 @@
 	
 	--color-background-primary: #181A1B !important;
 	--color-background-secondary: #1F1F1F !important;
-	--color-background-quaternary:  #1F1F1F !important;
-	
-	--color-background-alt: #2a2a2a !important;
+	--color-background-quaternary:  #141414 !important;
 	
 	--color-text-primary: #CCCCCC !important;
 	
@@ -27,8 +25,8 @@
 	--color-link-results-visited: #CF70FF !important;
 	--color-highlighter: #3F3F3F !important;
 	
-	--color-elevation-s: rgba(255, 255, 255, 0.1) !important;
-	--color-elevation-m: rgba(255, 255, 255, 0.15) !important;
+	--color-elevation-layer-1: rgba(255, 255, 255, 0.05);
+	--color-elevation-layer-2: rgba(255, 255, 255, 0.1);
 	
 	--color-button-background-secondary: #181A1B !important;
 	--color-button-background-secondary-hover: #1F1F1F !important;
@@ -36,9 +34,11 @@
 	
 	--color-button-content-secondary: #CCCCCC !important;
 	
-	--color-brand-primary: #72ff7c;
-	--color-brand-secondary: #a3d3c2;
-}
+	--color-brand-primary: #72ff7c !important;
+	--color-brand-secondary: #a3d3c2 !important;
+	
+	--color-disabled: #b9b9b9 !important;
+	}
 
 /* Ecosia logo */
 .logo__icon path:nth-child(2), [aria-label="Ecosia logo"] path:nth-child(2) {
