@@ -88,12 +88,6 @@
 			"js": ["injection-scripts/information-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
-		},
-		{
-			"matches": ["https://blog.ecosia.org/*"],
-			"js": ["injection-scripts/blog-page.js"],
-			"run_at": "document_start",
-			"all_frames": true
 		}
 	]
 }

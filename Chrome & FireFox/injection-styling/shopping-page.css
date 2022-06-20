@@ -2,3 +2,7 @@
 /* SEARCH ENGINE - The main Ecosia search engine & results */
 /* ------------------------------------------------------- */
 
+/* Header */
+.green-message__title {
+	color: var(--color-text-primary);
+}

@@ -26,6 +26,27 @@
     width: 25px;
 }
 
+/* Hotfix */
+.v-text {
+	color: var(--main-color) !important;
+}
+.c-sidebar {
+	background-color: var(--second-bg-color) !important;
+}
+.v-fiancial-report__donut-section {
+	background-color: var(--second-bg-color) !important;
+}
+.v-fiancial-report__map-section {
+	background-color: var(--main-bg-color) !important;
+}
+.v-wave_-wave {
+	background: var(--main-bg-color) !important;
+}
+.v-wave_-wave.is-gray {
+	background: var(--second-bg-color) !important;
+}
+
+/* Main styling */
 h1, h2, h3, h4, h5, p {
     color: var(--main-color) !important;
 }
