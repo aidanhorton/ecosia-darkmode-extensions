@@ -3,27 +3,26 @@
 	--color-highlight-primary: #3F3F3F;
 	--color-form-border-default: #595959;
 	--color-button-background-primary-hover: #060;
-	--color-button-background-secondary: #181A1B;
+	--color-button-background-secondary: #222324;
 	--color-button-background-secondary-hover: #1F1F1F;
 	--color-button-content-secondary: #CCCCCC;
-	--color-brand-primary: #72ff7c;
+	--color-brand-primary: #50eb5b;
 	--color-elevation-layer-1: rgba(255, 255, 255, 0.05);
 	--color-elevation-layer-2: rgba(255, 255, 255, 0.1);
 }
-
 body {
 	background: var(--color-background-quaternary);
 	margin: 0;
 	font-family: Inter,helvetica,arial,sans-serif;
 }
 
+/* Main tab content */
 .newtab {
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
 	overflow-y: hidden;
 }
-
 .newtab__logo {
 	width: 250px;
 	height: 124px;
@@ -61,7 +60,11 @@ body {
 .icon-hamburger path {
 	fill: var(--color-button-content-secondary);
 }
+.tree-counter-wrapper {
+	opacity: 0.8;
+}
 
+/* Search form */
 .search-form {
 	display: flex;
 	justify-content: center;
@@ -109,7 +112,6 @@ body {
 	fill: white;
 }
 
-
 /* Dropdown list */
 #dropdown-list {
     display: none;
@@ -148,7 +150,6 @@ body {
 .list-item:hover {
     background: var(--color-highlight-primary);
 } 
-
 
 /* Top sites */
 #mostVisited {
@@ -218,7 +219,6 @@ body {
     height: 8px;
     width: 8px;
 }
-
 .toolTipWrapper {
     box-sizing: border-box;
     position: absolute;
