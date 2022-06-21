@@ -46,7 +46,7 @@ function injection() {
         (document.body ?? document.head ?? document.documentElement).appendChild(style);
     });
     setTimeout(() => {
-        // Removes preapplied dark background
+        // Removes pre-applied dark background
         document.querySelector(':root').style = '';
     }, 200);
 }
@@ -69,21 +69,20 @@ function inject(styles) {
 function injectOnLoad(items) {
     let settings = items['settings'];
     if (settings) {
-        let totalMinutes = new Date().getHours() * 60 + new Date().getMinutes();
-
         let darkmodeOff = settings['darkmode'] === 'off';
+        
+        // Time-based
+        let totalMinutes = new Date().getHours() * 60 + new Date().getMinutes();
         let timebasedOn = settings['timebasedDarkmode'] === 'on';
         let afterSunrise = settings['sunrise'] <= totalMinutes;
         let beforeSunset = totalMinutes < settings['sunset'];
+        let notSun = timebasedOn && !(afterSunrise && beforeSunset)
 
-        if (!darkmodeOff && !timebasedOn) {
-            inject(styles);
-        }
-        else if (!darkmodeOff && timebasedOn && !(afterSunrise && beforeSunset)) {
+        if (!darkmodeOff && (!timebasedOn || notSun)) {
             inject(styles);
         }
         else {
-            // Removes preapplied dark background
+            // Removes pre-applied dark background
             document.querySelector(':root').style = '';
         }
     }

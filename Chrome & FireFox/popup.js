@@ -53,12 +53,14 @@ chrome.storage.local.get(['settings'], function(items) {
 		otherSettings.style.pointerEvents = 'none';
     }
     
-    // Removes the wrong logo
+    // Time-based
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
     let timebasedOn = settings['timebasedDarkmode'] === 'on';
     let afterSunrise = settings['sunrise'] <= totalMinutes;
     let beforeSunset = totalMinutes < settings['sunset'];
     let isDaytime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset;
+    
+    // Removes the wrong logo
     if (darkmodeOff
         || isDaytime
     ) {

@@ -71,7 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		if (list.style.display === "block") {
 			list.style.display = "none";
-		} else {
+		}
+		else {
 			list.style.display = "block";
 		}
     });
@@ -89,21 +90,24 @@ document.addEventListener('DOMContentLoaded', function() {
 // Updates the style when changes to the settings has been made.
 function updateStyle(message, sender, sendResponse) {
 	let element = document.getElementById('EcosiaLightMode');
-    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
 	let settings = message.data;
-	if ((settings['darkmode'] === 'on'
-		&& settings['timebasedDarkmode'] === 'on'
-		&& settings['sunrise'] <= totalMinutes
-		&& totalMinutes < settings['sunset']
-		)
-		|| settings['darkmode'] === 'off'
+	let darkmodeOff = settings['darkmode'] === 'off';
+
+	// Time-based
+    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+	let timebasedOn = settings['timebasedDarkmode'] === 'on';
+	let afterSunrise = settings['sunrise'] <= totalMinutes;
+	let beforeSunset = totalMinutes < settings['sunset'];
+	let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
+
+	if (darkmodeOff
+		|| suntime
 	) {
         if (element === null) {
 			document.head.appendChild(style);
         }
-		
     }
-	else if (settings['darkmode'] === 'on') {
+	else if (!darkmodeOff) {
 		if (element) {
 			element.remove();
         }
@@ -112,65 +116,57 @@ function updateStyle(message, sender, sendResponse) {
 
 chrome.storage.local.get(['settings'], injectOnLoad);
 
-// Sets a timeout to the next minute-change.
-setTimeout(function() {
-    // Runs it one time first because setInterval has to wait for one minute before it can start.
-    chrome.storage.local.get(['settings'], function(items) {
+function checkTime() {
+	chrome.storage.local.get(['settings'], function(items) {
         if (items['settings']) {
-            let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
             let element = document.getElementById('EcosiaLightMode');
 			let settings = items['settings'];
+			let darkmodeOff = settings['darkmode'] === 'off';
+		
+			// Time-based
+			let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+			let timebasedOn = settings['timebasedDarkmode'] === 'on';
+			let afterSunrise = settings['sunrise'] <= totalMinutes;
+			let beforeSunset = totalMinutes < settings['sunset'];
+			let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
             
-			if (settings['darkmode'] !== 'off'
-				&& settings['timebasedDarkmode'] === 'on'
-				&& settings['sunrise'] <= totalMinutes
-				&& totalMinutes < settings['sunset']
+			if (darkmodeOff
+				|| suntime
 			) {
                 if (element === null) {
 					document.head.appendChild(style);
                 };
             }
-			else if (settings['darkmode'] !== 'off' && element) {
+			else if (!darkmodeOff && element) {
 				element.remove();
             };
         };
     });
+}
+
+// Sets a timeout to the next minute-change.
+setTimeout(function() {
+    // Runs it one time first because setInterval has to wait for one minute before it can start.
+    checkTime();
 
     // Checks the time every minute.
-    setInterval(function() {
-        chrome.storage.local.get(['settings'], function(items) {
-			if (items['settings'] !== undefined) {
-				let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-				let element = document.getElementById('EcosiaLightMode');
-				let settings = items['settings'];
-				
-				if (settings['darkmode'] !== 'off'
-					&& settings['timebasedDarkmode'] === 'on'
-					&& settings['sunrise'] <= totalMinutes
-					&& totalMinutes < settings['sunset']
-				) {
-					if (element === null) {
-						document.head.appendChild(style);
-					};
-				} else if (settings['darkmode'] !== 'off' && element) {
-					element.remove();
-				};
-			};
-		});
-    }, 60000);
+    setInterval(checkTime, 60000);
 }, (60 - new Date().getSeconds()) * 1000);
 
 function injectOnLoad(items) {
     if (items['settings'] !== undefined) {
-        let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
 		let settings = items['settings'];
-        if (settings['darkmode'] === 'off') {
-            (document.body || document.head || document.documentElement).appendChild(style);
-        }
-		else if (settings['darkmode'] !== 'off'
-			&& settings['timebasedDarkmode'] === 'on'
-			&& settings['sunrise'] <= totalMinutes
-			&& totalMinutes < settings['sunset']
+		let darkmodeOff = settings['darkmode'] === 'off';
+	
+		// Time-based
+		let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+		let timebasedOn = settings['timebasedDarkmode'] === 'on';
+		let afterSunrise = settings['sunrise'] <= totalMinutes;
+		let beforeSunset = totalMinutes < settings['sunset'];
+		let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
+        
+		if (darkmodeOff
+			|| suntime
 		) {
             (document.body || document.head || document.documentElement).appendChild(style);
         }

@@ -1,6 +1,7 @@
 :root {
     --colour-button-background: hsl(0, 0%, 20%);
     --colour-button-handle: hsl(0, 0%, 90%);
+    --colour-button-checked: #4caf50;
 
     --colour-text: grey;
     --colour-text-input: hsl(0, 0%, 70%);
@@ -9,7 +10,7 @@
 /* Others */
 
 body {
-    height: 380px;
+    height: 400px;
     width: 260px;
     padding-top: 10px;
     margin: 0;
@@ -36,6 +37,14 @@ hr {
 
 p, h3 {
     margin: 0;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+p {
+    font-size: 16px;
 }
 
 #top, .subsetting {
@@ -74,18 +83,26 @@ p, h3 {
 }
 
 .subsettingsection {
-    width: 70%;
+    width: 95%;
     margin-top: 10px;
 
     display: grid;
     grid-template-areas: 'hr1 . hr2';
-    grid-template-columns: fr auto fr;
+    grid-template-columns: 1fr auto 1fr;
     align-self: center;
 }
 
 .subsettingsection > p {
+    width: max-content;
+    padding: 0 4px;
+
     display: inline;
+
     text-align: center;
+}
+
+.subsettingsection > hr {
+    width: 70%;
 }
 
 .subsettingsection:nth-child(1) {
@@ -168,12 +185,16 @@ p, h3 {
     background-color: var(--colour-button-handle);
 }
 
+input[type="checkbox"] + .slider {
+    transition: background-color 0.05s ease-out;
+}
+
 input[type="checkbox"]:checked + .slider {
-    background-color: #4caf50;
+    background-color: var(--colour-button-checked);
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #4caf50;
+    box-shadow: 0 0 1px var(--colour-button-checked);
 }
 
 input[type="checkbox"]:checked + .slider:before {
@@ -187,6 +208,7 @@ input[type="checkbox"]:checked + .slider:before {
 }
 
 input[type="time"] {
+    padding: 2px;
     border: none;
     border-radius: 3px;
 
@@ -217,7 +239,7 @@ button.warning:hover {
 	cursor: pointer;
 }
 button.warning:active {
-    background-color: hsl(0, 100%, 85%);
+    background-color: hsl(0, 100%, 70%);
 }
 button {
     border: none;
@@ -241,5 +263,8 @@ button {
     }
     .hideOnFirefox {
         display: none;
+    }
+    input[type="time"] {
+        padding: 4px;
     }
 }
