@@ -3,7 +3,7 @@
     "version": "1.4.1.0",
     "description": "A dark theme for the Ecosia search engine",
 	"manifest_version": 3,
-	"permissions": ["tabs", "storage", "topSites"],
+	"permissions": ["tabs", "storage"],
 	"action": {
 		"default_popup": "popup.html",
 		"default_title": "Ecosia dark",
@@ -89,12 +89,6 @@
 		{
 			"matches": ["https://info.ecosia.org/*", "https://ecosia.zendesk.com/*"],
 			"js": ["injection-scripts/information-page.js"],
-			"run_at": "document_start",
-			"all_frames": true
-		},
-		{
-			"matches": ["https://blog.ecosia.org/*"],
-			"js": ["injection-scripts/blog-page.js"],
 			"run_at": "document_start",
 			"all_frames": true
 		}

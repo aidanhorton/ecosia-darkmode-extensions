@@ -36,13 +36,13 @@ function buildPopupDom(mostVisitedURLs) {
 			
 			close.addEventListener('click', function() {
 				let target = this;
-				
+
 				chrome.storage.local.get({'blacklistedUrls': []}, result => {
 					let urls = result.blacklistedUrls;
 					
-					let topSite = target.parentElement.querySelector('.topSite').href;
-					urls.push(topSite);
-					
+					let topSite = target?.parentElement?.querySelector('.topSite')?.href;
+					if (topSite) urls.push(topSite);
+
 					chrome.storage.local.set({'blacklistedUrls': urls});
 					chrome.topSites.get(buildPopupDom);
 				});
@@ -67,25 +67,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Handles the dropdown-button
 	let link = document.getElementById('dropdown-button');
     link.addEventListener('click', function() {
-        let list = document.getElementById('dropdown-list');
+        let list = document.getElementById("dropdown-list");
 		
-		if (list.style.display === 'block') {
-			list.style.display = 'none';
-			this.style.background = '';
-		}
-		else {
-			list.style.display = 'block';
-			this.style.background = '#3F3F3F';
+		if (list.style.display === "block") {
+			list.style.display = "none";
+		} else {
+			list.style.display = "block";
 		}
     });
-	link.addEventListener('focusout', function() {
-		if (!link.matches(':focus-within:not(:focus)')) {
-			let link = document.getElementById('dropdown-button');
-			let list = document.getElementById('dropdown-list');
-
-			list.style.display = 'none';
-			link.style.background = '';
+	link.addEventListener('focusout', function(event) {
+		let list = document.getElementById("dropdown-list");
+		
+		if (list.contains(event.relatedTarget)) {
+			return;
 		}
+		
+		list.style.display = "none";
 	});
 });
 
@@ -198,24 +195,15 @@ style.id = 'EcosiaLightMode';
 style.classList.add('EcosiaLightMode');
 style.type = 'text/css';
 style.textContent = `
-body, form, input, a, button, .nav-menu-group, #dropdown-list {
-	background: #FFF !important;
-	border-color: #E0E0E0 !important;
-	color: #4A4A4A !important;
-}
-
-a.nav-link:hover, a.topSite:hover, button.dropdown-button:hover {
-	background: #E0E0E0 !important;
-}
-
-.closeButton:hover > img, .topSite:hover ~ .closeButton > img {
-    filter: brightness(0.2) !important;
-}
-
-.button-submit:hover > svg > path {
-    fill: #353535 !important;
-}
-
-.logo-text {
-	fill: #4B4A4B;
+:root {
+	--color-background-quaternary: #f0f0eb !important;
+	--color-highlight-primary: #cff2d0 !important;
+	--color-form-border-default: #bebeb9 !important;
+	--color-button-background-primary-hover: #060;
+	--color-button-background-secondary: #fff !important;
+	--color-button-background-secondary-hover: #deded9 !important;
+	--color-button-content-secondary: black !important;
+	--color-brand-primary: #008009 !important;
+	--color-elevation-layer-1: rgba(15, 15, 15, 0.18) !important;
+	--color-elevation-layer-2: rgba(15, 15, 15, 0.06) !important;
 }`;

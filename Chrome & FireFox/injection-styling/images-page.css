@@ -3,9 +3,9 @@
 /* ------------------------------------------------ */
 
 /* Query chips */
-.query-expansions__control--next {
+.query-expansions__control-background--right {
 	background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--color-background-primary) 50%) !important;
 }
-.query-expansions__control--previous {
+.query-expansions__control-background--left {
 	background: linear-gradient(270deg, rgba(255, 255, 255, 0), var(--color-background-primary) 50%) !important;
 }
