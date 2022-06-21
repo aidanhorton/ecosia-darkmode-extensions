@@ -3,7 +3,7 @@
     "version": "1.4.1.0",
     "description": "A dark theme for the Ecosia search engine",
 	"manifest_version": 3,
-	"permissions": ["tabs", "storage", "topSites"],
+	"permissions": ["tabs", "storage"],
 	"action": {
 		"default_popup": "popup.html",
 		"default_title": "Ecosia dark",
