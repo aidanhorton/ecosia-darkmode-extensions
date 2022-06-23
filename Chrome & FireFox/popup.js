@@ -1,15 +1,15 @@
-// Gets the Ecosia logo and the Ecosia_darkmode logo elements, and applys their corresponding image to them
+// Gets the Ecosia logo and the Ecosia_darkmode logo elements, and applys their corresponding image to them.
 let darkLogo = document.getElementById('darkLogo');
 darkLogo.src = chrome.runtime.getURL('images/EcosiaLogo32.png');
 let lightLogo = document.getElementById('lightLogo');
 lightLogo.src = chrome.runtime.getURL('images/EcosiaLogo.png');
 
-// Sets the source of an empty img element to the Ecosia darkmode logo
+// Sets the source of an empty img element to the Ecosia darkmode logo.
 document.getElementById('logoText').src = chrome.runtime.getURL('images/EcosiaDarkMode.png');
 
 let otherSettings = document.getElementById('otherSettings');
 
-// Makes the object for the settings
+// Makes the object for the settings.
 let settings = {};
 
 function changeLogoBasedOnTime(settings) {
@@ -28,9 +28,9 @@ function changeLogoBasedOnTime(settings) {
     }
 }
 
-// Gets the pre-existing settings if there are any
+// Gets the pre-existing settings if there are any.
 chrome.storage.local.get(['settings'], function(items) {
-    // Gets the settings if avalible. If not, default-values are given
+    // Gets the settings if avalible. If not, default-values are given.
     settings = {
         darkmode: items['settings']?.['darkmode'] ?? 'on',
         timebasedDarkmode: items['settings']?.['timebasedDarkmode'] ?? 'off',
@@ -38,7 +38,7 @@ chrome.storage.local.get(['settings'], function(items) {
         sunset: items['settings']?.['sunset'] ?? 1080
     };
 
-    // Updates the popup with the current settings
+    // Updates the popup with the current settings.
     let darkmodeOff = settings['darkmode'] === 'off';
 
     let darkmodeOnOff = document.getElementById('darkmodeOnOff');
@@ -83,7 +83,7 @@ chrome.storage.local.get(['settings'], function(items) {
     sunset.valueAsNumber = settings['sunset'] * 60000;
 
 
-    // Gives the checkboxes their transition (hopefully after the checkboxes has been changed)
+    // Gives the checkboxes their transition (hopefully after the checkboxes has been changed).
     setTimeout(function() {
         let sliders = document.querySelectorAll('.slider');
         sliders.forEach(element => {
@@ -152,7 +152,7 @@ chrome.storage.local.get(['settings'], function(items) {
     });
 
 
-    // Updates the logo every minute
+    // Updates the logo every minute.
     setTimeout(function() {
         // Runs it one time first because setInterval has to wait for one minute before it can start.
         changeLogoBasedOnTime(settings);
@@ -164,7 +164,7 @@ chrome.storage.local.get(['settings'], function(items) {
     }, (60 - new Date().getSeconds()) * 1000);
 
 
-    // Updates all the tabs' data, and current state
+    // Updates all the tabs' data, and current state.
     function notifySettingsChange(settings) {
         chrome.storage.local.set({'settings': settings});
         chrome.tabs.query({}, function(tabs) {
@@ -177,7 +177,7 @@ chrome.storage.local.get(['settings'], function(items) {
 });
 
 
-// Removes all sites being hidden from most visited sites
+// Removes all sites being hidden from most visited sites.
 function removeAllBlacklistedURLs() {
     chrome.storage.local.get({'blacklistedUrls': []}, function(result) {
         chrome.storage.local.set({'blacklistedUrls': []});

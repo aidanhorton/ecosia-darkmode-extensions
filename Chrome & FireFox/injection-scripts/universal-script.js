@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', changeStyleImportance, false);
 chrome.runtime.onMessage.addListener(updateStyle);
 
 
-// Adding the styles
+// Adding the styles.
 function injection() {
     styles.forEach(style => {
         (document.body ?? document.head ?? document.documentElement).appendChild(style);
     });
     setTimeout(() => {
-        // Removes pre-applied dark background
+        // Removes pre-applied dark background.
         document.querySelector(':root').style = '';
     }, 200);
 }
@@ -82,7 +82,7 @@ function injectOnLoad(items) {
             inject(styles);
         }
         else {
-            // Removes pre-applied dark background
+            // Removes pre-applied dark background.
             document.querySelector(':root').style = '';
         }
     }
@@ -94,9 +94,10 @@ function injectOnLoad(items) {
 // Applied the correct theme.
 function checkStyling(data) {
     let elements = document.querySelectorAll('.EcosiaDarkMode');
-    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-
     let darkmodeOff = data['darkmode'] === 'off';
+    
+    // Time-based
+    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
     let timebasedOn = data['timebasedDarkmode'] === 'on';
     let afterSunrise = data['sunrise'] <= totalMinutes;
     let beforeSunset = totalMinutes < data['sunset'];
