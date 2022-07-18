@@ -28,6 +28,7 @@ chrome.storage.local.get(['settings'], function(items) {
     if (items['settings'] !== undefined) { // If there are any pre-existing settings
         settings = {
             darkmode: (items['settings']['darkmode'] !== undefined) ? items['settings']['darkmode'] : 'on',
+            overrideNewTab: (items['settings']['overrideNewTab'] !== undefined) ? items['settings']['overrideNewTab'] : 'on',
             timebasedDarkmode: (items['settings']['timebasedDarkmode'] !== undefined) ? items['settings']['timebasedDarkmode'] : 'off',
             sunrise: (items['settings']['sunrise'] !== undefined) ? items['settings']['sunrise'] : 360,
             sunset: (items['settings']['sunset'] !== undefined) ? items['settings']['sunset'] : 1080
@@ -36,6 +37,7 @@ chrome.storage.local.get(['settings'], function(items) {
     } else { // If there are no pre-existing settings
         settings = {
             darkmode: 'on',
+            overrideNewTab: 'on',
             timebasedDarkmode: 'off',
             sunrise: 360,
             sunset: 1080
@@ -56,6 +58,10 @@ chrome.storage.local.get(['settings'], function(items) {
 		otherSettings.style.opacity = '0.3';
 		otherSettings.style.pointerEvents = 'none';
     };
+	
+	
+    let overrideNewTabOnOff = document.getElementById('overrideNewTabOnOff');
+	overrideNewTabOnOff.checked = settings['overrideNewTab'] == 'on';
 
     let timebasedDarkmode = document.getElementById('timebasedActivationOnOff');
     let sunrise = document.getElementById('sunrise');
@@ -101,6 +107,15 @@ chrome.storage.local.get(['settings'], function(items) {
         notifySettingsChange(settings);
         changeLogoBasedOnTime(settings);
     });
+	
+	overrideNewTabOnOff.addEventListener('input', (event) => {
+		if (overrideNewTabOnOff.checked === false) {
+			settings['overrideNewTab'] = 'off';
+		} else {
+			settings['overrideNewTab'] = 'on';
+		};
+        notifySettingsChange(settings);
+	});
 
     timebasedDarkmode.addEventListener('input', (event) => {
         if (settings['timebasedDarkmode'] == 'on') {
