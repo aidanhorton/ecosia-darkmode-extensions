@@ -1,5 +1,34 @@
+chrome.storage.local.get(["settings"], injectOnLoad);
+chrome.runtime.onMessage.addListener(messageReceiver);
+
+
+document.addEventListener('DOMContentLoaded', function() {
+	chrome.topSites.get(buildPopupDom);
+
+	// Handles the dropdown-button
+	let link = document.getElementById('dropdown-button');
+    link.addEventListener('click', function() {
+        let list = document.getElementById("dropdown-list");
+		
+		if (list.style.display === "block") {
+			list.style.display = "none";
+		} else {
+			list.style.display = "block";
+		}
+    });
+	link.addEventListener('focusout', function(event) {
+		let list = document.getElementById("dropdown-list");
+		
+		if (list.contains(event.relatedTarget)) {
+			return;
+		}
+		
+		list.style.display = "none";
+	});
+});
+
+
 function buildPopupDom(mostVisitedURLs) {
-	
 	let mostVisited = document.getElementById('mostVisited');
 	while (mostVisited.firstChild) mostVisited.lastChild.remove();
 	
@@ -61,31 +90,6 @@ function buildPopupDom(mostVisitedURLs) {
 	});
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-	chrome.topSites.get(buildPopupDom);
-
-	// Handles the dropdown-button
-	let link = document.getElementById('dropdown-button');
-    link.addEventListener('click', function() {
-        let list = document.getElementById("dropdown-list");
-		
-		if (list.style.display === "block") {
-			list.style.display = "none";
-		}
-		else {
-			list.style.display = "block";
-		}
-    });
-	link.addEventListener('focusout', function(event) {
-		let list = document.getElementById("dropdown-list");
-		
-		if (list.contains(event.relatedTarget)) {
-			return;
-		}
-		
-		list.style.display = "none";
-	});
-});
 
 // Updates the style when changes to the settings has been made.
 function updateStyle(message, sender, sendResponse) {
@@ -114,7 +118,6 @@ function updateStyle(message, sender, sendResponse) {
     }
 }
 
-chrome.storage.local.get(['settings'], injectOnLoad);
 
 function checkTime() {
 	chrome.storage.local.get(['settings'], function(items) {
@@ -144,6 +147,7 @@ function checkTime() {
     });
 }
 
+
 // Sets a timeout to the next minute-change.
 setTimeout(function() {
     // Runs it one time first because setInterval has to wait for one minute before it can start.
@@ -153,8 +157,14 @@ setTimeout(function() {
     setInterval(checkTime, 60000);
 }, (60 - new Date().getSeconds()) * 1000);
 
+
 function injectOnLoad(items) {
     if (items['settings'] !== undefined) {
+		if (items["settings"]['overrideNewTab'] == 'off') {
+			chrome.tabs.update({url:"chrome-search://local-ntp/local-ntp.html"});
+			return;
+		}
+		
 		let settings = items['settings'];
 		let darkmodeOff = settings['darkmode'] === 'off';
 	
@@ -165,9 +175,7 @@ function injectOnLoad(items) {
 		let beforeSunset = totalMinutes < settings['sunset'];
 		let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
         
-		if (darkmodeOff
-			|| suntime
-		) {
+		if (darkmodeOff || suntime) {
             (document.body || document.head || document.documentElement).appendChild(style);
         }
     }
@@ -183,7 +191,6 @@ function messageReceiver(message, sender, sendResponse) {
 	}
 }
 
-chrome.runtime.onMessage.addListener(messageReceiver);
 
 
 let style = document.createElement('style');

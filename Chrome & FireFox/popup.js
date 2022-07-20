@@ -33,6 +33,7 @@ chrome.storage.local.get(['settings'], function(items) {
     // Gets the settings if avalible. If not, default-values are given.
     settings = {
         darkmode: items['settings']?.['darkmode'] ?? 'on',
+		overrideNewTab: items['settings']?.['overrideNewTab'] ?? 'on',
         timebasedDarkmode: items['settings']?.['timebasedDarkmode'] ?? 'off',
         sunrise: items['settings']?.['sunrise'] ?? 360,
         sunset: items['settings']?.['sunset'] ?? 1080
@@ -52,6 +53,9 @@ chrome.storage.local.get(['settings'], function(items) {
 		otherSettings.style.opacity = '0.3';
 		otherSettings.style.pointerEvents = 'none';
     }
+	
+    let overrideNewTabOnOff = document.getElementById('overrideNewTabOnOff');
+	overrideNewTabOnOff.checked = settings['overrideNewTab'] == 'on';
     
     // Time-based
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
@@ -61,12 +65,9 @@ chrome.storage.local.get(['settings'], function(items) {
     let isDaytime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset;
     
     // Removes the wrong logo
-    if (darkmodeOff
-        || isDaytime
-    ) {
+    if (darkmodeOff || isDaytime) {
         darkLogo.style.opacity = '0';
-    }
-    else {
+    } else {
         lightLogo.style.opacity = '0';
     }
 
@@ -115,6 +116,15 @@ chrome.storage.local.get(['settings'], function(items) {
         notifySettingsChange(settings);
         changeLogoBasedOnTime(settings);
     });
+	
+	overrideNewTabOnOff.addEventListener('input', (event) => {
+		if (overrideNewTabOnOff.checked === false) {
+			settings['overrideNewTab'] = 'off';
+		} else {
+			settings['overrideNewTab'] = 'on';
+		};
+        notifySettingsChange(settings);
+	});
 
     timebasedDarkmode.addEventListener('input', () => {
         if (settings['timebasedDarkmode'] === 'on') {
