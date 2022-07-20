@@ -1,16 +1,12 @@
 * {
-    --main-color: #F7F7F7;
-    --main-bg-color: #181A1B;
     --second-bg-color: #3F3F3F;
     --color-one: #3dbfbc;
     --color-two: #7A8436;
     --color-three: #cb421f;
-    scrollbar-color: #3F3F3F #1C1E1F;
 }
 
 .c-author-card {
-	background: var(--main-bg-color) !important;
-	border-color: var(--second-bg-color) !important;
+	background: var(--color-background-primary) !important;
 }
 
 .c-logo__img {
@@ -48,38 +44,38 @@
 
 /* Main styling */
 h1, h2, h3, h4, h5, p {
-    color: var(--main-color) !important;
+    color: var(--color-text-primary) !important;
 }
 
 body.home-template.js-enabled {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--color-background-primary) !important;
     border: none !important;
 }
 
 body {
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--color-background-primary) !important;
     border: none !important;
 }
 
 div.c-nav--collapsed.c-nav--collapsed--active {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 div.c-install-banner.c-install-banner--desktop.c-install-banner--active {
     background-color: var(--color-one);
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 header.c-header {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 nav.c-nav-wrap {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 ul.c-nav.o-plain-list {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 a.c-nav__link.c-nav__link--current {
@@ -87,7 +83,7 @@ a.c-nav__link.c-nav__link--current {
 }
 
 option {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 .home-template .c-nav__link--current:not(:hover) {
@@ -103,7 +99,7 @@ a:hover {
 }
 
 a.c-post-card__title-link {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.c-post-hero__media {
@@ -111,15 +107,15 @@ div.c-post-hero__media {
 }
 
 a.c-ecosia-search {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 a.c-nav__link {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 select.c-language-select {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 select.c-language-select:active {
@@ -140,16 +136,16 @@ div.c-archive {
 }
 
 div.c-search.js-search.is-active {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 input.c-search__input.js-search-input {
-    color: var(--main-color);
+    color: var(--color-text-primary);
     background-color: var(--second-bg-color);
 }
 
 svg.icon__cnt {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.c-search__close.js-search-close {
@@ -180,11 +176,11 @@ div.js-off-canvas-toggle.c-off-canvas-toggle {
 }
 
 div.js-off-canvas-toggle.c-off-canvas-toggle.c-off-canvas-toggle--close {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.c-off-canvas-content.js-off-canvas-content.is-active {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 div.c-widget.c-widget-author {
@@ -196,57 +192,57 @@ div.c-widget {
 }
 
 span.c-country__fact--name {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.c-country__trees--item-name {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 li.c-share__item {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
 }
 
 li.c-share__item:not(:last-child) {
-    border-color: var(--main-bg-color);
+    border-color: var(--color-background-primary);
 }
 
 li {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.c-tags a {
-    color: var(--main-color);
+    color: var(--color-text-primary);
     background-color: var(--second-bg-color);
 }
 
 blockquote {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 span.c-widget-shop__claim {
-    color: var(--main-color);
+    color: var(--color-text-primary);
 }
 
 div.c-related {
     background-color: #151515;
     border-bottom: solid;
     border-bottom: 2px;
-    border-color: var(--main-color);
+    border-color: var(--color-text-primary);
 }
 
 div.c-post-card {
-    background-color: var(--main-bg-color) !important;
-    border: 1px solid var(--main-bg-color) !important;
+    background-color: var(--color-background-primary) !important;
+    border: 1px solid var(--color-background-primary) !important;
 }
 
 button.c-btn.js-load-disqus {
-    color: var(--main-color);
+    color: var(--color-text-primary);
     background-color: var(--second-bg-color);
 }
 
 div.c-author {
-    background-color: var(--main-bg-color);
+    background-color: var(--color-background-primary);
     border: 1px solid var(--second-bg-color);
 }
 
@@ -255,7 +251,7 @@ div.c-author {
 }
 
 .c-financial-report__data, .c-financial-report__category, .c-tree-report__project-country, .c-tree-report__project-amount, .c-tree-report span, .c-tree-report__project-info__hint-project, .c-financial-report__details-headline, .c-financial-report__details-content {
-    color: var(--main-color) !important;
+    color: var(--color-text-primary) !important;
 }
 
 .c-financial-report__category-amount, .c-financial-report__total-hint {
@@ -271,11 +267,11 @@ div.c-author {
 }
 
 .c-financial-report__total-icon > path {
-    fill: var(--main-color);
+    fill: var(--color-text-primary);
 }
 
 .c-financial-report__select > select > option {
-    color: var(--main-color) !important;
+    color: var(--color-text-primary) !important;
 }
 
 .c-comments {

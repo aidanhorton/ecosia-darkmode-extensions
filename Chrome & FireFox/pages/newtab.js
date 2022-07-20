@@ -1,4 +1,5 @@
 chrome.storage.local.get(["settings"], injectOnLoad);
+chrome.runtime.onMessage.addListener(messageReceiver);
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -27,144 +28,154 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Sets a timeout to the next minute-change.
-setTimeout(function() {
-    // Runs it one time first because setInterval has to wait for one minute before it can start.
-    chrome.storage.local.get(["settings"], function(items) {
-        if (items['settings'] !== undefined) {
-            let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-            let element = document.getElementById('EcosiaLightMode');
-            if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
-                if (element === null) {
-					document.getElementsByTagName("head")[0].appendChild(style);
-                };
-            } else if ((items['settings']['darkmode'] !== 'off') && (element !== null)) {
-				element.parentElement.removeChild(element);
-            };
-        };
-    });
-
-    // Checks the time every minute.
-    setInterval(function() {
-        chrome.storage.local.get(["settings"], function(items) {
-			if (items['settings'] !== undefined) {
-				let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-				let element = document.getElementById('EcosiaLightMode');
-				if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
-					if (element === null) {
-						document.getElementsByTagName("head")[0].appendChild(style);
-					};
-				} else if ((items['settings']['darkmode'] !== 'off') && (element !== null)) {
-					element.parentElement.removeChild(element);
-				};
-			};
-		});
-    }, 60000);
-}, (60 - (new Date().getSeconds())) * 1000);
-
-
 function buildPopupDom(mostVisitedURLs) {
 	let mostVisited = document.getElementById('mostVisited');
-	while (mostVisited.firstChild) mostVisited.removeChild(mostVisited.lastChild);
+	while (mostVisited.firstChild) mostVisited.lastChild.remove();
 	
 	let whitelistedUrls = [];
 	
-	chrome.storage.local.get({"blacklistedUrls": []}, function (result) {
+	chrome.storage.local.get({'blacklistedUrls': []}, function(result) {
 		let blacklistedUrls = result.blacklistedUrls;
 		console.log(blacklistedUrls);
 		
-		for (let x = 0; x < mostVisitedURLs.length; x++) {
-			let isBlacklisted = false;
-			for (let i = 0; i < blacklistedUrls.length; i++) {
-				if (blacklistedUrls[i] === mostVisitedURLs[x].url) {
-					isBlacklisted = true;
-				}
+		mostVisitedURLs.forEach(url => {
+			if (!blacklistedUrls.includes(url.url)) {
+				whitelistedUrls.push(url);
 			}
-			
-			if (!isBlacklisted) {
-				whitelistedUrls.push(mostVisitedURLs[x]);
-			}
-		}
+		});
 
-		let urls = 7;
-		if (urls > whitelistedUrls.length) {
-			urls = whitelistedUrls.length;
-		}
-		
-		for (let i = 0; i < urls; i++) {
+		let urls = Math.min(7, whitelistedUrls.length);
+		whitelistedUrls.slice(0, urls).forEach(url => {
 			let itemAndCloseWrapper = mostVisited.appendChild(document.createElement('div'));
-			itemAndCloseWrapper.className += "itemAndCloseWrapper";
+			itemAndCloseWrapper.classList.add('itemAndCloseWrapper');
 			
 			let itemWrapper = itemAndCloseWrapper.appendChild(document.createElement('a'));
-			itemWrapper.href = whitelistedUrls[i].url;
-			itemWrapper.className += "topSite";
+			itemWrapper.href = url.url;
+			itemWrapper.classList.add('topSite');
 	
 			let toolTipWrapper = itemWrapper.appendChild(document.createElement('div'));
-			toolTipWrapper.className += "toolTipWrapper";
+			toolTipWrapper.classList.add('toolTipWrapper');
 	
 			let toolTip = toolTipWrapper.appendChild(document.createElement('span'));
-			toolTip.className += "toolTip";    
-			toolTip.appendChild(document.createTextNode(whitelistedUrls[i].title));
+			toolTip.classList.add('toolTip');    
+			toolTip.appendChild(document.createTextNode(url.title));
 			
 			let close = itemAndCloseWrapper.appendChild(document.createElement('a'));
-			close.className = "closeButton";
+			close.classList.add('closeButton');
 			
-			close.addEventListener('click', function(element) {
-				element = element || window.event;
-				let target = element.target || element.srcElement;
-				
-				chrome.storage.local.get({"blacklistedUrls": []}, function(result) {
+			close.addEventListener('click', function() {
+				let target = this;
+
+				chrome.storage.local.get({'blacklistedUrls': []}, result => {
 					let urls = result.blacklistedUrls;
 					
-					let topSite = target?.parentElement?.parentElement?.querySelector('.topSite')?.href;
+					let topSite = target?.parentElement?.querySelector('.topSite')?.href;
 					if (topSite) urls.push(topSite);
-					
-					chrome.storage.local.set({"blacklistedUrls": urls});
+
+					chrome.storage.local.set({'blacklistedUrls': urls});
 					chrome.topSites.get(buildPopupDom);
 				});
 				
-				mostVisited.removeChild(target.closest('.itemAndCloseWrapper'));
+				this.parentElement.remove();
 			}, false);
 			
 			let closeImage = close.appendChild(document.createElement('img'));
-			closeImage.src = "Close.png";
-			closeImage.className = "closeImage";
+			closeImage.src = 'Close.png';
+			closeImage.classList.add('closeImage');
 		
 			let icon = itemWrapper.appendChild(document.createElement('img'));
-			icon.className += "icon";
-			icon.src = "https://www.google.com/s2/favicons?domain=" + whitelistedUrls[i].url;
-		}
+			icon.classList.add('icon');
+			icon.src = `https://www.google.com/s2/favicons?domain=${url.url}`;
+		});
 	});
 }
+
 
 // Updates the style when changes to the settings has been made.
 function updateStyle(message, sender, sendResponse) {
 	let element = document.getElementById('EcosiaLightMode');
-    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+	let settings = message.data;
+	let darkmodeOff = settings['darkmode'] === 'off';
 
-	if (((message.data['darkmode'] === 'on') && (message.data['timebasedDarkmode'] === 'on') && (Number(message.data['sunrise']) <= totalMinutes) && (totalMinutes < Number(message.data['sunset']))) || (message.data['darkmode'] === 'off')) {
+	// Time-based
+    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+	let timebasedOn = settings['timebasedDarkmode'] === 'on';
+	let afterSunrise = settings['sunrise'] <= totalMinutes;
+	let beforeSunset = totalMinutes < settings['sunset'];
+	let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
+
+	if (darkmodeOff
+		|| suntime
+	) {
         if (element === null) {
-			document.getElementsByTagName("head")[0].appendChild(style);
+			document.head.appendChild(style);
         }
-		
-    } else if ((message.data['darkmode'] === 'on')) {
-		if (element !== null) {
-			element.parentElement.removeChild(element);
+    }
+	else if (!darkmodeOff) {
+		if (element) {
+			element.remove();
         }
     }
 }
 
-function injectOnLoad(items){
-    if (items["settings"] !== undefined) {
+
+function checkTime() {
+	chrome.storage.local.get(['settings'], function(items) {
+        if (items['settings']) {
+            let element = document.getElementById('EcosiaLightMode');
+			let settings = items['settings'];
+			let darkmodeOff = settings['darkmode'] === 'off';
+		
+			// Time-based
+			let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+			let timebasedOn = settings['timebasedDarkmode'] === 'on';
+			let afterSunrise = settings['sunrise'] <= totalMinutes;
+			let beforeSunset = totalMinutes < settings['sunset'];
+			let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
+            
+			if (darkmodeOff
+				|| suntime
+			) {
+                if (element === null) {
+					document.head.appendChild(style);
+                };
+            }
+			else if (!darkmodeOff && element) {
+				element.remove();
+            };
+        };
+    });
+}
+
+
+// Sets a timeout to the next minute-change.
+setTimeout(function() {
+    // Runs it one time first because setInterval has to wait for one minute before it can start.
+    checkTime();
+
+    // Checks the time every minute.
+    setInterval(checkTime, 60000);
+}, (60 - new Date().getSeconds()) * 1000);
+
+
+function injectOnLoad(items) {
+    if (items['settings'] !== undefined) {
 		if (items["settings"]['overrideNewTab'] == 'off') {
 			chrome.tabs.update({url:"chrome-search://local-ntp/local-ntp.html"});
 			return;
 		}
 		
-        let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-        if ((items["settings"]['darkmode'] === 'off')) {
-            (document.body || document.head || document.documentElement).appendChild(style);
-        } else if ((items['settings']['darkmode'] !== 'off') && (items['settings']['timebasedDarkmode'] === 'on') && (Number(items['settings']['sunrise']) <= totalMinutes) && (totalMinutes < Number(items['settings']['sunset']))) {
+		let settings = items['settings'];
+		let darkmodeOff = settings['darkmode'] === 'off';
+	
+		// Time-based
+		let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
+		let timebasedOn = settings['timebasedDarkmode'] === 'on';
+		let afterSunrise = settings['sunrise'] <= totalMinutes;
+		let beforeSunset = totalMinutes < settings['sunset'];
+		let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
+        
+		if (darkmodeOff || suntime) {
             (document.body || document.head || document.documentElement).appendChild(style);
         }
     }
@@ -172,21 +183,20 @@ function injectOnLoad(items){
 
 // Messagehandler
 function messageReceiver(message, sender, sendResponse) {
-	if (message.data !== undefined) {
+	if (message.data) {
 		updateStyle(message, sender, sendResponse);
 	}
-	if (message.resetMostVisited !== undefined) {
+	if (message.resetMostVisited) {
 		chrome.topSites.get(buildPopupDom);
 	}
 }
 
-chrome.runtime.onMessage.addListener(messageReceiver);
 
 
 let style = document.createElement('style');
-style.id = "EcosiaLightMode";
-style.className = "EcosiaLightMode";
-style.type = "text/css";
+style.id = 'EcosiaLightMode';
+style.classList.add('EcosiaLightMode');
+style.type = 'text/css';
 style.textContent = `
 :root {
 	--color-background-quaternary: #f0f0eb !important;

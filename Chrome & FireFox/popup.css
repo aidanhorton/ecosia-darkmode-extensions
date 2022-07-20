@@ -1,6 +1,7 @@
 :root {
     --colour-button-background: hsl(0, 0%, 20%);
     --colour-button-handle: hsl(0, 0%, 90%);
+    --colour-button-checked: #4caf50;
 
     --colour-text: grey;
     --colour-text-input: hsl(0, 0%, 70%);
@@ -9,7 +10,7 @@
 /* Others */
 
 body {
-    height: 380px;
+    height: 400px;
     width: 260px;
     padding-top: 10px;
     margin: 0;
@@ -25,11 +26,12 @@ body {
 }
 
 hr {
+    box-sizing: border-box;
     width: 90%;
     height: 1px;
     border-style: solid;
     border-bottom: 0px;
-    box-sizing: border-box;
+
 	opacity: 0.5;
 }
 
@@ -37,13 +39,22 @@ p, h3 {
     margin: 0;
 }
 
+h3 {
+    font-size: 18px;
+}
+
+p {
+    font-size: 16px;
+}
+
 #top, .subsetting {
+    width: 100%;
+
     display: flex;
     flex-flow: row;
-    width: 100%;
     justify-content: flex-start;
-    gap: 8px;
     align-items: center;
+    gap: 8px;
 }
 
 .centerInner {
@@ -54,10 +65,11 @@ p, h3 {
 /* Settings */
 
 .mainSetting {
+    width: 90%;
+
     display: flex;
     flex-flow: column;
     gap: 8px;
-    width: 90%;
 }
 
 #resetTopSites {
@@ -65,22 +77,32 @@ p, h3 {
 }
 
 .settingtitle {
-    text-align: start;
     margin-bottom: 5px;
+    
+    text-align: start;
 }
 
 .subsettingsection {
-    width: 70%;
+    width: 95%;
     margin-top: 10px;
+
     display: grid;
     grid-template-areas: 'hr1 . hr2';
-    grid-template-columns: fr auto fr;
+    grid-template-columns: 1fr auto 1fr;
     align-self: center;
 }
 
 .subsettingsection > p {
+    width: max-content;
+    padding: 0 4px;
+
     display: inline;
+
     text-align: center;
+}
+
+.subsettingsection > hr {
+    width: 70%;
 }
 
 .subsettingsection:nth-child(1) {
@@ -108,6 +130,7 @@ p, h3 {
 
 #top {
     margin-bottom: 12px;
+
     justify-content: center;
 }
 
@@ -116,27 +139,32 @@ p, h3 {
 /* Most of the CSS for the sliders are taken from "https://www.w3schools.com/howto/howto_css_switch.asp" */
 
 .switch input {
-    opacity: 0;
     width: 0;
     height: 0;
+
+    opacity: 0;
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
     min-width: 41px;
     height: 24px;
+
+    display: inline-block;
+
+    position: relative;
 }
 
 .slider {
+    border-radius: 34px;
+
     position: absolute;
-    cursor: pointer;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+	
+    cursor: pointer;
     background-color: var(--colour-button-background);
-    border-radius: 34px;
 }
 
 .slider-transition {
@@ -145,22 +173,28 @@ p, h3 {
 }
 
 .slider:before {
-    position: absolute;
     content: "";
-    height: 16px;
+
     width: 16px;
+    height: 16px;
+    border-radius: 50%;
+
+    position: absolute;
     left: 4px;
     bottom: 4px;
     background-color: var(--colour-button-handle);
-    border-radius: 50%;
+}
+
+input[type="checkbox"] + .slider {
+    transition: background-color 0.05s ease-out;
 }
 
 input[type="checkbox"]:checked + .slider {
-    background-color: #4caf50;
+    background-color: var(--colour-button-checked);
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #4caf50;
+    box-shadow: 0 0 1px var(--colour-button-checked);
 }
 
 input[type="checkbox"]:checked + .slider:before {
@@ -174,6 +208,7 @@ input[type="checkbox"]:checked + .slider:before {
 }
 
 input[type="time"] {
+    padding: 2px;
     border: none;
     border-radius: 3px;
 
@@ -192,17 +227,19 @@ input[type="time"]:disabled {
 }
 
 button.warning {
-    background-color: hsl(0, 100%, 60%);
-	color: white;
 	margin-right: 2px;
+    background-color: hsl(0, 100%, 60%);
+
+	color: white;
     font-weight: 700;
 }
 button.warning:hover {
     background-color: hsl(0, 100%, 50%);
+
 	cursor: pointer;
 }
 button.warning:active {
-    background-color: hsl(0, 100%, 85%);
+    background-color: hsl(0, 100%, 70%);
 }
 button {
     border: none;
@@ -221,9 +258,13 @@ button {
     body {
         height: 280px;
         width: 260px;
+        
         overflow-x: clip;
     }
     .hideOnFirefox {
         display: none;
+    }
+    input[type="time"] {
+        padding: 4px;
     }
 }
