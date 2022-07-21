@@ -71,6 +71,19 @@ function injectOnLoad(items) {
     if (settings) {
         let darkmodeOff = settings['darkmode'] === 'off';
         
+        // Follow System
+        let followSystem = settings['followSystem'] === 'on';
+        if (!darkmodeOff && followSystem) {
+            if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+                // Removes pre-applied dark background.
+                document.querySelector(':root').style = '';
+            }
+            else {
+                inject(styles);
+            }
+            return
+        }
+
         // Time-based
         let totalMinutes = new Date().getHours() * 60 + new Date().getMinutes();
         let timebasedOn = settings['timebasedDarkmode'] === 'on';
@@ -95,6 +108,22 @@ function injectOnLoad(items) {
 function checkStyling(data) {
     let elements = document.querySelectorAll('.EcosiaDarkMode');
     let darkmodeOff = data['darkmode'] === 'off';
+
+    // Follow System
+    let followSystem = data['followSystem'] === 'on';
+    if (!darkmodeOff && followSystem) {
+		if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+			elements.forEach(element => {
+                element.remove();
+            });
+		}
+		else if (!elements.length) {
+			styles.forEach(style => {
+                document.head.appendChild(style);
+            });
+		}
+		return
+	}
     
     // Time-based
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
@@ -103,9 +132,7 @@ function checkStyling(data) {
     let beforeSunset = totalMinutes < data['sunset'];
     let isDaytime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset;
 
-    if (isDaytime
-        || darkmodeOff
-    ) {
+    if (isDaytime || darkmodeOff) {
         elements.forEach(element => {
             element.remove();
         });

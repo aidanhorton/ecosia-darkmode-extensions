@@ -12,7 +12,20 @@ let otherSettings = document.getElementById('otherSettings');
 // Makes the object for the settings.
 let settings = {};
 
-function changeLogoBasedOnTime(settings) {
+function updateLogo(settings) {
+    let followSystem = settings['followSystem'] == 'on';
+    if (settings['darkmode'] !== 'off' && followSystem) {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            lightLogo.style.opacity = '0';
+            darkLogo.style.opacity = '1';
+        }
+        else {
+            lightLogo.style.opacity = '1';
+            darkLogo.style.opacity = '0';
+        }
+        return
+    }
+
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
     if (settings['darkmode'] !== 'off'
         && settings['timebasedDarkmode'] === 'on'
@@ -21,10 +34,16 @@ function changeLogoBasedOnTime(settings) {
     ) {
         lightLogo.style.opacity = '1';
         darkLogo.style.opacity = '0';
+        return
     }
-    else if (settings['darkmode'] !== 'off') {
+    
+    if (settings['darkmode'] !== 'off') {
         lightLogo.style.opacity = '0';
         darkLogo.style.opacity = '1';
+    }
+    else {
+        lightLogo.style.opacity = '1';
+        darkLogo.style.opacity = '0';
     }
 }
 
@@ -33,6 +52,7 @@ chrome.storage.local.get(['settings'], function(items) {
     // Gets the settings if avalible. If not, default-values are given.
     settings = {
         darkmode: items['settings']?.['darkmode'] ?? 'on',
+        followSystem: items['settings']?.['followSystem'] ?? 'off',
 		overrideNewTab: items['settings']?.['overrideNewTab'] ?? 'on',
         timebasedDarkmode: items['settings']?.['timebasedDarkmode'] ?? 'off',
         sunrise: items['settings']?.['sunrise'] ?? 360,
@@ -40,12 +60,11 @@ chrome.storage.local.get(['settings'], function(items) {
     };
 
     // Updates the popup with the current settings.
-    let darkmodeOff = settings['darkmode'] === 'off';
-
     let darkmodeOnOff = document.getElementById('darkmodeOnOff');
-    if (!darkmodeOff) {
-        darkmodeOnOff.checked = true;
-		
+    let darkmodeOff = settings['darkmode'] === 'off';
+    darkmodeOnOff.checked = !darkmodeOff;
+
+    if (!darkmodeOff && settings['followSystem'] !== 'on') {		
 		otherSettings.style.opacity = '1';
 		otherSettings.style.pointerEvents = 'all';
     }
@@ -54,23 +73,13 @@ chrome.storage.local.get(['settings'], function(items) {
 		otherSettings.style.pointerEvents = 'none';
     }
 	
+    let followSystem = document.getElementById('followSystem');
+	followSystem.checked = settings['followSystem'] === 'on';
+	
     let overrideNewTabOnOff = document.getElementById('overrideNewTabOnOff');
-	overrideNewTabOnOff.checked = settings['overrideNewTab'] == 'on';
+	overrideNewTabOnOff.checked = settings['overrideNewTab'] === 'on';
     
     // Time-based
-    let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-    let timebasedOn = settings['timebasedDarkmode'] === 'on';
-    let afterSunrise = settings['sunrise'] <= totalMinutes;
-    let beforeSunset = totalMinutes < settings['sunset'];
-    let isDaytime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset;
-    
-    // Removes the wrong logo
-    if (darkmodeOff || isDaytime) {
-        darkLogo.style.opacity = '0';
-    } else {
-        lightLogo.style.opacity = '0';
-    }
-
     let timebasedDarkmode = document.getElementById('timebasedActivationOnOff');
     let sunrise = document.getElementById('sunrise');
     let sunset = document.getElementById('sunset');
@@ -82,6 +91,8 @@ chrome.storage.local.get(['settings'], function(items) {
 
     sunrise.valueAsNumber = settings['sunrise'] * 60000;
     sunset.valueAsNumber = settings['sunset'] * 60000;
+
+    updateLogo(settings);
 
 
     // Gives the checkboxes their transition (hopefully after the checkboxes has been changed).
@@ -99,26 +110,43 @@ chrome.storage.local.get(['settings'], function(items) {
     darkmodeOnOff.addEventListener('input', () => {
         if (!darkmodeOnOff.checked) {
             settings['darkmode'] = 'off';
-            lightLogo.style.opacity = '1';
-            darkLogo.style.opacity = '0';
-			
-			otherSettings.style.opacity = '0.3';
-			otherSettings.style.pointerEvents = 'none';
+            if (!followSystem.checked) {
+                otherSettings.style.opacity = '0.3';
+                otherSettings.style.pointerEvents = 'none';
+            }
         }
         else {
             settings['darkmode'] = 'on';
-            lightLogo.style.opacity = '0';
-            darkLogo.style.opacity = '1';
-			
-			otherSettings.style.opacity = '1';
-			otherSettings.style.pointerEvents = 'all';
+            if (!followSystem.checked) {
+                otherSettings.style.opacity = '1';
+                otherSettings.style.pointerEvents = 'all';
+            }
         }
         notifySettingsChange(settings);
-        changeLogoBasedOnTime(settings);
+        updateLogo(settings);
     });
 	
-	overrideNewTabOnOff.addEventListener('input', (event) => {
-		if (overrideNewTabOnOff.checked === false) {
+	followSystem.addEventListener('input', () => {
+		if (!followSystem.checked) {
+			settings['followSystem'] = 'off';
+            if (darkmodeOnOff.checked) {
+                otherSettings.style.opacity = '1';
+                otherSettings.style.pointerEvents = 'all';
+            }
+		}
+        else {
+			settings['followSystem'] = 'on';
+            if (darkmodeOnOff.checked) {
+                otherSettings.style.opacity = '0.3';
+                otherSettings.style.pointerEvents = 'none';
+            }
+		};
+        notifySettingsChange(settings);
+        updateLogo(settings);
+	});
+
+	overrideNewTabOnOff.addEventListener('input', () => {
+		if (!overrideNewTabOnOff.checked) {
 			settings['overrideNewTab'] = 'off';
 		} else {
 			settings['overrideNewTab'] = 'on';
@@ -127,7 +155,7 @@ chrome.storage.local.get(['settings'], function(items) {
 	});
 
     timebasedDarkmode.addEventListener('input', () => {
-        if (settings['timebasedDarkmode'] === 'on') {
+        if (!timebasedDarkmode.checked) {
             settings['timebasedDarkmode'] = 'off';
             sunrise.disabled = true;
             sunset.disabled = true;
@@ -138,7 +166,7 @@ chrome.storage.local.get(['settings'], function(items) {
             sunset.disabled = false;
         }
         notifySettingsChange(settings);
-        changeLogoBasedOnTime(settings);
+        updateLogo(settings);
     });
 
     sunrise.addEventListener('input', () => {
@@ -148,7 +176,7 @@ chrome.storage.local.get(['settings'], function(items) {
         }
         settings['sunrise'] = sunrise.valueAsNumber / 60000;
         notifySettingsChange(settings);
-        changeLogoBasedOnTime(settings);
+        updateLogo(settings);
     });
 
     sunset.addEventListener('input', () => {
@@ -158,18 +186,18 @@ chrome.storage.local.get(['settings'], function(items) {
         }
         settings['sunset'] = sunset.valueAsNumber / 60000;
         notifySettingsChange(settings);
-        changeLogoBasedOnTime(settings);
+        updateLogo(settings);
     });
 
 
     // Updates the logo every minute.
     setTimeout(function() {
         // Runs it one time first because setInterval has to wait for one minute before it can start.
-        changeLogoBasedOnTime(settings);
+        updateLogo(settings);
 
         // Checks the time every minute.
         setInterval(function() {
-            changeLogoBasedOnTime(settings);
+            updateLogo(settings);
         }, 60000);
     }, (60 - new Date().getSeconds()) * 1000);
 

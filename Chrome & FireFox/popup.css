@@ -5,14 +5,17 @@
 
     --colour-text: grey;
     --colour-text-input: hsl(0, 0%, 70%);
+
+    --initialOnChrome: none;
 }
 
 /* Others */
 
 body {
-    height: 400px;
+    height: auto;  /* Should probably add a max height and scrolling */
     width: 260px;
     padding-top: 10px;
+    padding-bottom: 15px;
     margin: 0;
     
     background-color:  #181A1B;
@@ -256,7 +259,7 @@ button {
 /* Firefox */
 @-moz-document url-prefix() {
     body {
-        height: 280px;
+        /* height: 280px; */
         width: 260px;
         
         overflow-x: clip;
@@ -267,4 +270,9 @@ button {
     input[type="time"] {
         padding: 4px;
     }
+}
+
+/* Chrome */
+.onlyOnChrome {
+    display: var(--initialOnChrome);
 }

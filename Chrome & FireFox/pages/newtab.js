@@ -1,4 +1,4 @@
-chrome.storage.local.get(["settings"], injectOnLoad);
+chrome.storage.local.get(['settings'], injectOnLoad);
 chrome.runtime.onMessage.addListener(messageReceiver);
 
 
@@ -8,22 +8,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Handles the dropdown-button
 	let link = document.getElementById('dropdown-button');
     link.addEventListener('click', function() {
-        let list = document.getElementById("dropdown-list");
+        let list = document.getElementById('dropdown-list');
 		
-		if (list.style.display === "block") {
-			list.style.display = "none";
+		if (list.style.display === 'block') {
+			list.style.display = 'none';
 		} else {
-			list.style.display = "block";
+			list.style.display = 'block';
 		}
     });
 	link.addEventListener('focusout', function(event) {
-		let list = document.getElementById("dropdown-list");
+		let list = document.getElementById('dropdown-list');
 		
 		if (list.contains(event.relatedTarget)) {
 			return;
 		}
 		
-		list.style.display = "none";
+		list.style.display = 'none';
 	});
 });
 
@@ -91,27 +91,50 @@ function buildPopupDom(mostVisitedURLs) {
 }
 
 
-// Updates the style when changes to the settings has been made.
-function updateStyle(message, sender, sendResponse) {
+function updateStyleWithSavedData() {
+	chrome.storage.local.get(['settings'], (items) => {
+		updateStyle(items['settings']);
+	})
+}
+
+// Updates the style
+function updateStyle(settings) {
 	let element = document.getElementById('EcosiaLightMode');
-	let settings = message.data;
 	let darkmodeOff = settings['darkmode'] === 'off';
+
+    // Follow System
+    let followSystem = settings['followSystem'] === 'on';
+	if (!darkmodeOff && followSystem) {
+		if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			if (element) {
+				element.remove();
+			}
+		}
+		else if (element === null) {
+			document.head.appendChild(style);
+		}
+		return
+	}
 
 	// Time-based
     let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
 	let timebasedOn = settings['timebasedDarkmode'] === 'on';
 	let afterSunrise = settings['sunrise'] <= totalMinutes;
 	let beforeSunset = totalMinutes < settings['sunset'];
-	let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
+	if (!darkmodeOff && timebasedOn && afterSunrise && beforeSunset) {
+        if (element === null) {
+			document.head.appendChild(style);
+        }
+		return
+    }
 
-	if (darkmodeOff
-		|| suntime
-	) {
+	// If nothing above
+	if (darkmodeOff) {
         if (element === null) {
 			document.head.appendChild(style);
         }
     }
-	else if (!darkmodeOff) {
+	else {
 		if (element) {
 			element.remove();
         }
@@ -119,54 +142,32 @@ function updateStyle(message, sender, sendResponse) {
 }
 
 
-function checkTime() {
-	chrome.storage.local.get(['settings'], function(items) {
-        if (items['settings']) {
-            let element = document.getElementById('EcosiaLightMode');
-			let settings = items['settings'];
-			let darkmodeOff = settings['darkmode'] === 'off';
-		
-			// Time-based
-			let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
-			let timebasedOn = settings['timebasedDarkmode'] === 'on';
-			let afterSunrise = settings['sunrise'] <= totalMinutes;
-			let beforeSunset = totalMinutes < settings['sunset'];
-			let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
-            
-			if (darkmodeOff
-				|| suntime
-			) {
-                if (element === null) {
-					document.head.appendChild(style);
-                };
-            }
-			else if (!darkmodeOff && element) {
-				element.remove();
-            };
-        };
-    });
-}
-
-
 // Sets a timeout to the next minute-change.
 setTimeout(function() {
     // Runs it one time first because setInterval has to wait for one minute before it can start.
-    checkTime();
+    updateStyleWithSavedData();
 
     // Checks the time every minute.
-    setInterval(checkTime, 60000);
+    setInterval(updateStyleWithSavedData, 60000);
 }, (60 - new Date().getSeconds()) * 1000);
 
 
 function injectOnLoad(items) {
-    if (items['settings'] !== undefined) {
-		if (items["settings"]['overrideNewTab'] == 'off') {
-			chrome.tabs.update({url:"chrome-search://local-ntp/local-ntp.html"});
-			return;
+    if (items['settings']) {
+		let settings = items['settings'];
+		if (settings['overrideNewTab'] == 'off') {
+			chrome.tabs.update({url:'chrome-search://local-ntp/local-ntp.html'});
+			return
 		}
 		
-		let settings = items['settings'];
 		let darkmodeOff = settings['darkmode'] === 'off';
+		let followSystem = settings['followSystem'] === 'on';
+		if (!darkmodeOff && followSystem) {
+			if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+				(document.body ?? document.head ?? document.documentElement).appendChild(style)
+			}
+			return
+		}
 	
 		// Time-based
 		let totalMinutes = new Date().getHours()*60 + new Date().getMinutes();
@@ -176,7 +177,7 @@ function injectOnLoad(items) {
 		let suntime = !darkmodeOff && timebasedOn && afterSunrise && beforeSunset
         
 		if (darkmodeOff || suntime) {
-            (document.body || document.head || document.documentElement).appendChild(style);
+            (document.body ?? document.head ?? document.documentElement).appendChild(style);
         }
     }
 }
@@ -184,7 +185,7 @@ function injectOnLoad(items) {
 // Messagehandler
 function messageReceiver(message, sender, sendResponse) {
 	if (message.data) {
-		updateStyle(message, sender, sendResponse);
+		updateStyle(message.data);
 	}
 	if (message.resetMostVisited) {
 		chrome.topSites.get(buildPopupDom);
