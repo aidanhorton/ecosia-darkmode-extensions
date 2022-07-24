@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		list.style.display = 'none';
 	});
+
+	let searchbar = document.querySelector('.search-form__input');
+	searchbar.addEventListener('input', updateSearchSuggestions);
 });
 
 
@@ -88,6 +91,52 @@ function buildPopupDom(mostVisitedURLs) {
 			icon.src = `https://www.google.com/s2/favicons?domain=${url.url}`;
 		});
 	});
+}
+
+
+function updateSearchSuggestions() {
+	let suggestionsList = document.querySelector('.search-form__suggestions-list');
+	if (this.value) {
+		fetch(`https://ac.ecosia.org/?q=${this.value}&mkt=${navigator.language || navigator.userLanguage}`)
+		.then(response => response.json())
+		.then(data => {
+			if (data['suggestions'].length) {
+				while (suggestionsList.firstChild) {suggestionsList.lastChild.remove()}
+			}
+
+			data['suggestions'].forEach((suggestion, index) => {
+				let suggestionItem = document.createElement('li');
+				suggestionItem.id = `search-form-suggestion-option-${index}`;
+				suggestionItem.classList.add('suggestion-item')
+				suggestionItem.role = 'option';
+				suggestionItem.tabIndex = 0
+				
+				let suggestionLink = document.createElement('a');
+				suggestionLink.href = `https://www.ecosia.org/search?q=${suggestion}`;
+				suggestionLink.classList.add('suggestion-link');
+				suggestionLink.rel = 'noopener';
+				suggestionLink.tabIndex = 0
+
+				let suggestionMark = document.createElement('mark');
+				suggestionMark.innerText = suggestion;
+				suggestionMark.classList.add('suggestion-highlight');
+
+				suggestionLink.appendChild(suggestionMark);
+				suggestionItem.appendChild(suggestionLink);
+				suggestionsList.appendChild(suggestionItem);
+			});
+			
+			if (suggestionsList.childNodes.length) {
+				suggestionsList.style.display = ''
+			}
+			else {
+				suggestionsList.style.display = 'none'
+			}
+		});
+	}
+	else {
+		while (suggestionsList.firstChild) {suggestionsList.lastChild.remove()}
+	}
 }
 
 
