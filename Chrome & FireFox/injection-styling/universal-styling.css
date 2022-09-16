@@ -67,6 +67,11 @@ input {
 	fill: var(--color-text-primary) !important;
 }
 
+/* Tree counter override */
+.personal-counter-content {
+	background-color: var(--color-background-primary) !important;
+}
+
 /* Scrollbar Chrome */
 ::-webkit-scrollbar {
     width: 15px;

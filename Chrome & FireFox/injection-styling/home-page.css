@@ -17,6 +17,9 @@
 .section-header__title {
 	color: var(--color-brand-primary) !important;
 }
+.project-section__project-link > .button__text {
+	color: var(--color-background-primary) !important;
+}
 
 /* Banner */
 .banner {
@@ -24,8 +27,8 @@
 }
 
 /* Waves */
-.above-fold-section__wave path {
-	fill: var(--color-background-secondary) !important;
+.above-fold-section__wave {
+	background-color: var(--color-background-secondary) !important;
 }
 .wave-seperator--variant-primary, .wave-seperator--variant-quarternary, .indexpage-forest--addon {
 	background-color: var(--color-background-secondary) !important;
